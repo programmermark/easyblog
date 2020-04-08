@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && SET PORT=3100 && npm start",
+    "build": "next build && SET PORT=3000 && npm start",
     "start": "next start"
   },
   "dependencies": {

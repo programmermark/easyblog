@@ -47,7 +47,7 @@ module.exports = appInfo => {
     csrf: {
       enable: false,
     },
-    domainWhiteList: [ 'http://localhost:9000', 'http://localhost:3100' ],
+    domainWhiteList: [ 'http://localhost:9000', 'http://localhost:3000' ],
   };
   config.cors = {
     // origin: '*', // 注释掉则允许白名单的域名访问
