@@ -62,7 +62,9 @@ class ArticleListController extends controller {
 
   async getArticleTypes() { // 获取所有的文章类别
     const result = await this.app.mysql.select('article_type');
-    this.ctx.body = { data: result };
+    if (result.length > 0) {
+      this.ctx.body = { sucess: true, data: result };
+    }
   }
 }
 

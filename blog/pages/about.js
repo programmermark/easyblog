@@ -43,11 +43,11 @@ const AountMe = (props)=>{
         <title>关于我 | {props.userInfo.logoName}-{props.userInfo.logoSub}</title>
       </Head>
       <div>
-        <Header />
+        <Header userInfo={props.userInfo} />
         <Row justify="center" className="content">
           <Col className="content-left" xs={0} sm={0} md={8} lg={6} xl={4}>
-            <Author />
-            <Advert />
+            <Author  userInfo={props.userInfo} />
+            <Advert  advertList={props.advertList} />
           </Col>
           <Col className="content-right" xs={24} sm={24} md={12} lg={12} xl={12}>
             <div className="article-container">
@@ -86,13 +86,34 @@ const AountMe = (props)=>{
             </div>
           </Col>
         </Row>
-        <Footer />
+        <Footer userInfo={props.userInfo} />
       </div>
     </div>
   )
 }
 
 AountMe.getInitialProps = async (context) => {
+
+  const promiseAdvertList = new Promise((resolve)=>{
+    axios({
+      method: 'get',
+      url: servicePath.getAdverList
+    })
+      .then(res=>{
+        const result = res.data
+        if (result.success) {
+          const list = []
+          result.data.forEach(item=>{
+            list.push({
+              img: item.img,
+              url: item.imgurl
+            })
+          })
+          resolve(list)
+        }
+      })
+  })
+
 
   const promiseAbout = new Promise((resolve)=>{
     axios({
@@ -121,6 +142,7 @@ AountMe.getInitialProps = async (context) => {
   })
 
   const data = {
+    advertList: await promiseAdvertList,
     about: await promiseAbout,
     userInfo: await promiseUserInfo
   }

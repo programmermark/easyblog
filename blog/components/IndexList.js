@@ -5,13 +5,11 @@ import { Badge, Spin, Pagination } from 'antd'
 import '../public/style/components/indexlist.css'
 import axios from 'axios'
 import { servicePath } from '../config/apiBaseUrl'
-import { bloger } from '../config/blog'
 
 
-const List  = ()=>{ // 首页的列表块
+const List  = (props)=>{ // 首页的列表块
   const selectedColor = '#52c41a'
   const unSelectedColor = '#ff4d4f'
-  const userId = bloger.id
 
   const [ tabs, setTabs ] = useState([
     // { name: '全部', type: 'all', count: 0, color: selectedColor },
@@ -39,28 +37,6 @@ const List  = ()=>{ // 首页的列表块
     setTabs(tabsClone)
     const listType = tabs[index].type
     getTalkList(listType)
-  }
-
-  const getTotals = ()=>{
-    axios({
-      method: 'get',
-      url: servicePath.getUserInfoById + userId
-    })
-      .then(res=>{
-        const result = res.data
-        if (result.success) {
-          const info =  result.data
-          const list = JSON.parse(JSON.stringify(tabs))
-          list.forEach(item=>{
-            if(item.type === 'article'){
-              item.count = info.articleCount
-            } else if (item.type === 'talk') {
-              item.count = info.talkCount
-            }
-          })
-          setTabs(list)
-        }
-      })
   }
 
   const getTalkList = (type, pageSize = limit, currentPage = current)=>{
@@ -134,7 +110,14 @@ const List  = ()=>{ // 首页的列表块
 
   useEffect(()=>{
     getTalkList()
-    getTotals()
+    const list = JSON.parse(JSON.stringify(tabs))
+    list.forEach(item=>{
+      if(item.type === 'article'){
+        item.count = props.userInfo.articleCount
+      } else if (item.type === 'talk') {
+        item.count = props.userInfo.talkCount
+      }
+    })
   }, [])
   
   return (

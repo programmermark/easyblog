@@ -1,33 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from 'next/link'
-import axios from 'axios'
-import { servicePath } from '../config/apiBaseUrl'
-import { bloger } from '../config/blog'
-import "../public/style/components/footer.css"
+import '../public/style/components/footer.css'
 
-const userId = bloger.id
-
-const Footer = ()=>{
+const Footer = (props)=>{
   const currentYear = new Date().getFullYear()
-  const [ userInfo, setUserInfo ] = useState({})
-
-  useEffect(()=>{
-    axios({
-      method: 'get',
-      url: servicePath.getUserInfoById + userId
-    })
-      .then(res=>{
-        const result = res.data
-        if (result.success) {
-          setUserInfo(result.data)
-        }
-      })
-  }, [])
 
   return (
     <div className="footer-container">
       <div className="first-line">
-        <Link href="/"><a className="link">版权所有 © 2019-{currentYear} {userInfo.logoName} </a></Link>
+        <Link href="/"><a className="link">版权所有 © 2019-{currentYear} {props.userInfo.logoName} </a></Link>
         <div>| 网站由 React+Node+Ant Desgin驱动</div>
       </div>
       <div className="second-line">

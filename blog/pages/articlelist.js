@@ -72,11 +72,11 @@ const ArticleList = (props)=>{
         <title>文章列表 | {props.userInfo.logoName}-{props.userInfo.logoSub}</title>
       </Head>
       <div>
-        <Header />
+        <Header userInfo={props.userInfo} />
         <Row justify="center" className="content">
           <Col className="content-left" xs={0} sm={0} md={8} lg={6} xl={4}>
-            <Author />
-            <Advert />
+            <Author userInfo={props.userInfo} />
+            <Advert advertList={props.advertList} />
           </Col>
           <Col className="content-right" xs={24} sm={24} md={12} lg={12} xl={12}>
             <div className="article-container">
@@ -93,7 +93,7 @@ const ArticleList = (props)=>{
                   </Breadcrumb.Item>
                 </Breadcrumb>
               </div>
-              <ArticleType changeType={changeArticleType} />
+              <ArticleType types={props.articleTypes} changeType={changeArticleType} />
               <div className="list">
               <Spin spinning={isLoading} tip={'加载中...'}>
                 <List
@@ -119,7 +119,7 @@ const ArticleList = (props)=>{
             </div>
           </Col>
         </Row>
-        <Footer />
+        <Footer  userInfo={props.userInfo} />
       </div>
     </div>
   )
@@ -131,6 +131,45 @@ ArticleList.getInitialProps = async (context) => {
     offset: 0,
     type: '全部'
   }
+
+  const promiseAdvertList = new Promise((resolve)=>{
+    axios({
+      method: 'get',
+      url: servicePath.getAdverList
+    })
+      .then(res=>{
+        const result = res.data
+        if (result.success) {
+          const list = []
+          result.data.forEach(item=>{
+            list.push({
+              img: item.img,
+              url: item.imgurl
+            })
+          })
+          resolve(list)
+        }
+      })
+  })
+
+  const promiseArticleTypes = new Promise((resolve)=>{
+    axios({
+      method: 'get',
+      url: servicePath.getArticleTypes
+    })
+      .then(res=>{
+        const result = res.data
+        let list = ['全部', '点击量']
+        if (result.success){
+          list = ['全部']
+          result.forEach(item => {
+              list.push(item.name)
+          })
+          list.push('点击量')
+        }
+        resolve(list)
+      })
+  })
 
   const promiseArticleList = new Promise((resolve)=>{
     axios({
@@ -160,6 +199,8 @@ ArticleList.getInitialProps = async (context) => {
   })
 
   const data = {
+    advertList: await promiseAdvertList,
+    articleTypes: await promiseArticleTypes,
     articleList: await promiseArticleList,
     userInfo: await promiseUserInfo
   }

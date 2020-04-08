@@ -1,42 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Row, Col } from 'antd'
 import Menu from '../components/Menu'
 import '../public/style/components/header.css'
-import axios from 'axios'
-import { servicePath } from '../config/apiBaseUrl'
-import { bloger } from '../config/blog'
 
-const Header = ()=>{
+const Header = (props)=>{
 
-    const userId = bloger.id
-
-    const [ logoName, setLogoName ] = useState('')
-    const [ logoSub, setLogoSub ] = useState('')
-
-    const [navs, setNavs] = useState([
+    const navs = [
       {name: '首页', icon: 'HomeFilled', link: '/', type: 'home'},
       {name: '文章列表', icon: 'UnorderedListOutlined', link: '/articlelist', type: 'articlelist'},
       {name: '关于我', icon: 'UserOutlined', link: '/about', type: 'about'},
-    ])
-
-    const getLogoInfo = ()=>{
-      axios({
-        method: 'get',
-        url: servicePath.getUserInfoById + userId
-      })
-        .then(res=>{
-          const result = res.data
-          if (result.success) {
-            const info =  result.data
-            setLogoName(info.logoName)
-            setLogoSub(info.logoSub)
-          }
-        })
-    }
-    
-    useEffect(() => {
-      getLogoInfo()  
-    }, [])
+    ]
 
     return(
         <div className="header">
@@ -44,8 +17,8 @@ const Header = ()=>{
                 <Col xs={24} sm={24} md={8} lg={6} xl={4}>
                     <div className="header-left">
                         <div>
-                            <span className="header-logo">{logoName}</span>
-                            <span className="header-text">{logoSub}</span>
+                            <span className="header-logo">{props.userInfo.logoName}</span>
+                            <span className="header-text">{props.userInfo.logoSub}</span>
                         </div>
                     </div>
                 </Col>

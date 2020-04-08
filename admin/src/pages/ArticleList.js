@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { List, Row, Col, Modal, Button, Switch, Pagination, message } from 'antd'
+import { List, Row, Col, Modal, Button, Switch, Pagination, message, Spin } from 'antd'
 import axios from 'axios'
 import { servicePath } from '../config/apiBaseUrl'
 import '../static/style/pages/articlelist.css'
@@ -12,8 +12,10 @@ const ArticleList = (props)=>{
   const [ total, setTotal ] = useState(0)
   const [ current, setCurrent ] = useState(1)
   const [ limit, setLimit ] = useState(10)
+  const [ isLoading, setIsLoading ] = useState(false)
 
   const getList = (limit, offset)=>{
+    setIsLoading(true)
     axios({
       method: 'post',
       url: servicePath.getArticleList,
@@ -25,6 +27,7 @@ const ArticleList = (props)=>{
       header:{ 'Access-Control-Allow-Origin':'*' }
     })
       .then(res=>{
+        setIsLoading(false)
         const result = res.data
         if(result.success) {
           setTotal(result.data.total)
@@ -117,6 +120,7 @@ const ArticleList = (props)=>{
 
     return (
       <div>
+        <Spin spinning={isLoading} tip={'加载中...'}>
         <List 
           header={
             <Row className="list-header">
@@ -175,6 +179,7 @@ const ArticleList = (props)=>{
           showQuickJumper
           onChange={changePage}
         />
+        </Spin>
       </div>
     )
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import api from '../api/api'
-import { Button, Input, Row, Col, List, Switch, Modal, Pagination, message, Upload } from 'antd'
+import { Button, Input, Row, Col, List, Switch, Modal, Pagination, Spin, message, Upload } from 'antd'
 import '../static/style/pages/advertisemanage.css'
 import AntdIcon from '../components/AntdIcon'
 import { servicePath, serverUrl } from "../config/apiBaseUrl";
@@ -15,6 +15,7 @@ const AdvertiseManage = ()=>{
   const [current, setCurrent] = useState(1)
   const [total, setTotal] = useState(0)
   const [ selectedId, setSelectedId ] = useState(0)
+  const [ isLoading, setIsLoading ] = useState(false)
   const [ uploadImgLoading, setUploadImgLoading ] = useState(false)
   const [ modalObj, setModalObj ] = useState({
     title: '',
@@ -103,25 +104,6 @@ const AdvertiseManage = ()=>{
     }
   }
 
-  const handleAdvertiseUpdate = (info)=>{
-    if (info.file.status === 'done') {
-      getBase64(info.file.originFileObj, imageUrl => {
-        const result = info.file.response
-        if (result.success) {
-          let url = result.data.url
-          let fileUrl = ''
-          url.split('\\').forEach(item => {
-            fileUrl += item + '/'
-          })
-          fileUrl = fileUrl.substr(0, fileUrl.length - 1)
-          const filePath = serverUrl + fileUrl
-          updateAdvertisement(filePath, selectedId)
-          console.log(filePath, selectedId)
-        }
-      })
-    }
-  }
-
   const addAdvertisement = (imgUrl, adverLink)=>{
     const now = Math.floor(Date.now() / 1000)
     api({
@@ -163,6 +145,7 @@ const AdvertiseManage = ()=>{
   }
 
   const getAdvertiseList = (limit = pageSize, offset = (current - 1) * pageSize)=>{
+    setIsLoading(true)
     api({
       method: 'post',
       url: servicePath.getAdvertiseList,
@@ -172,6 +155,7 @@ const AdvertiseManage = ()=>{
       }
     })
       .then(res=>{
+        setIsLoading(false)
         setTotal(res.total)
         const dataList = []
         res.list.forEach(item=>{
@@ -254,6 +238,7 @@ const AdvertiseManage = ()=>{
 
   return (
     <div className="advert-container">
+    <Spin spinning={isLoading} tip={'加载中...'}>
     <List
       header={
         <Row className="list-header">
@@ -355,6 +340,7 @@ const AdvertiseManage = ()=>{
       showQuickJumper
       onChange={changePage}
     />
+    </Spin>
     </div>
   )
 }

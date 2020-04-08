@@ -18,20 +18,20 @@ const Home = (props)=>{
   return (
     <div className="container">
       <Head>
-        <title>首页 | {props.logoName}-{props.logoSub}</title>
+        <title>首页 | {props.userInfo.logoName}-{props.userInfo.logoSub}</title>
       </Head>
       <div>
-        <Header />
+        <Header userInfo={props.userInfo} />
         <Row justify="center" className="content">
           <Col className="content-left" xs={0} sm={0} md={8} lg={6} xl={4}>
-            <Author />
-            <Advert />
+            <Author userInfo={props.userInfo} />
+            <Advert advertList={props.advertList} />
           </Col>
           <Col className="content-right" xs={24} sm={24} md={12} lg={12} xl={12}>
-            <IndexList />
+            <IndexList userInfo={props.userInfo} />
           </Col>
         </Row>
-        <Footer />
+        <Footer userInfo={props.userInfo} />
       </div>
     </div>
   )
@@ -39,7 +39,27 @@ const Home = (props)=>{
 
 Home.getInitialProps = async (context) => {
 
-  const promise = new Promise((resolve)=>{
+  const promiseAdvertList = new Promise((resolve)=>{
+    axios({
+      method: 'get',
+      url: servicePath.getAdverList
+    })
+      .then(res=>{
+        const result = res.data
+        if (result.success) {
+          const list = []
+          result.data.forEach(item=>{
+            list.push({
+              img: item.img,
+              url: item.imgurl
+            })
+          })
+          resolve(list)
+        }
+      })
+  })
+
+  const promiseUserInfo = new Promise((resolve)=>{
     axios({
       method: 'get',
       url: servicePath.getUserInfoById + userId
@@ -53,7 +73,12 @@ Home.getInitialProps = async (context) => {
         }
       })
   })
-  return await promise
+  const data = {
+    advertList: await promiseAdvertList,
+    userInfo: await promiseUserInfo
+  }
+
+  return data
 }
 
 export default Home

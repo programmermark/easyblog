@@ -1,59 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { Divider, Popover } from "antd"
 import Icon from "../components/Icon"
-import axios from 'axios'
-import { servicePath } from '../config/apiBaseUrl'
 import '../public/style/components/author.css'
-import { bloger } from '../config/blog'
 
-const Author = ()=>{
-
-  const userId = bloger.id
-
-  const [ bgImgUrl, setBgImgUrl ] = useState('')
-  const [ avatar, setAvatar ] = useState('')
-  const [ authorName, setAuthorName ] = useState('')
-  const [ articleCount, setArticleCount ] = useState('0')
-  // const [ novelCount, setNovelCount ] = useState('0')
-  const [ talkCount, setTalkCount ] = useState('0')
-  const [ wxAccount, setWxAccount ] = useState('')
-  const [ qqAccount, setQqAccount ] = useState('')
-  const [ githubAccount, setGithubAccount ] = useState('')
-
-  useEffect(()=>{
-    axios({
-      method: 'get',
-      url: servicePath.getUserInfoById + userId
-    })
-      .then(res=>{
-        const result = res.data
-        if (result.success) {
-          const info =  result.data
-          setBgImgUrl(info.bgImg)
-          setAvatar(info.portrait)
-          setAuthorName(info.username)
-          setQqAccount(info.qqAccount)
-          setWxAccount(info.weChatAccount)
-          setGithubAccount(info.githubUrl)
-          setArticleCount(info.articleCount)
-          setTalkCount(info.talkCount)
-        }
-      })
-  }, [])
+const Author = (props)=>{
 
   return (
     <div className="author-container">
-      <div className="bg-img" style={{'backgroundImage': `url(${bgImgUrl})`}}></div>
-      <img className="avatar" src={avatar} />
+      <div className="bg-img" style={{'backgroundImage': `url(${props.userInfo.bgImg})`}}></div>
+      <img className="avatar" src={props.userInfo.portrait} />
       <Link href="/about">
         <a className="author-name">
-          <span>{authorName}</span> 
+          <span>{props.userInfo.username}</span> 
         </a>
       </Link>
       <div className="card-info">
         <div className="info-item">
-          <p className="count">{articleCount}</p>
+          <p className="count">{props.userInfo.articleCount}</p>
           <p className="title">文章</p>
         </div>
         {/* <div className="info-item">
@@ -61,7 +25,7 @@ const Author = ()=>{
           <p className="title">小说</p>
         </div> */}
         <div className="info-item">
-          <p className="count">{talkCount}</p>
+          <p className="count">{props.userInfo.talkCount}</p>
           <p className="title">说说</p>
         </div>
       </div>
@@ -69,21 +33,21 @@ const Author = ()=>{
         <Divider>社交账号</Divider>
         <div className="list">
           <div className="item">
-            <Popover className="item" content={githubAccount}>
+            <Popover className="item" content={props.userInfo.githubUrl}>
               <div>
                 <Icon type="GithubFilled" />
               </div>
             </Popover>
           </div>
           <div className="item">
-            <Popover className="item" content={wxAccount}>
+            <Popover className="item" content={props.userInfo.weChatAccount}>
               <div>
                 <Icon type="WechatFilled" />
               </div>
             </Popover>
           </div>
           <div className="item">
-            <Popover className="item" content={qqAccount}>
+            <Popover className="item" content={props.userInfo.qqAccount}>
               <div>
                 <Icon type="QqCircleFilled" />
               </div>
