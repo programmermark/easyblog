@@ -1,0 +1,18 @@
+.menu-container {
+  padding: 4rem 0;
+}
+
+.menu-container .menu-item {
+  display: block;
+  color: #555555;
+  font-size: 1.1rem;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 1rem 0 1.5rem;
+}
+.menu-container .menu-item:hover {
+  background-color: #e6f7ff;
+}
+.menu-container .menu-item .name {
+  padding-left: .5rem;
+}

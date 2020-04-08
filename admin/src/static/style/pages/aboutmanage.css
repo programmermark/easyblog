@@ -1,0 +1,22 @@
+.about-manage {
+  display: flex;
+}
+.about-manage .content-wrapper {
+  width: 50%;
+  padding: 2rem 2rem;
+  background-color: #fafafa;
+  margin-right: 2rem;
+}
+.about-manage .content-wrapper .textarea {
+  height: 60vh;
+  padding: 1.5rem 1.5rem;
+}
+.about-manage .content-wrapper .button-wrapper {
+  margin-top: 2rem;
+}
+.about-manage .content-wrapper .button-wrapper .submit {
+  margin-right: 2rem;
+}
+.about-manage .content-preview {
+  flex: 1
+}

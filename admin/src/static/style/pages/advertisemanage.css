@@ -1,0 +1,31 @@
+.advert-container {
+  padding: 1rem;
+}
+.advert-container .ant-col {
+  height: 60px;
+  line-height: 60px;
+}
+.advert-container .img-preview {
+  height: 60px;
+}
+.advert-container .page {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+.advertise-form {
+
+}
+.advertise-form .form-item {
+  display: flex;
+  margin-bottom: .5rem;
+}
+.advertise-form .form-item .title {
+  width: 90px;
+  text-align: right;
+}
+.advertise-form .form-item .uploader {
+  flex: 1;
+}
+.advertise-form .form-item .input {
+  width: 200px;
+}

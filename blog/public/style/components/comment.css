@@ -1,0 +1,151 @@
+.comment-container {
+  padding: 1rem .5rem;
+  text-align: initial;
+}
+.comment-container .comment-box-wrapper {
+  border-radius: .3rem;
+  padding: 1rem 1rem;
+  background-color: #f7f7f7;
+}
+.comment-container .comment-box-wrapper .comment-box {
+  display: flex;
+  align-items: center;
+}
+.comment-container .comment-box-wrapper .comment-box .comment-avatar {
+  margin-right: 1rem;
+}
+.comment-container .comment-box-wrapper .comment-box .comment-avatar .avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+.comment-container .comment-box-wrapper .comment-box .comment-input {
+  height: 36px;
+  border-radius: .25rem;
+}
+.comment-container .comment-box-wrapper .submit-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: .8rem;
+}
+.comment-container .comment-box-wrapper .submit-wrapper .emoji-wrapper {
+  flex: 1;
+}
+.comment-container .comment-box-wrapper .submit-wrapper .btn-wrapper {
+
+}
+.comment-container .comment-box-wrapper .submit-wrapper .btn-wrapper .marked-word {
+  color: #999999;
+  margin-right: 1rem;
+}
+.comment-container .comment-box-wrapper .submit-wrapper .btn-wrapper .submit-btn {
+  opacity: .5;
+}
+.comment-container .comment-list {
+  margin-left: 4rem;
+  margin-top: 1rem;
+}
+.comment-container .comment-list .comment-item {
+  margin-bottom: .75rem;
+  display: flex;
+}
+.comment-container .comment-list .comment-item .avatar-container {
+  padding-right: .8rem;
+}
+.comment-container .comment-list .comment-item .avatar-container img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin: .25rem 0;
+}
+.comment-info {
+  flex: 1;
+  padding-bottom: .25rem;
+  border-bottom: 1px solid #efefef;
+}
+.comment-info .nickname {
+  color: #333333;
+  margin-bottom: .25rem;
+  font-size: .8rem;
+}
+.comment-info .comment-content {
+  color: #333333;
+  margin-bottom: .5rem;
+  font-size: .8rem;
+}
+.comment-info .sub-info {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-size: .7rem;
+  color: #aaaaaa;
+  padding: 0;
+}
+.comment-info .other-info-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.comment-info .other-info-wrapper .other-info-box {
+  display: flex;
+  align-items: center;
+}
+.comment-info .other-info-wrapper .other-info-box > .box-item {
+  color: #aaaaaa;
+  font-size: .8rem;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+.comment-info .other-info-wrapper .other-info-box > .box-item:hover {
+  color: #40a9ff;
+}
+.comment-info .other-info-wrapper .other-info-box > .box-item > .text {
+  font-size: 1rem;
+  margin-left: .25rem;
+  font-size: .7rem;
+}
+/* 二级评论 */
+.comment-info .second-comment-box {
+  margin: 1rem 2rem;
+  padding: 1rem 2rem;
+  background-color: #f7f7f7;
+  border-radius: .25rem;
+}
+.comment-info .second-comment-box .comment-input {
+  border-radius: .25rem;
+}
+.comment-info .second-comment-box .submit-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: .8rem;
+}
+.comment-info .second-comment-box .submit-wrapper .emoji-wrapper {
+  flex: 1;
+}
+.comment-info .second-comment-box .submit-wrapper .btn-wrapper .marked-word {
+  color: #999999;
+  margin-right: 1rem;
+}
+.comment-container .second-comment-box .submit-wrapper .btn-wrapper .submit-btn {
+  opacity: .5;
+}
+
+.second-comment-item {
+  display: flex;
+  padding: 1rem;
+  background-color: #fafbfc;
+}
+.second-comment-item .comment-info {
+  flex: 1;
+  border-bottom: none;
+}
+.second-comment-item .comment-info .comment-content {
+  display: flex;
+  align-items: center;
+}
+.second-comment-item .comment-info .comment-content .user {
+  padding: 0 .25rem;
+}
+.comment-container .no-comments {
+  padding: 1.5rem 0;
+}

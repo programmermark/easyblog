@@ -1,0 +1,41 @@
+.list-container {
+}
+.tab-container {
+  position: relative;
+  border-radius: .25rem;
+  background-color: #fff;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+.tab-container .badge {
+  margin: 0 1rem;
+}
+.tab-container .tab-item {
+  color: #666666;
+  font-size: .9rem;
+  display: inline-block;
+  padding: 1rem 0;
+  width: 4rem;
+  text-align: center;
+  cursor: pointer;
+}
+.tab-container .tab-item:hover {
+  color: #40a9ff;
+  background-color: rgba(64, 169, 255, .2);
+}
+.tab-container .actived {
+  color: #40a9ff;
+}
+.tab-container .type-line {
+  position: absolute;
+  bottom: 2px;
+  left: 2rem;
+  width: 4rem;
+  height: 2px;
+  background-color: #40a9ff;
+  transition-duration: .2s;
+}
+.list-container .page {
+  text-align: center;
+  margin: 1rem;
+}

@@ -1,0 +1,42 @@
+.login-container {
+  position: relative;
+}
+.login-container .bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  filter: blur(1px);
+  z-index: -100;
+}
+.login-container .form-container {
+  display: flex;
+  align-items: center;
+  width: 500px;
+  height: 100vh;
+  margin: 0 auto;
+}
+.login-container .form-container .form {
+  display: block;
+  width: 400px;
+  padding: 1.5rem 2rem;
+  border: 1px solid #efefef;
+  background-color: #fff;
+  border-radius: .5rem;
+}
+.login-container .form-container .form .form-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #409eff;
+  margin-bottom: 1.5rem;
+  padding-bottom: .2rem;
+  border-bottom: 1px solid #409eff;
+}
+.login-container .form-container .form .submit-btn {
+  width: 100%;
+  margin-top: .5rem;
+}

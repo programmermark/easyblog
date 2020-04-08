@@ -1,0 +1,17 @@
+.user-setting {
+
+}
+.user-setting .form {
+  width: 50%;
+  padding: 2rem 2rem 1rem 1rem;
+  margin-right: 1rem;
+  background-color: #fafafa;
+}
+.user-setting .form .submit-btn {
+  margin-left: 100px;
+  margin-top: .5rem;
+}
+
+.ant-form-item-label {
+  width: 100px;
+}

@@ -1,0 +1,13 @@
+body{
+  background-color: #f6f6f6;
+}
+
+.container .content-left {
+  margin-right: .5rem;
+}
+.container .content-right {
+  padding: 0 .5rem;
+}
+.container .content {
+  margin: 1rem 0;
+}

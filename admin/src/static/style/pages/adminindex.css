@@ -1,0 +1,20 @@
+.logo {
+  height: 2rem;
+  line-height: 2rem;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 1rem;
+  text-align: center;
+  color: #fff;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+/* 增大导航字体和行高 */
+.menu-icon {
+  font-size: .9rem;
+}
+.menu-text {
+  font-size: .9rem;
+}

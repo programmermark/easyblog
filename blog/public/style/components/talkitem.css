@@ -1,0 +1,56 @@
+.talk-item {
+  background-color: #fff;
+  margin-bottom: 1rem;
+  padding: 1rem 1rem;
+  border-radius: .25rem;
+}
+.user {
+  display: inline-flex;
+}
+.user .portrait img {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.1), 1px 1px 1px rgba(0,0,0,0.1), 1px 1px 1px rgba(0,0,0,0.1);
+}
+.user .content-right {
+  padding: 0 1rem;
+  display: inline-flex;
+  flex-direction: column;
+}
+.user .content-right .name {
+  padding-top: .5rem;
+  color: #333333;
+  font-size: 1rem;
+}
+.user .content-right .name:hover {
+  color: #1890ff;
+}
+.user .content-right .publish-time {
+  font-size: .8rem;
+  color: #999999;
+  flex: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  padding-bottom: .25rem;
+}
+.talk-content {
+  color: #333333;
+  font-size: 1rem;
+  padding: 1rem 0;
+}
+.sub-info {
+  display: inline-flex;
+  padding-bottom: .25rem;
+}
+.sub-info .item {
+  font-size: 1rem;
+  color: #999999;
+  padding-right: 2rem;
+  cursor: pointer;
+}
+.sub-info .item .count {
+  margin-left: .3rem;
+  font-size: .9rem;
+}
