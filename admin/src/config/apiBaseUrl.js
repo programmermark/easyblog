@@ -1,5 +1,5 @@
-const serverUrl = 'http://localhost:7001'
-const baseUrl = 'http://127.0.0.1:7001/admin'
+const serverUrl = 'http://immortalboy.cn:8001'
+const baseUrl = 'http://immortalboy.cn:8001/admin'
 
 const servicePath = {
   checkRegister: baseUrl + '/checkRegister', // 用户注册接口

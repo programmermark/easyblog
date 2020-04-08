@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && SET PORT=3000 && npm start",
-    "start": "next start"
+    "build": "next build",
+    "start": "next start",
+    "product": "next build && SET PORT=3000 && npm start"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
