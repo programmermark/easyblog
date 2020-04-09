@@ -162,7 +162,7 @@ ArticleList.getInitialProps = async (context) => {
         let list = ['全部', '点击量']
         if (result.success){
           list = ['全部']
-          result.forEach(item => {
+          result.data.forEach(item => {
               list.push(item.name)
           })
           list.push('点击量')
