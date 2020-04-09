@@ -167,6 +167,8 @@ ArticleList.getInitialProps = async (context) => {
           })
           list.push('点击量')
         }
+        console.log(result)
+        console.log(list)
         resolve(list)
       })
   })

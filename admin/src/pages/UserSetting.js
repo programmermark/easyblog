@@ -23,16 +23,17 @@ const UserSetting = ()=>{
   }
 
   const validateForm = (values)=>{
+    console.log(values)
     const dataProps = {
       id: localStorage.getItem('userId'),
       username: values.username,
       portrait: portrait,
       bgImg: bgImg,
       qqAccount: values.qqAccount,
-      weChatAccount: values.wechatAccount,
+      weChatAccount: values.weChatAccount,
       githubUrl: values.githubUrl,
-      logoName: values.logo,
-      logoSub: values.logoDesc
+      logoName: values.logoName,
+      logoSub: values.logoSub
     }
     api({
       method: 'post',
