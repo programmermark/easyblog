@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import api from '../api/api'
 import { Input, Button } from 'antd'
 import { servicePath } from '../config/apiBaseUrl'
+import '../static/style/pages/aboutmanage.css'
 import marked from 'marked'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
-import '../static/style/pages/aboutmanage.css'
 
 const { TextArea } = Input;
 

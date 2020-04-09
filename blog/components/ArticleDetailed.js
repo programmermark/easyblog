@@ -1,11 +1,11 @@
 import React from 'react'
 import marked from 'marked'
-import hljs from 'highlight.js'
-import 'highlight.js/styles/monokai-sublime.css'
 import Icon from '../components/Icon'
 import '../public/style/components/articledetailed.css'
 import { formatTime, formatDate } from '../public/js/tools'
 import Comment from './Comment'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/monokai-sublime.css'
 
 const ArticleDetailed = (props) => {
   const article = props.article

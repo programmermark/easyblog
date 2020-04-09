@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import marked from 'marked'
-import hljs from 'highlight.js'
-import 'highlight.js/styles/monokai-sublime.css'
 import { Row, Col, Input, Select, Divider, Button, DatePicker, Radio, message } from 'antd'
 import Icon from '../components/Icon'
 import AntdIcon from '../components/AntdIcon'
@@ -10,6 +7,9 @@ import axios from 'axios'
 import moment from 'moment'
 import { servicePath } from '../config/apiBaseUrl'
 import { formatTime } from '../static/js/tools'
+import marked from 'marked'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/monokai-sublime.css'
 
 const { TextArea } = Input;
 const { Option } = Select;
