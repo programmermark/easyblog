@@ -1,7 +1,5 @@
-// const serverUrl = 'http://immortalboy.cn:8001'
-// const baseUrl = 'http://immortalboy.cn:8001/blog'
-const serverUrl = 'http://localhost:7001'
-const baseUrl = 'http://localhost:7001/blog'
+const serverUrl = 'http://immortalboy.cn:8001'
+const baseUrl = 'http://immortalboy.cn:8001/blog'
 
 const servicePath = {
   visitorLogin: baseUrl + '/comment/visitorLogin', // 评论接口：获取文章列表
