@@ -15,9 +15,9 @@ class IndexController extends controller {
                         logo_name as logoName, logo_sub as logoSub
                         FROM admin_user WHERE id = ?`;
     const selectResult = await this.app.mysql.query(selectSql, [ id ]);
+    const articleCountResult = await this.app.mysql.query('SELECT count(*) as count from article');
+    const talkCountResult = await this.app.mysql.query('SELECT count(*) as count from talk');
     if (selectResult.length > 0) {
-      const articleCountResult = await this.app.mysql.query('SELECT count(*) as count from article');
-      const talkCountResult = await this.app.mysql.query('SELECT count(*) as count from talk');
       const dataObj = selectResult[0];
       dataObj.articleCount = articleCountResult[0].count;
       dataObj.talkCount = talkCountResult[0].count;
@@ -51,11 +51,11 @@ class IndexController extends controller {
             FROM article LEFT JOIN  article_type
             ON article.type_id = article_type.id ORDER BY article.id DESC LIMIT ?,?`;
     const result = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
+    const countResult = await this.app.mysql.query('SELECT count(*) as total FROM article');
     if (result.length > 0) {
       for (const item of result) {
         item.listType = 'article';
       }
-      const countResult = await this.app.mysql.query('SELECT count(*) as total FROM article');
       this.ctx.body = {
         success: true,
         data: {
@@ -79,8 +79,8 @@ class IndexController extends controller {
                 LEFT JOIN admin_user AS user ON talk.user_id = user.id
                 LIMIT ?,?`;
     const result = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
+    const countResult = await this.app.mysql.query('SELECT count(*) as total FROM talk');
     if (result.length > 0) {
-      const countResult = await this.app.mysql.query('SELECT count(*) as total FROM talk');
       const commentsql = 'SELECT count(*) as count FROM visitor_comment as comment WHERE comment.talk_id = ?';
       for (const item of result) {
         item.listType = 'talk';
