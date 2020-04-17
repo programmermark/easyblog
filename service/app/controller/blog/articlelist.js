@@ -11,7 +11,7 @@ class ArticleListController extends controller {
     let countResult = '';
     if (request.type === '全部') {
       sql = ` SELECT article.id as id, article.title as title, article.author as authorName,
-              article.reprinted as reprinted, article.introduce as introduce,
+              article.reprinted as reprinted, article.introduce as introduce, article.introduce_img as introduceImg,
               FROM_UNIXTIME(article.publish_time, '%Y-%m-%d %H:%i:%s') as publishTime, 
               article.view_count as viewCount, article_type.name as type
               FROM article LEFT JOIN article_type ON article.type_id = article_type.id
@@ -21,7 +21,7 @@ class ArticleListController extends controller {
       countResult = await this.app.mysql.query(countSql, request.type);
     } else if (request.type === '点击量') {
       sql = ` SELECT article.id as id, article.title as title, article.author as authorName,
-              article.reprinted as reprinted, article.introduce as introduce,
+              article.reprinted as reprinted, article.introduce as introduce, article.introduce_img as introduceImg,
               FROM_UNIXTIME(article.publish_time, '%Y-%m-%d %H:%i:%s') as publishTime, 
               article.view_count as viewCount, article_type.name as type
               FROM article LEFT JOIN article_type ON article.type_id = article_type.id
@@ -31,7 +31,7 @@ class ArticleListController extends controller {
       countResult = await this.app.mysql.query(countSql, request.type);
     } else {
       sql = ` SELECT article.id as id, article.title as title, article.author as authorName,
-                article.reprinted as reprinted, article.introduce as introduce,
+                article.reprinted as reprinted, article.introduce as introduce, article.introduce_img as introduceImg,
                 FROM_UNIXTIME(article.publish_time, '%Y-%m-%d %H:%i:%s') as publishTime, 
                 article.view_count as viewCount, article_type.name as type
                 FROM article LEFT JOIN article_type ON article.type_id = article_type.id

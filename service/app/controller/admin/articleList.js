@@ -69,6 +69,7 @@ class articleListController extends controller {
       const sql = `SELECT article.id as id,
                 article.title as title,
                 article.introduce as introduce,
+                article.introduce_img as introduceImg,
                 article.content as content,
                 FROM_UNIXTIME(article.publish_time, '%Y-%m-%d %H:%i:%s') as publishTime,
                 article.view_count as viewCount,
