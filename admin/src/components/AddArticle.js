@@ -256,7 +256,7 @@ const AddArticle = (props)=>{
       setContentHtml(marked(article.content))
       setSelectedType(article.type)
       setIsReprinted(article.reprinted)
-      // setIntroduceImg(article.introduceImg)
+      setIntroduceImg(article.introduceImg)
       setPublishTime(moment(new Date(article.publishTime), 'YYYY-MM-DD'))
     }
   }, [props.article])
