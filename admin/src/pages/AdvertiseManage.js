@@ -9,9 +9,8 @@ import { formatTime } from '../static/js/tools'
 const { confirm } = Modal
 
 const AdvertiseManage = ()=>{
-
+  const pageSize = 10
   const [ list, setList ] = useState([])
-  const [pageSize, setPageSize] = useState(10)
   const [current, setCurrent] = useState(1)
   const [total, setTotal] = useState(0)
   const [ selectedId, setSelectedId ] = useState(0)

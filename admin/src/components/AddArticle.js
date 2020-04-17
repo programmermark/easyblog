@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Input, Select, Divider, Button, DatePicker, Radio, message } from 'antd'
+import { Row, Col, Input, Select, Divider, Button, DatePicker, Radio, message, Upload } from 'antd'
 import Icon from '../components/Icon'
 import AntdIcon from '../components/AntdIcon'
 import '../static/style/components/addarticle.css'
 import axios from 'axios'
 import moment from 'moment'
-import { servicePath } from '../config/apiBaseUrl'
+import { servicePath, serverUrl } from '../config/apiBaseUrl'
 import { formatTime } from '../static/js/tools'
 import marked from 'marked'
 import hljs from 'highlight.js'
@@ -31,6 +31,8 @@ const AddArticle = (props)=>{
   const [ introduce, setIntroduce ] = useState('')
   const [ introduceHtml, setIntroduceHtml ] = useState('')
   const [ showPreview, setShowPreview ] = useState(false)
+  const [ introduceImg, setIntroduceImg ] = useState('')
+  const [ uploadIntroduceImgLoading, setUploadIntroduceImgLoading ] = useState(false)
 
   const renderer = new marked.Renderer()
   marked.setOptions({
@@ -155,6 +157,7 @@ const AddArticle = (props)=>{
       let dataProps = {
         title: title,
         introduce: introduce,
+        introduce_img: introduceImg,
         content: content,
         type_id: typeId,
         publish_time: publishTimeStr,
@@ -200,6 +203,47 @@ const AddArticle = (props)=>{
     }
   }
 
+  const getBase64 = (img, callback) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
+
+  const beforeIntroduceImgUpload = (file)=>{
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      message.error('请上传JPG或者PNG格式图片!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('图片大小不得超过2MB!');
+    }
+    return isJpgOrPng && isLt2M;
+  }
+
+  const handleIntroduceImgChange = (info)=>{
+    if (info.file.status === 'uploading') {
+      setUploadIntroduceImgLoading(true)
+      return;
+    }
+    if (info.file.status === 'done') {
+      getBase64(info.file.originFileObj, imageUrl => {
+        const result = info.file.response
+        if (result.success) {
+          let url = result.data.url
+          let fileUrl = ''
+          url.split('\\').forEach(item => {
+            fileUrl += item + '/'
+          })
+          fileUrl = fileUrl.substr(0, fileUrl.length - 1)
+          const filePath = serverUrl + fileUrl
+          setIntroduceImg(filePath)
+          setUploadIntroduceImgLoading(false)
+        }
+      })
+    }
+  }
+
   useEffect(()=>{
     const article = props.article
     if (article && Object.keys(article).length > 0) {
@@ -212,6 +256,7 @@ const AddArticle = (props)=>{
       setContentHtml(marked(article.content))
       setSelectedType(article.type)
       setIsReprinted(article.reprinted)
+      // setIntroduceImg(article.introduceImg)
       setPublishTime(moment(new Date(article.publishTime), 'YYYY-MM-DD'))
     }
   }, [props.article])
@@ -314,6 +359,37 @@ const AddArticle = (props)=>{
                   />
                 </div>
               </div>
+              <div className="info-item introduce-img">
+                <span className="item-title">简介配图：</span>
+                <div className="introduce-content">
+                  <Upload
+                    name="file"
+                    listType="picture-card"
+                    className="avatar-uploader"
+                    showUploadList={false}
+                    action={servicePath.upload}
+                    beforeUpload={beforeIntroduceImgUpload}
+                    onChange={handleIntroduceImgChange}
+                  >
+                    {introduceImg ? 
+                      <img src={introduceImg} alt="avatar" style={{ width: '100%' }} /> 
+                      :
+                      (
+                        <div>
+                          {
+                            uploadIntroduceImgLoading?
+                            <AntdIcon type='LoadingOutlined' />
+                            :
+                            <AntdIcon type='PlusOutlined' />
+                          }
+                          <div className="ant-upload-text">点击上传</div>
+                        </div>
+                      )
+                    }
+                  </Upload>
+                </div>
+              </div>
+
             </div>
             {/* 发布或者暂存文章 */}
             <div className="submit-wrapper">

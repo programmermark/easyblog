@@ -57,6 +57,12 @@
   display: inline-block;
   width: calc(100% - 80px);
 }
+.editor-container .other-info .introduce-img {
+  display: flex;
+  align-items: initial;
+  width: 100%;
+  margin: .5rem 0;
+}
 .editor-container .submit-wrapper {
   margin-bottom: 2rem;
 }
