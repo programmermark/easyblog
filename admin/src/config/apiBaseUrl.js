@@ -22,6 +22,10 @@ const servicePath = {
   deleteAdvertiseById: baseUrl + '/advertiseManage/deleteAdvertiseById/', // 广告接口：删除广告记录
   getAbout: baseUrl + '/about/getAbout/', // 关于我接口：获取关于我信息  
   updateAbout: baseUrl + '/about/updateAbout', // 更新关于我页面数据
+  getTalkList: baseUrl + '/talk/getTalkList', // 说说接口：获取说说列表
+  getTalkById: baseUrl + '/talk/getTalkById/', // 说说接口：根据id获取说说
+  updateTalk: baseUrl + '/talk/updateTalk', // 说说接口：新增或者更新说说
+  deleteTalkById: baseUrl + '/talk/deleteTalkById/', // 说说接口：根据id删除说说
 }
 
 export {

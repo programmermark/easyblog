@@ -1,0 +1,10 @@
+.add-talk {
+  width: 50%;
+  margin-top: 1rem;
+}
+.add-talk .textarea {
+  min-height: 8rem;
+}
+.add-talk .submit {
+  margin-top: 1rem;
+}

@@ -4,6 +4,8 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import AntdIcon from '../components/AntdIcon'
 import Icon from '../components/Icon'
 import '../static/style/pages/adminindex.css'
+import AddTalk from './AddTalk'
+import TalkList from './TalkList'
 import AddArticle from './AddArticle'
 import ArticleList from './ArticleList'
 import UserSetting from './UserSetting'
@@ -20,6 +22,16 @@ function AdminIndex(props) {
 
   const onCollapse = (collapsed)=>{
       setCollapsed(collapsed)
+  }
+
+  const handleClickTalk = e => {
+    if(e.key === 'addTalk'){
+      setMenu(['说说管理', '添加说说'])
+      props.history.push('/index/addtalk')
+    } else if(e.key === 'talkList'){
+      setMenu(['说说管理', '说说列表'])
+      props.history.push('/index/talklist')
+    }
   }
 
   const handleClickArticle = e => {
@@ -49,6 +61,12 @@ function AdminIndex(props) {
   useEffect(()=>{
     const path =  props.location.pathname
     switch (path) {
+      case '/index/addtalk':
+        setMenu(['说说管理', '添加说说'])
+        break;
+      case '/index/talklist':
+        setMenu(['说说管理', '说说列表'])
+        break;
       case '/index/addarticle':
         setMenu(['文章管理', '添加文章'])
         break;
@@ -81,6 +99,25 @@ function AdminIndex(props) {
         </Menu.Item>
         <SubMenu
           key="sub1"
+          onClick={handleClickTalk}
+          title={
+          <span>
+            <AntdIcon className="menu-icon" type="BarsOutlined" />
+            <span className="menu-text">说说管理</span>
+          </span>
+          }
+        >
+          <Menu.Item key="addTalk">
+            <AntdIcon className="menu-icon" type="FileAddOutlined" />
+            <span>添加说说</span>
+          </Menu.Item>
+          <Menu.Item key="talkList">
+            <AntdIcon className="menu-icon" type="UnorderedListOutlined" />
+            <span>说说列表</span>
+          </Menu.Item>
+        </SubMenu>
+        <SubMenu
+          key="sub2"
           onClick={handleClickArticle}
           title={
           <span>
@@ -99,7 +136,7 @@ function AdminIndex(props) {
           </Menu.Item>
         </SubMenu>
         <SubMenu
-          key="sub2"
+          key="sub3"
           onClick={handleClickUserSetting}
           title={
             <span>
@@ -143,6 +180,9 @@ function AdminIndex(props) {
           <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
               <div>
                   <Route path="/index" exact component={AddArticle} />
+                  <Route path="/index/addtalk" exact component={AddTalk} />
+                  <Route path="/index/addtalk/:id" exact component={AddTalk} />
+                  <Route path="/index/talklist" exact component={TalkList} />
                   <Route path="/index/addarticle" exact component={AddArticle} />
                   <Route path="/index/addarticle/:id" exact component={AddArticle} />
                   <Route path="/index/articlelist" exact component={ArticleList} />
