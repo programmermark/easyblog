@@ -23,7 +23,7 @@ const api = (params)=>{
           result.message && message.success(result.message)
           resolve(result.data)
         } else {
-          result.message && message.success(result.message)
+          result.message && message.warning(result.message)
           if (result.unlogin) {
             if (window.location.pathname !== '/login') {
               window.location.href = window.location.origin + '/login'

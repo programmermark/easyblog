@@ -11,7 +11,7 @@ class ArticleDetailController extends controller {
                 article.reprinted as reprinted,
                 article.publish_time as publishTime,
                 article.introduce as introduce,
-                article.introduce_img as introduceImg
+                article.introduce_img as introduceImg,
                 article.content as content,
                 article.view_count as viewCount,
                 type.name as type

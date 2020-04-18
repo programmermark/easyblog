@@ -125,10 +125,10 @@ const ArticleList = (props)=>{
           header={
             <Row className="list-header">
               <Col span={6}><b>标题</b></Col>
-              <Col span={2}><b>类别</b></Col>
+              <Col span={3}><b>类别</b></Col>
               <Col span={2}><b>作者</b></Col>
               <Col span={2}><b>是否原创</b></Col>
-              <Col span={3}><b>发布时间</b></Col>
+              <Col span={2}><b>发布时间</b></Col>
               <Col span={2}><b>浏览量</b></Col>
               <Col span={3}><b>发布文章</b></Col>
               <Col span={4}><b>操作</b></Col>
@@ -141,7 +141,7 @@ const ArticleList = (props)=>{
               <List.Item>
                 <Row className="list-item">
                   <Col span={6}>{item.title}</Col>
-                  <Col span={2}>{item.type}</Col>
+                  <Col span={3}>{item.type}</Col>
                   <Col span={2}>{item.author}</Col>
                   <Col span={2}>
                     {
@@ -151,8 +151,8 @@ const ArticleList = (props)=>{
                       <span className="orginal">原创</span>
                     }
                   </Col>
-                  <Col span={3}>{item.publishTime}</Col>
-                  <Col span={2}>{item.viewCount}</Col>
+                  <Col span={2}>{item.publishTime.substr(0, 10)}</Col>
+                  <Col span={2} >{item.viewCount}</Col>
                   <Col span={3}>
                     <Switch 
                       checkedChildren="已发布" 

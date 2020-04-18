@@ -49,14 +49,17 @@ const AboutManage = ()=>{
 
   const submitContent = (id)=>{
     const now = Math.floor(Date.now() / 1000)
+    let dataProps = {
+      content: articleDetail.content,
+      updateTime: now
+    }
+    if (id) {
+      dataProps.id = id
+    }
     api({
       method: 'post',
       url: servicePath.updateAbout,
-      data: {
-        id,
-        content: articleDetail.content,
-        updateTime: now
-      }
+      data: dataProps
     })
       .then(res=>{
         
@@ -75,7 +78,7 @@ const AboutManage = ()=>{
           className="textarea" 
           placeholder="请输入文章‘关于我’的内容"
           allowClear  
-          value={articleDetail.content}
+          value={articleDetail.content ? articleDetail.content : ''}
           onChange={changeContent}
           />
           <div className="button-wrapper">
