@@ -23,7 +23,7 @@ module.exports = app => {
   router.get('/admin/advertiseManage/deleteAdvertiseById/:id', adminauth, controller.admin.advertiseManage.deleteAdvertiseById);
   router.get('/admin/about/getAbout', controller.admin.about.getAbout);
   router.post('/admin/about/updateAbout', controller.admin.about.updateAbout);
-  router.get('/admin/talk/getTalkList', controller.admin.talk.getTalkList);
+  router.post('/admin/talk/getTalkList', controller.admin.talk.getTalkList);
   router.get('/admin/talk/getTalkById/:id', controller.admin.talk.getTalkById);
   router.post('/admin/talk/updateTalk', controller.admin.talk.updateTalk);
   router.post('/admin/talk/deleteTalkById/:id', controller.admin.talk.deleteTalkById);

@@ -12,13 +12,12 @@ const AddTalk = (props)=>{
   const [ content, setContent ] = useState('') 
 
   const getTalkById = (id)=>{
-    console.log(id)
     api({
       method: 'get',
       url: servicePath.getTalkById + id
     })
       .then(res=>{
-        console.log(res)
+        setContent(res.content)
       })
   }
 
@@ -40,7 +39,7 @@ const AddTalk = (props)=>{
       data: dataProps
     })
       .then(res=>{
-        console.log(res)
+        props.history.push('/index/talklist')
       })
   }
 

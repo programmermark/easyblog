@@ -4,8 +4,16 @@ const controller = require('egg').Controller;
 
 class TalkController extends controller {
   async getTalkList() {
-    const sql = 'SELECT * FROM talk';
-    const sqlResult = await this.app.mysql.query(sql);
+    const request = this.ctx.request.body;
+    const sql = `SELECT 
+                talk.id as id,
+                user.username as username, 
+                talk.content as content,
+                talk.publish_time as publishTime,
+                talk.like_count as likeCount
+                FROM talk LEFT JOIN admin_user AS user ON talk.user_id = user.id
+                LIMIT ?,?`;
+    const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
     if (sqlResult.length > 0) {
       this.ctx.body = { success: true, data: sqlResult };
     } else {
