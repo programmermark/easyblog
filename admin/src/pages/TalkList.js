@@ -62,6 +62,7 @@ const TalkList = (props)=>{
             }
             list.splice(delIndex, 1)
             setTalkList(list)
+            setTotal(total - 1)
           })
       },
       onCancel(){

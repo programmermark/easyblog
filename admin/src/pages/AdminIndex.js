@@ -8,6 +8,8 @@ import AddTalk from './AddTalk'
 import TalkList from './TalkList'
 import AddArticle from './AddArticle'
 import ArticleList from './ArticleList'
+import AddNovel from './AddNovel'
+import NovelList from './NovelList'
 import UserSetting from './UserSetting'
 import AdvertiseManage from './AdvertiseManage'
 import AboutManage from './AboutManage'
@@ -41,6 +43,16 @@ function AdminIndex(props) {
     } else if(e.key === 'articleList'){
       setMenu(['文章管理', '文章列表'])
       props.history.push('/index/articlelist')
+    }
+  }
+
+  const handleClickNovel = e => {
+    if(e.key === 'addNovel'){
+      setMenu(['小说管理', '添加小说'])
+      props.history.push('/index/addnovel')
+    } else if(e.key === 'novelList'){
+      setMenu(['小说管理', '小说列表'])
+      props.history.push('/index/novellist')
     }
   }
 
@@ -137,6 +149,25 @@ function AdminIndex(props) {
         </SubMenu>
         <SubMenu
           key="sub3"
+          onClick={handleClickNovel}
+          title={
+          <span>
+            <AntdIcon className="menu-icon" type="BarsOutlined" />
+            <span className="menu-text">小说管理</span>
+          </span>
+          }
+        >
+          <Menu.Item key="addNovel">
+            <AntdIcon className="menu-icon" type="FileAddOutlined" />
+            <span>添加小说</span>
+          </Menu.Item>
+          <Menu.Item key="novelList">
+            <AntdIcon className="menu-icon" type="UnorderedListOutlined" />
+            <span>小说列表</span>
+          </Menu.Item>
+        </SubMenu>
+        <SubMenu
+          key="sub4"
           onClick={handleClickUserSetting}
           title={
             <span>
@@ -186,6 +217,9 @@ function AdminIndex(props) {
                   <Route path="/index/addarticle" exact component={AddArticle} />
                   <Route path="/index/addarticle/:id" exact component={AddArticle} />
                   <Route path="/index/articlelist" exact component={ArticleList} />
+                  <Route path="/index/addnovel" exact component={AddNovel} />
+                  <Route path="/index/addnovel/:id" exact component={AddNovel} />
+                  <Route path="/index/novellist" exact component={NovelList} />
                   <Route path="/index/usersetting" exact component={UserSetting} />
                   <Route path="/index/advertmanage" exact component={AdvertiseManage} />
                   <Route path="/index/aboutmanage" exact component={AboutManage} />

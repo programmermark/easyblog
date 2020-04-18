@@ -27,4 +27,7 @@ module.exports = app => {
   router.get('/admin/talk/getTalkById/:id', adminauth, controller.admin.talk.getTalkById);
   router.post('/admin/talk/updateTalk', adminauth, controller.admin.talk.updateTalk);
   router.get('/admin/talk/deleteTalkById/:id', adminauth, controller.admin.talk.deleteTalkById);
+  router.post('/admin/novel/addNovel', adminauth, controller.admin.novel.addNovel);
+  router.post('/admin/novel/updateNovel', adminauth, controller.admin.novel.updateNovel);
+  router.get('/admin/novel/getNovelById/:id', adminauth, controller.admin.novel.getNovelById);
 };

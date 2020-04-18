@@ -1,0 +1,33 @@
+.add-novel {
+  
+}
+.add-novel .form {
+  padding: 1rem 0;
+}
+.add-novel .form .form-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.add-novel .form .form-item .item-title {
+  width: 80px;
+  text-align: right;
+  margin-right: .5rem;
+}
+.add-novel .form .form-item .item-content {
+  flex: 1;
+}
+.add-novel .form .textarea-wrapper {
+  display: flex;
+  align-items: initial;
+}
+.add-novel .form .form-item .textarea {
+  min-height: 6rem;
+}
+.add-novel .form .upload-wrapper {
+  display: flex;
+  align-items: initial;
+}
+.add-novel .form .form-item .submit {
+  margin-left: 80px;
+}

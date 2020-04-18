@@ -74,7 +74,7 @@ const AountMe = (props)=>{
                   articleDetail.id && 
                   <div>
                     <div 
-                      className="article-content" 
+                      className="about-content" 
                       dangerouslySetInnerHTML={{__html: marked(articleDetail.content)}}></div>
                     <div className="comment-wrapper">
                       <div className="divider">评论</div>

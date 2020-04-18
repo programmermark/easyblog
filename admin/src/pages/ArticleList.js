@@ -91,6 +91,7 @@ const ArticleList = (props)=>{
                 }
                 list.splice(delIndex, 1)
                 setArticleList(list)
+                setTotal(total - 1)
                 message.success(result.message)
               } else {
                 message.success(result.message)

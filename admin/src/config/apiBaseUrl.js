@@ -26,6 +26,9 @@ const servicePath = {
   getTalkById: baseUrl + '/talk/getTalkById/', // 说说接口：根据id获取说说
   updateTalk: baseUrl + '/talk/updateTalk', // 说说接口：新增或者更新说说
   deleteTalkById: baseUrl + '/talk/deleteTalkById/', // 说说接口：根据id删除说说
+  addNovel: baseUrl + '/novel/addNovel', // 小说接口：新增小说
+  updateNovel: baseUrl + '/novel/updateNovel', // 小说接口：更新小说
+  getNovelById: baseUrl + '/novel/getNovelById/', // 小说接口：根据id获取小说
 }
 
 export {

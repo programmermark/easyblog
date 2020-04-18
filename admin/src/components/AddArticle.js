@@ -20,7 +20,7 @@ const AddArticle = (props)=>{
 
   const [articleId,setArticleId] = useState(0)  // 文章的ID，如果是0说明是新增加，如果不是0，说明是修改
   const [ types, setTypes ] = useState(props.type)
-  const [ addedType, setAddedType ] = useState('')
+  const [ addedType, addedType ] = useState('')
   const [ title, setTitle ] = useState('')
   const [ content, setContent ] = useState('')
   const [ contentHtml, setContentHtml ] = useState('')
@@ -59,7 +59,7 @@ const AddArticle = (props)=>{
   } 
 
   const changeAddedType = (e)=>{
-    setAddedType(e.target.value.trim())
+    addedType(e.target.value.trim())
   }
 
   const addType = ()=>{
@@ -72,7 +72,7 @@ const AddArticle = (props)=>{
         }
       }
       if (hasSameName) {
-        setAddedType('')
+        addedType('')
         message.warning('已存在该类别', 2)
       } else {
         axios({
@@ -87,7 +87,7 @@ const AddArticle = (props)=>{
             const result = res.data
             if (result.success) {
               setTypes(result.data)
-              setAddedType('')
+              addedType('')
             } else {
               message.error(result.message, 1)
             }
@@ -124,7 +124,7 @@ const AddArticle = (props)=>{
   }
 
   const validateData = ()=>{ // 校验各个数据项是否为空
-    if(!setAddedType){
+    if(!addedType){
         message.error('文章标题不能为空')
         return false
     } else if(!content){
