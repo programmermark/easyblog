@@ -8,6 +8,8 @@ class AboutController extends controller {
     const sqlResult = await this.app.mysql.query(sql);
     if (sqlResult.length > 0) {
       this.ctx.body = { success: true, data: sqlResult[0] };
+    } else {
+      this.ctx.body = { success: false, message: '暂无数据，请添加' };
     }
   }
 
