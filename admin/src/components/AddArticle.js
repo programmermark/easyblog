@@ -20,7 +20,7 @@ const AddArticle = (props)=>{
 
   const [articleId,setArticleId] = useState(0)  // 文章的ID，如果是0说明是新增加，如果不是0，说明是修改
   const [ types, setTypes ] = useState(props.type)
-  const [ addedType, addedType ] = useState('')
+  const [ addedType, setAddedType ] = useState('')
   const [ title, setTitle ] = useState('')
   const [ content, setContent ] = useState('')
   const [ contentHtml, setContentHtml ] = useState('')

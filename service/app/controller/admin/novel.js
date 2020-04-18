@@ -41,6 +41,48 @@ class NovelController extends controller {
     }
   }
 
+  async getNovelList() {
+    const request = this.ctx.request.body;
+    const sql = 'SELECT * FROM novel LIMIT ?,?';
+    const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
+    if (sqlResult.length > 0) {
+      this.ctx.body = { success: true, data: sqlResult };
+    } else {
+      this.ctx.body = { success: false, message: '暂无数据' };
+    }
+  }
+
+  async deleteNovelById() {
+    const novelId = this.ctx.params.id;
+    const chapterSql = 'SELECT id FROM novel WHERE novel_id = ?';
+    const chapterResult = await this.app.mysql.query(chapterSql, [ novelId ]);
+    if (chapterResult.length > 0) {
+      let idStr = '';
+      chapterResult.forEach(item => {
+        idStr += item.id + ',';
+      });
+      idStr = idStr.substr(0, idStr.length - 1);
+      const deleteChapterSql = 'DELETE FROM novel_chapter WHERE id IN (?)';
+      const deleteChapterResult = await this.app.mysql.query(deleteChapterSql, idStr);
+      console.log(deleteChapterResult);
+      const deleteNovelSql = 'DELETE FROM novel WHERE id = ?';
+      const deleteNovelResult = await this.app.mysql.query(deleteNovelSql, novelId);
+      if (deleteNovelResult.affectedRows === 1) {
+        this.ctx.body = { success: true, message: '删除小说成功' };
+      } else {
+        this.ctx.body = { success: false, message: '删除小说是啊比' };
+      }
+    } else {
+      const deleteNovelSql = 'DELETE FROM novel WHERE id = ?';
+      const deleteNovelResult = await this.app.mysql.query(deleteNovelSql, novelId);
+      if (deleteNovelResult.affectedRows === 1) {
+        this.ctx.body = { success: true, message: '删除小说成功' };
+      } else {
+        this.ctx.body = { success: false, message: '删除小说是啊比' };
+      }
+    }
+  }
+
 }
 
 module.exports = NovelController;

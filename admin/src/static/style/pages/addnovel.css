@@ -10,7 +10,7 @@
   margin-bottom: 1rem;
 }
 .add-novel .form .form-item .item-title {
-  width: 80px;
+  width: 5rem;
   text-align: right;
   margin-right: .5rem;
 }
@@ -29,5 +29,5 @@
   align-items: initial;
 }
 .add-novel .form .form-item .submit {
-  margin-left: 80px;
+  margin-left: 5.5rem;
 }

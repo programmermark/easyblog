@@ -29,6 +29,8 @@ const servicePath = {
   addNovel: baseUrl + '/novel/addNovel', // 小说接口：新增小说
   updateNovel: baseUrl + '/novel/updateNovel', // 小说接口：更新小说
   getNovelById: baseUrl + '/novel/getNovelById/', // 小说接口：根据id获取小说
+  getNovelList: baseUrl + '/novel/getNovelList', // 小说接口：获取小说列表
+  deleteNovelById: baseUrl + '/novel/deleteNovelById/', // 小说接口：根据id删除小说
 }
 
 export {

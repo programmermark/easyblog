@@ -30,4 +30,6 @@ module.exports = app => {
   router.post('/admin/novel/addNovel', adminauth, controller.admin.novel.addNovel);
   router.post('/admin/novel/updateNovel', adminauth, controller.admin.novel.updateNovel);
   router.get('/admin/novel/getNovelById/:id', adminauth, controller.admin.novel.getNovelById);
+  router.post('/admin/novel/getNovelList', adminauth, controller.admin.novel.getNovelList);
+  router.get('/admin/novel/deleteNovelById/:id', adminauth, controller.admin.novel.deleteNovelById);
 };

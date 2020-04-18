@@ -73,7 +73,7 @@ const AddNovel = (props)=>{
   const submitForm = ()=>{
     if (validateData()) {
       const now = Math.floor(Date.now() / 1000)
-      const requestUrl = ''
+      let requestUrl = ''
       const dataProps = {
         name, 
         author,
@@ -94,18 +94,21 @@ const AddNovel = (props)=>{
         data: dataProps
       })
         .then(res=>{
-          console.log(res)
+          props.history.push('/index/novellist')
         })
     }
   }
 
-  const getNovelById = ()=>{
+  const getNovelById = (novelId)=>{
     api({
       method: 'get',
       url: servicePath.getNovelById + novelId
     })
       .then(res=>{
-        console.log(res)
+        setNovelId(res.id)
+        setName(res.name)
+        setSummary(res.summary)
+        setCoverImg(res.cover_img)
       })
   }
 
