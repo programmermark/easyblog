@@ -30,7 +30,6 @@ const TalkList = (props)=>{
       }
     })
       .then(res=>{
-        console.log(res)
         setIsLoading(false)
         setTotal(res.total)
         setTalkList(res.list)
@@ -81,7 +80,7 @@ const TalkList = (props)=>{
   }, [])
 
   return (
-    <div>
+    <div className='talk-list'>
       <Spin spinning={isLoading} tip={'加载中...'}>
         <List 
           header={
