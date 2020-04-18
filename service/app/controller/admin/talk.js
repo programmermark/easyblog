@@ -14,8 +14,16 @@ class TalkController extends controller {
                 FROM talk LEFT JOIN admin_user AS user ON talk.user_id = user.id
                 LIMIT ?,?`;
     const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
+    const countSql = 'SELECT count(*) as total from talk';
+    const countResult = await this.app.mysql.query(countSql);
     if (sqlResult.length > 0) {
-      this.ctx.body = { success: true, data: sqlResult };
+      this.ctx.body = {
+        success: true,
+        data: {
+          total: countResult[0].total,
+          list: sqlResult,
+        },
+      };
     } else {
       this.ctx.body = { success: false, message: '暂无数据' };
     }

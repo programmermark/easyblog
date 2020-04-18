@@ -4,11 +4,14 @@ import api from '../api/api'
 import { servicePath } from '../config/apiBaseUrl'
 import '../static/style/pages/talklist.css'
 
-const TalkList = ()=>{
+const { confirm } = Modal
+
+const TalkList = (props)=>{
   const pageSize = 10
   const [ currentPage, setCurrentPage ] = useState(1)
   const [ talkList, setTalkList ] = useState([])
   const [ total, setTotal ] = useState(0)
+  const [ isLoading, setIsLoading ] = useState(true)
 
   const getTalkList = (current)=>{
     let offset;
@@ -27,8 +30,42 @@ const TalkList = ()=>{
     })
       .then(res=>{
         console.log(res)
-        
+        setTalkList(res)
       })
+  }
+
+  const editTalk = (id)=>{
+    props.history.push(`/index/addtalk/${id}`)
+  }
+
+  const delTalk = (id)=>{
+    confirm({
+      title: '确定删除这篇说说吗？',
+      content: '删除后说说将无法恢复',
+      okText: '确定',
+      cancelText: '取消',
+      onOk(){
+        api({
+          method: 'get',
+          url: servicePath.deleteTalkById + id
+        })
+          .then((res)=>{
+            const list  = JSON.parse(JSON.stringify(talkList))
+            let delIndex
+            for (let i = 0; i < list.length; i++) {
+              if (list[i].id === id){
+                delIndex = i
+                break
+              }
+            }
+            list.splice(delIndex, 1)
+            setTalkList(list)
+          })
+      },
+      onCancel(){
+        message.success('文章列表没有发生变化')
+      }
+    })
   }
 
   const changePage = (page, pageSize)=>{
@@ -43,7 +80,7 @@ const TalkList = ()=>{
   return (
     <div>
       <Spin spinning={isLoading} tip={'加载中...'}>
-        {/* <List 
+        <List 
           header={
             <Row className="list-header">
               <Col span={2}><b>id</b></Col>
@@ -54,34 +91,18 @@ const TalkList = ()=>{
             </Row>
           }
           bordered
-          dataSource={articleList}
+          dataSource={talkList}
           renderItem={
             item => (
               <List.Item>
                 <Row className="list-item">
-                  <Col span={6}>{item.title}</Col>
-                  <Col span={3}>{item.type}</Col>
-                  <Col span={2}>{item.author}</Col>
-                  <Col span={2}>
-                    {
-                      item.reprinted?
-                      <span className="reprinted">转载</span>
-                      :
-                      <span className="orginal">原创</span>
-                    }
-                  </Col>
-                  <Col span={2}>{item.publishTime.substr(0, 10)}</Col>
-                  <Col span={2} >{item.viewCount}</Col>
-                  <Col span={3}>
-                    <Switch 
-                      checkedChildren="已发布" 
-                      unCheckedChildren="未发布"
-                      defaultChecked={Boolean(item.isPublish)}
-                      onChange={tooglePublish.bind(this, item.id)} />
-                  </Col>
-                  <Col span={4}>
-                    <Button className="mg-right" type="primary" onClick={editArticle.bind(this, item.id)}>修改</Button>
-                    <Button onClick={delArticle.bind(this, item.id)}>删除</Button>
+                  <Col span={2}>{item.id}</Col>
+                  <Col span={10}>{item.content}</Col>
+                  <Col span={3}>{item. publishTim}</Col>
+                  <Col span={2}>{item.likeCount}</Col>
+                  <Col span={7}>
+                    <Button className="mg-right" type="primary" onClick={editTalk.bind(this, item.id)}>修改</Button>
+                    <Button onClick={delTalk.bind(this, item.id)}>删除</Button>
                   </Col>
                 </Row> 
               </List.Item>
@@ -97,7 +118,7 @@ const TalkList = ()=>{
           defaultCurrent={currentPage}
           showQuickJumper
           onChange={changePage}
-        /> */}
+        />
       </Spin>
     </div>
   )
