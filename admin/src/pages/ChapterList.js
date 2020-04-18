@@ -10,13 +10,14 @@ const { confirm } = Modal
 const NovelList = (props)=>{
 
   const pageSize = 5
+  const [ novelId, setNovelId ] = useState('')
   const [ currentPage, setCurrentPage ] = useState(1)
   const [ novelList, setNovelList ] = useState([])
   const [ total, setTotal ] = useState(0)
   const [ isLoading, setIsLoading ]  = useState(true)
 
-  const getNovelList = (current)=>{
-    let offset;
+  const getChapterList = (current)=>{
+    let offset
     if (current) {
       offset = (current - 1) * pageSize
     } else {
@@ -25,8 +26,9 @@ const NovelList = (props)=>{
     setIsLoading(true)
     api({
       method: 'post',
-      url: servicePath.getNovelList,
+      url: servicePath.getChapterList,
       data: {
+        id: novelId,
         limit: pageSize,
         offset
       }
@@ -49,8 +51,8 @@ const NovelList = (props)=>{
 
   const delNovel = (id)=>{
     confirm({
-      title: '确定删除这本小说吗？',
-      content: '删除后小说将无法恢复',
+      title: '确定删除这一章节吗？',
+      content: '删除该章节后将无法恢复',
       okText: '确定',
       cancelText: '取消',
       onOk(){
@@ -73,19 +75,23 @@ const NovelList = (props)=>{
           })
       },
       onCancel(){
-        message.success('小说列表没有发生变化')
+        message.success('章节列表没有发生变化')
       }
     })
   }
 
   const changePage = (page, pageSize)=>{
     setCurrentPage(page)
-    getNovelList(page)
+    getChapterList(page)
   }
 
 
   useEffect(()=>{
-    getNovelList()
+    const tmpId = props.match.params.id
+    if(tmpId) {
+      setNovelId(tmpId)
+      getChapterList()
+    }
   }, [])
 
   return (

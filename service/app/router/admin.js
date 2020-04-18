@@ -32,4 +32,5 @@ module.exports = app => {
   router.get('/admin/novel/getNovelById/:id', adminauth, controller.admin.novel.getNovelById);
   router.post('/admin/novel/getNovelList', adminauth, controller.admin.novel.getNovelList);
   router.get('/admin/novel/deleteNovelById/:id', adminauth, controller.admin.novel.deleteNovelById);
+  router.post('/admin/novel/getChapterList', adminauth, controller.admin.novel.getChapterList);
 };

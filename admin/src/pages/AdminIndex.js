@@ -10,6 +10,7 @@ import AddArticle from './AddArticle'
 import ArticleList from './ArticleList'
 import AddNovel from './AddNovel'
 import NovelList from './NovelList'
+import ChapterList from './ChapterList'
 import UserSetting from './UserSetting'
 import AdvertiseManage from './AdvertiseManage'
 import AboutManage from './AboutManage'
@@ -220,6 +221,7 @@ function AdminIndex(props) {
                   <Route path="/index/addnovel" exact component={AddNovel} />
                   <Route path="/index/addnovel/:id" exact component={AddNovel} />
                   <Route path="/index/novellist" exact component={NovelList} />
+                  <Route path="/index/chapterlist/:id" exact component={ChapterList} />
                   <Route path="/index/usersetting" exact component={UserSetting} />
                   <Route path="/index/advertmanage" exact component={AdvertiseManage} />
                   <Route path="/index/aboutmanage" exact component={AboutManage} />

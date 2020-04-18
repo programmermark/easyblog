@@ -1,0 +1,7 @@
+.list-item {
+  height: 4rem;
+  line-height: 4rem;
+}
+.list-item .cover-img {
+  height: 3.5rem;
+}

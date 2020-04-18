@@ -78,7 +78,7 @@ class NovelController extends controller {
       if (deleteNovelResult.affectedRows === 1) {
         this.ctx.body = { success: true, message: '删除小说成功' };
       } else {
-        this.ctx.body = { success: false, message: '删除小说是啊比' };
+        this.ctx.body = { success: false, message: '删除小说失败' };
       }
     } else {
       const deleteNovelSql = 'DELETE FROM novel WHERE id = ?';
@@ -86,8 +86,31 @@ class NovelController extends controller {
       if (deleteNovelResult.affectedRows === 1) {
         this.ctx.body = { success: true, message: '删除小说成功' };
       } else {
-        this.ctx.body = { success: false, message: '删除小说是啊比' };
+        this.ctx.body = { success: false, message: '删除小说失败' };
       }
+    }
+  }
+
+  async getChapterList() {
+    const request = this.ctx.request.body;
+    const novelSql = 'SELECT * FROM novel WHERE id = ?';
+    const novelResult = await this.app.mysql.query(novelSql, [ request.id ]);
+    const selectSql = `SELECT * FROM novel_chapter
+                WHERE novel_id = ? LIMIT ?,?`;
+    const sqlResult = await this.app.mysql.query(selectSql, [ request.id, request.offset, request.limit ]);
+    const countSql = 'SELECT count(*) as total from novel_chapter';
+    const countResult = await this.app.mysql.query(countSql);
+    if (sqlResult.length > 0) {
+      this.ctx.body = {
+        success: true,
+        data: {
+          novel: novelResult[0],
+          total: countResult[0].total,
+          list: sqlResult,
+        },
+      };
+    } else {
+      this.ctx.body = { success: false, message: '暂无数据' };
     }
   }
 

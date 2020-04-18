@@ -100,11 +100,8 @@ const TalkList = (props)=>{
               <List.Item>
                 <Row className="list-item">
                   <Col span={2}>{item.id}</Col>
-                  <Col span={12}>
-                    {/* <span className='content'>{item.content}</span> */}
-                    {item.content}
-                  </Col>
-                  <Col span={3}>{item. publishTime}</Col>
+                  <Col span={12}>{item.content}</Col>
+                  <Col span={3}>{item.publishTime}</Col>
                   <Col span={2}>{item.likeCount}</Col>
                   <Col span={5}>
                     <Button className="mg-right" type="primary" onClick={editTalk.bind(this, item.id)}>修改</Button>
