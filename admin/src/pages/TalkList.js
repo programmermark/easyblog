@@ -20,6 +20,7 @@ const TalkList = (props)=>{
     } else {
       offset = (currentPage - 1) * pageSize
     }
+    setIsLoading(true)
     api({
       method: 'post',
       url: servicePath.getTalkList,
@@ -30,7 +31,9 @@ const TalkList = (props)=>{
     })
       .then(res=>{
         console.log(res)
-        setTalkList(res)
+        setIsLoading(false)
+        setTotal(res.total)
+        setTalkList(res.list)
       })
   }
 
@@ -84,10 +87,10 @@ const TalkList = (props)=>{
           header={
             <Row className="list-header">
               <Col span={2}><b>id</b></Col>
-              <Col span={10}><b>说说</b></Col>
+              <Col span={12}><b>说说</b></Col>
               <Col span={3}><b>发布时间</b></Col>
               <Col span={2}><b>点赞数</b></Col>
-              <Col span={7}><b>操作</b></Col>
+              <Col span={5}><b>操作</b></Col>
             </Row>
           }
           bordered
@@ -97,10 +100,13 @@ const TalkList = (props)=>{
               <List.Item>
                 <Row className="list-item">
                   <Col span={2}>{item.id}</Col>
-                  <Col span={10}>{item.content}</Col>
-                  <Col span={3}>{item. publishTim}</Col>
+                  <Col span={12}>
+                    {/* <span className='content'>{item.content}</span> */}
+                    {item.content}
+                  </Col>
+                  <Col span={3}>{item. publishTime}</Col>
                   <Col span={2}>{item.likeCount}</Col>
-                  <Col span={7}>
+                  <Col span={5}>
                     <Button className="mg-right" type="primary" onClick={editTalk.bind(this, item.id)}>修改</Button>
                     <Button onClick={delTalk.bind(this, item.id)}>删除</Button>
                   </Col>

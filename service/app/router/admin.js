@@ -21,10 +21,10 @@ module.exports = app => {
   router.post('/admin/advertiseManage/updateAdvertise', adminauth, controller.admin.advertiseManage.updateAdvertise);
   router.post('/admin/advertiseManage/updateAdvertiseIsShow', adminauth, controller.admin.advertiseManage.updateAdvertiseIsShow);
   router.get('/admin/advertiseManage/deleteAdvertiseById/:id', adminauth, controller.admin.advertiseManage.deleteAdvertiseById);
-  router.get('/admin/about/getAbout', controller.admin.about.getAbout);
-  router.post('/admin/about/updateAbout', controller.admin.about.updateAbout);
-  router.post('/admin/talk/getTalkList', controller.admin.talk.getTalkList);
-  router.get('/admin/talk/getTalkById/:id', controller.admin.talk.getTalkById);
-  router.post('/admin/talk/updateTalk', controller.admin.talk.updateTalk);
-  router.post('/admin/talk/deleteTalkById/:id', controller.admin.talk.deleteTalkById);
+  router.get('/admin/about/getAbout', adminauth, controller.admin.about.getAbout);
+  router.post('/admin/about/updateAbout', adminauth, controller.admin.about.updateAbout);
+  router.post('/admin/talk/getTalkList', adminauth, controller.admin.talk.getTalkList);
+  router.get('/admin/talk/getTalkById/:id', adminauth, controller.admin.talk.getTalkById);
+  router.post('/admin/talk/updateTalk', adminauth, controller.admin.talk.updateTalk);
+  router.post('/admin/talk/deleteTalkById/:id', adminauth, controller.admin.talk.deleteTalkById);
 };

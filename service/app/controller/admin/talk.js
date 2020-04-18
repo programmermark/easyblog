@@ -9,7 +9,7 @@ class TalkController extends controller {
                 talk.id as id,
                 user.username as username, 
                 talk.content as content,
-                talk.publish_time as publishTime,
+                FROM_UNIXTIME(talk.publish_time, '%Y-%m-%d') as publishTime,
                 talk.like_count as likeCount
                 FROM talk LEFT JOIN admin_user AS user ON talk.user_id = user.id
                 LIMIT ?,?`;
