@@ -26,5 +26,5 @@ module.exports = app => {
   router.post('/admin/talk/getTalkList', adminauth, controller.admin.talk.getTalkList);
   router.get('/admin/talk/getTalkById/:id', adminauth, controller.admin.talk.getTalkById);
   router.post('/admin/talk/updateTalk', adminauth, controller.admin.talk.updateTalk);
-  router.post('/admin/talk/deleteTalkById/:id', adminauth, controller.admin.talk.deleteTalkById);
+  router.get('/admin/talk/deleteTalkById/:id', adminauth, controller.admin.talk.deleteTalkById);
 };
