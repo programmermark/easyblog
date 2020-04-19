@@ -1,6 +1,7 @@
 import React , { useState, useEffect } from 'react'
 import TalkItem from './TalkItem'
 import ArticleItem from './ArticleItem'
+import NovelItem from './NovelItem'
 import { Badge, Spin, Pagination } from 'antd'
 import '../public/style/components/indexlist.css'
 import axios from 'axios'
@@ -10,16 +11,16 @@ import { servicePath } from '../config/apiBaseUrl'
 const List  = (props)=>{ // 首页的列表块
   const selectedColor = '#52c41a'
   const unSelectedColor = '#ff4d4f'
+  const pageSize = 10
 
   const [ tabs, setTabs ] = useState([
     // { name: '全部', type: 'all', count: 0, color: selectedColor },
     { name: '文章', type: 'article', count: 0, color: selectedColor },
     { name: '说说', type: 'talk', count: 0, color: unSelectedColor },
-    // { name: '小说', type: 'novel', count: 0,  color: unSelectedColor }
+    { name: '小说', type: 'novel', count: 0,  color: unSelectedColor }
   ])
   const [ isLoading, setIsloading ] = useState(false)
   const [ selectedIndex, setSelectedIndex ] = useState(0)
-  const [ limit, setLimit ] = useState(2)
   const [ current, setCurrent ] = useState(1)
   const [ total, setTotal ] = useState(0)
   const [ list, setList ] = useState([])
@@ -39,7 +40,7 @@ const List  = (props)=>{ // 首页的列表块
     getTalkList(listType)
   }
 
-  const getTalkList = (type, pageSize = limit, currentPage = current)=>{
+  const getTalkList = (type, pagesize = pageSize, currentPage = current)=>{
     if (!type) {
       tabs.forEach(item=>{
         if (item.color === selectedColor) {
@@ -59,7 +60,7 @@ const List  = (props)=>{ // 首页的列表块
         requestUrl = servicePath.getTalkList
         break;
       case 'novel':
-        requestUrl = servicePath.getTalkList
+        requestUrl = servicePath.getNovelList
         break;
     
       default :
@@ -71,8 +72,8 @@ const List  = (props)=>{ // 首页的列表块
       method: 'post',
       url: requestUrl,
       data: {
-        limit: pageSize,
-        offset: (currentPage - 1) * pageSize
+        limit: pagesize,
+        offset: (currentPage - 1) * pagesize
       }
     })
       .then(res=>{
@@ -103,7 +104,7 @@ const List  = (props)=>{ // 首页的列表块
       }
     })
     setCurrent(page)
-    getTalkList(type, limit, page)
+    getTalkList(type, pageSize, page)
   }
 
   useEffect(()=>{
@@ -157,6 +158,10 @@ const List  = (props)=>{ // 首页的列表块
                 item.listType === 'article' &&
                 <ArticleItem article={item} />
               }
+              {
+                item.listType === 'novel' &&
+                <NovelItem novel={item} />
+              }
               </div>
             )
           })
@@ -166,7 +171,7 @@ const List  = (props)=>{ // 首页的列表块
             current={current}
             total={total}
             showTotal={total => `共 ${total} 条记录`}
-            pageSize={limit}
+            pageSize={pageSize}
             defaultCurrent={current}
             showQuickJumper
             onChange={changePage}

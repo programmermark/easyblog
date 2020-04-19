@@ -17,4 +17,5 @@ module.exports = app => {
   router.post('/blog/articlelist/getArticleList', controller.blog.articlelist.getArticleList);
   router.get('/blog/articlelist/getArticleTypes', controller.blog.articlelist.getArticleTypes);
   router.get('/blog/about/getAbout', controller.blog.about.getAbout);
+  router.post('/blog/index/getNovelList', controller.blog.index.getNovelList);
 };

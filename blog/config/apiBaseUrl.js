@@ -9,6 +9,7 @@ const servicePath = {
   addComment: baseUrl + '/comment/addComment', // 评论接口：新增评论
   addCommentLikeCount: baseUrl + '/comment/addLikeCount', // 评论接口：新增点赞数
   getTalkList: baseUrl + '/index/getTalkList', // 首页接口：获取说说列表
+  getNovelList: baseUrl + '/index/getNovelList', // 首页接口：获取小说列表
   addTalkLikeCount: baseUrl + '/index/addLikeCount', // 首页接口：新增说说点赞数
   getArticleList: baseUrl + '/index/getArticleList', // 首页接口：获取文章列表
   getUserInfoById: baseUrl + '/index/getUserInfoById/', // 首页接口：获取博主信息
