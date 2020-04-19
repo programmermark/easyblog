@@ -101,18 +101,15 @@ class NovelController extends controller {
     const sqlResult = await this.app.mysql.query(selectSql, [ request.id, request.offset, request.limit ]);
     const countSql = 'SELECT count(*) as total from novel_chapter';
     const countResult = await this.app.mysql.query(countSql);
-    if (sqlResult.length > 0) {
-      this.ctx.body = {
-        success: true,
-        data: {
-          novel: novelResult[0],
-          total: countResult[0].total,
-          list: sqlResult,
-        },
-      };
-    } else {
-      this.ctx.body = { success: false, message: '暂无数据' };
-    }
+    this.ctx.body = {
+      success: true,
+      data: {
+        novel: novelResult[0],
+        total: countResult[0].total,
+        list: sqlResult,
+      },
+      message: '暂无数据',
+    };
   }
 
   async getChapterById() {
