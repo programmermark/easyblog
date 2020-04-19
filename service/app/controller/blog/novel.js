@@ -25,7 +25,7 @@ class ChapterController extends controller {
       const nextSql = `SELECT id, createtime FROM novel_chapter WHERE createtime 
                   in((SELECT max(createtime) FROM novel_chapter WHERE createtime< ?), 
                   (SELECT min(createtime) FROM novel_chapter WHERE createtime> ?))`;
-      const nextResult = await this.app.mysql.query(nextSql, [ result.createTime ]);
+      const nextResult = await this.app.mysql.query(nextSql, [ result.createTime, result.createTime ]);
       if (nextResult.length === 2) {
         result.preId = nextResult[0].id;
         result.nextId = nextResult[1].id;
