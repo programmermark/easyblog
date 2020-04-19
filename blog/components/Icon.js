@@ -3,7 +3,7 @@ import * as Icon from '@ant-design/icons'
 import { createFromIconfontCN } from '@ant-design/icons';
 
 const myIcon = (props) => {
-  const scriptUrl = '//at.alicdn.com/t/font_1722969_lribj7vkf8b.js'
+  const scriptUrl = '//at.alicdn.com/t/font_1722969_l8gyamly8fs.js'
   if (!props.isIconfont) {
     const IconName = Icon[props.type]
     return (

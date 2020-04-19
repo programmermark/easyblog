@@ -38,6 +38,25 @@
   padding: 1rem;
   font-size: 1rem;
 }
+.article-detailed .pager {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0 2rem;
+  padding: .5rem 0;
+}
+.article-detailed .pager .item {
+  flex: 1;
+  margin: 0 .5rem;
+  padding: .5rem 0;
+  background-color: #eaeaea;
+  border-radius: .25rem;
+  color: #333333;
+}
+.article-detailed .pager .item .item-text {
+  padding: .5rem 1rem;
+  font-size: 1.2rem;
+
+}
 
 .article-detailed .comment-wrapper .divider {
   font-size: 1rem;

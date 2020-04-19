@@ -1,7 +1,31 @@
 'use strict';
 
 const controller = require('egg').Controller;
+
 class ChapterController extends controller {
+
+  async getNovelById() {
+    const id = this.ctx.params.id;
+    const sql = `SELECT novel.id as novelId, novel.name as novelName, novel.author as author, 
+                novel.cover_img as novelCoverImg, novel.summary as novelSummary, novel.createtime as novelCreateTime,
+                chapter.id as chapterId, chapter.name as chapterName   
+                FROM novel_chapter as chapter 
+                RIGHT JOIN novel ON chapter.novel_id = novel.id
+                WHERE chapter.novel_id = ? ORDER BY chapter.createtime ASC`;
+    const result = this.app.mysql.query(sql, [ id ]);
+    if (result.length > 0) {
+      this.ctx.body = {
+        success: true,
+        data: result,
+      };
+    } else {
+      this.ctx.body = {
+        success: false,
+        message: '获取小说详情失败',
+      };
+    }
+  }
+
   async getChapterById() {
     const id = this.ctx.params.id;
     const sql = `SELECT 

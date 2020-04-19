@@ -18,7 +18,8 @@ const servicePath = {
   getArticleListWithType: baseUrl + '/articlelist/getArticleList', // 文章列表接口：获取文章列表
   getArticleTypes: baseUrl + '/articlelist/getArticleTypes', // 文章列表接口：获取文章分类
   getAbout: baseUrl + '/about/getAbout', // 获取关于我页面数据
-  getChapterById: baseUrl + '/novel/getChapterById', // 根据id获取章节详情
+  getChapterById: baseUrl + '/novel/getChapterById/', // 根据id获取章节详情
+  getNovelById: baseUrl + '/novel/getNovelById/', // 根据id获取小说详情
 }
 
 export {

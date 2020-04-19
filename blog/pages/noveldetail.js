@@ -15,7 +15,7 @@ import { bloger } from '../config/blog'
 
 const userId = bloger.id
 
-const ChapterDetail = (props)=>{
+const NovelDetail = (props)=>{
   const router = props.router
 
   const [ chapterDetail, setChapterDetail ] = useState(props.chapterDetail)  
@@ -23,7 +23,7 @@ const ChapterDetail = (props)=>{
   return (
     <div className="container">
       <Head>
-        <title>章节详情 | {props.userInfo.logoName}-{props.userInfo.logoSub}</title>
+        <title>小说详情 | {props.userInfo.logoName}-{props.userInfo.logoSub}</title>
       </Head>
       <div>
         <Header userInfo={props.userInfo} />
@@ -43,7 +43,7 @@ const ChapterDetail = (props)=>{
                     </Link>
                   </Breadcrumb.Item>
                   <Breadcrumb.Item>
-                    <Link href={`/noveldetail?id=${chapterDetail.novelId}`}>
+                    <Link href="/">
                       <a>{chapterDetail.novelName}</a>
                     </Link>
                   </Breadcrumb.Item>
@@ -53,10 +53,10 @@ const ChapterDetail = (props)=>{
                 </Breadcrumb>
               </div>
               <div style={{width: '100%', textAlign: 'center'}}>
-                {
+                {/* {
                   chapterDetail.id &&
                   <ChapterDetailed chapter={chapterDetail} />
-                }
+                } */}
               </div>
             </div>
           </Col>
@@ -67,8 +67,8 @@ const ChapterDetail = (props)=>{
   )
 }
 
-ChapterDetail.getInitialProps = async (context) => {
-  const chapterId = context.query.id
+NovelDetail.getInitialProps = async (context) => {
+  const novelId = context.query.id
 
   const promiseAdvertList = new Promise((resolve)=>{
     axios({
@@ -93,7 +93,7 @@ ChapterDetail.getInitialProps = async (context) => {
   const promiseChapterDetail = new Promise((resolve)=>{
     axios({
       method: 'get',
-      url: servicePath.getChapterById + chapterId
+      url: servicePath.getNovelById + novelId
     })
       .then(res=>{
         const result = res.data
@@ -125,4 +125,4 @@ ChapterDetail.getInitialProps = async (context) => {
   return data
 }
 
-export default withRouter(ChapterDetail)
+export default withRouter(NovelDetail)
