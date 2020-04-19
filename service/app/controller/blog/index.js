@@ -118,6 +118,9 @@ class IndexController extends controller {
     const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
     const countResult = await this.app.mysql.query('SELECT count(*) as total FROM novel_chapter');
     if (sqlResult.length > 0) {
+      for (const item of sqlResult) {
+        item.listType = 'novel';
+      }
       this.ctx.body = {
         success: true,
         data: {
