@@ -81,7 +81,6 @@ const List  = (props)=>{ // 首页的列表块
         if (result.success) {
           setTotal(result.data.total)
           setList(result.data.list)
-          console.log(list)
         }
         setIsloading(false)
       })

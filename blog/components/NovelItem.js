@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import Icon from '../components/Icon'
-import { formatDate, formatTime } from "../public/js/tools";
+import { formatDate } from "../public/js/tools";
 import marked from 'marked'
 import '../public/style/components/novelitem.css'
 
 const NovelItem = (props)=>{
   const novel = props.novel
-  console.log(novel)
 
   const renderer = new marked.Renderer();
   marked.setOptions({
@@ -24,11 +23,11 @@ const NovelItem = (props)=>{
   }); 
   
   return (
-    <div className="article-item">
-      <Link href={`/articledetail?id=${novel.id}`}>
-        <a className="title">{novel.title}</a>
+    <div className="article-item novel-item">
+      <Link href={`/chapterdetail?id=${novel.id}`}>
+        <a className="title align-center">{novel.name}</a>
       </Link>
-      <div className="sub-info">
+      <div className="sub-info flex-center">
         <div className="item">
           <Icon type="UserOutlined" />
           <span className="text">{novel.author}</span>
@@ -36,9 +35,7 @@ const NovelItem = (props)=>{
         <div className="item">
           <Icon isIconfont={true} type="icon-clock" />
           <span className="text">
-            {
-              !props.notFormatTime ? formatDate(novel.publishTime) : novel.publishTime.substring(0, 10)
-            }
+            { formatDate(novel.updateTime, true) }
           </span>
         </div>
         {
@@ -51,7 +48,7 @@ const NovelItem = (props)=>{
       </div>
       <div className="introduce" dangerouslySetInnerHTML={{__html: marked(novel.summary)}}></div>
       <div className="view-content">
-        <Link href={`/articledetail?id=${novel.id}`}>
+        <Link href={`/chapterdetail?id=${novel.id}`}>
           <a>查看全文 ></a>
         </Link>
       </div>
