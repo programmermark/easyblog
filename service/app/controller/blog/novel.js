@@ -13,6 +13,7 @@ class ChapterController extends controller {
                 RIGHT JOIN novel ON chapter.novel_id = novel.id
                 WHERE chapter.novel_id = ? ORDER BY chapter.createtime ASC`;
     const result = this.app.mysql.query(sql, [ id ]);
+    console.log(result);
     if (result.length > 0) {
       this.ctx.body = {
         success: true,
