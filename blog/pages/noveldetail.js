@@ -7,18 +7,18 @@ import Header from '../components/Header'
 import Author from "../components/Author"
 import Advert from '../components/Advert'
 import Footer from '../components/Footer'
-import ChapterDetailed from '../components/ChapterDetailed'
 import '../public/style/pages/chapterdetail.css'
+import NovelDetailed from '../components/NovelDetailed'
 import axios from 'axios'
 import { servicePath } from '../config/apiBaseUrl'
 import { bloger } from '../config/blog'
+import { formatTime } from '../public/js/tools'
 
 const userId = bloger.id
 
 const NovelDetail = (props)=>{
-  const router = props.router
-
-  const [ chapterDetail, setChapterDetail ] = useState(props.chapterDetail)  
+  const novel = props.novelDetail.novel
+  const chapterList = props.novelDetail.chapterList
 
   return (
     <div className="container">
@@ -43,20 +43,17 @@ const NovelDetail = (props)=>{
                     </Link>
                   </Breadcrumb.Item>
                   <Breadcrumb.Item>
-                    <Link href="/">
-                      <a>{chapterDetail.novelName}</a>
-                    </Link>
-                  </Breadcrumb.Item>
-                  <Breadcrumb.Item>
-                    <span>{chapterDetail.title}</span>
+                    <span>{novel.novelName}</span>
                   </Breadcrumb.Item>
                 </Breadcrumb>
               </div>
               <div style={{width: '100%', textAlign: 'center'}}>
-                {/* {
-                  chapterDetail.id &&
-                  <ChapterDetailed chapter={chapterDetail} />
-                } */}
+                {
+                  novel.novelId &&
+                  <NovelDetailed 
+                    novel={novel} 
+                    chapterList={chapterList} />
+                }
               </div>
             </div>
           </Col>
@@ -90,7 +87,7 @@ NovelDetail.getInitialProps = async (context) => {
       })
   })
 
-  const promiseChapterDetail = new Promise((resolve)=>{
+  const promiseNovelDetail = new Promise((resolve)=>{
     axios({
       method: 'get',
       url: servicePath.getNovelById + novelId
@@ -98,7 +95,27 @@ NovelDetail.getInitialProps = async (context) => {
       .then(res=>{
         const result = res.data
         if (result.success) {
-          resolve(result.data)
+          const list = result.data
+          const novel = {
+            novelId: list[0].novelId,
+            novelName: list[0].novelName,
+            author: list[0].author,
+            novelCoverImg: list[0].novelCoverImg,
+            novelSummary: list[0].novelSummary,
+            novelCreateTime: formatTime(list[0].novelCreateTime * 1000, 'yyyy年MM月dd日'),
+          }
+          const chapterList = []
+          list.forEach(item=>{
+            let obj = {
+              chapterId: item.chapterId,
+              chapterName: item.chapterName
+            }
+            chapterList.push(obj)
+          })
+          resolve({
+            novel,
+            chapterList
+          })
         }
       })
   })
@@ -118,7 +135,7 @@ NovelDetail.getInitialProps = async (context) => {
 
   const data = {
     advertList: await promiseAdvertList,
-    chapterDetail: await promiseChapterDetail,
+    novelDetail: await promiseNovelDetail,
     userInfo: await promiseUserInfo
   }
 

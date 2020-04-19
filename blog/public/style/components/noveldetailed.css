@@ -1,0 +1,81 @@
+.novel-detailed {
+  margin-top: 1rem;
+}
+.novel-detailed .novel-info {
+  background-color: #fff;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+  border-radius: .25rem;
+  display: flex;
+}
+.novel-detailed .novel-info .info-left {
+  padding: 0 1rem;
+}
+.novel-detailed .novel-info .info-left .img{
+  height: 10rem;
+  border-radius: .25rem;
+}
+.novel-detailed .novel-info .info-right {
+  margin-left: 1rem;
+  padding: 1rem;
+}
+.novel-detailed .novel-info .info-right .sub-info {
+  display: flex;
+  align-items: flex-end;
+}
+.novel-detailed .novel-info .info-right .sub-info .novel-name {
+  font-size: 1.5rem;
+  color: #333333;
+  margin-right: 2rem;
+}
+.novel-detailed .novel-info .info-right .sub-info .author {
+  font-size: .875rem;
+  color: #666666;
+  margin-right: 2rem;
+}
+.novel-detailed .novel-info .info-right .sub-info .author .name {
+  font-size: 1rem;
+  color: #666666;
+  margin-right: .5rem;
+}
+.novel-detailed .novel-info .info-right .sub-info .author .name:hover {
+  color: #1890ff;
+}
+.novel-detailed .novel-info .info-right .sub-info .create-time {
+  color: #999999;
+  font-size: 13px;
+}
+.novel-detailed .novel-info .info-right .info-second {
+  padding: 1rem 0;
+}
+.novel-detailed .chapter-list {
+  background-color: #fff;
+  padding: 2rem 1rem;
+}
+.novel-detailed .chapter-list .head {
+  background-color: #fff;
+  border-bottom: 1px solid #aaaaaa;
+  text-align: left;
+  font-weight: bold;
+}
+.novel-detailed .chapter-list .head h3 {
+  color: #333333;
+  font-weight: bold;
+}
+.novel-detailed .chapter-list .list-content {
+  text-align: initial;
+}
+.novel-detailed .chapter-list .list-content .chapter-item {
+  width: 33.3%;
+  height: 40px;
+  line-height: 40px;
+  display: inline-block;
+  border-bottom: 1px solid #ebebeb;
+  color: #333333;
+}
+.novel-detailed .chapter-list .list-content .chapter-item:hover {
+  color: #1890ff;
+} 
+.novel-detailed .chapter-list .list-content .last-chapter-item {
+  border-bottom: none;
+}

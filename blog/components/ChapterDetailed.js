@@ -55,23 +55,22 @@ const ChapterDetailed = (props) => {
       <div className='pager'>
         {
           chapter.preId &&
-          <Link href={`chapterdetail?id=${chapter.preId}`}>
+          <Link href={`/chapterdetail?id=${chapter.preId}`}>
             <a className='item'>
               <span className='item-text'>上一章</span>
             </a>
           </Link>
         }
-        {/* <Link>
-          <a className='item' href='/'>
-            <span className='item-text'>目录</span>
-          </a>
-        </Link> */}
         <div className='item'>
-          <span className='item-text'>目录</span>
+          <Link href={`/noveldetail?id=${chapter.novelId}`}>
+            <a className='item'>
+              <span className='item-text'>目录</span>
+            </a>
+          </Link>
         </div>
         {
           chapter.nextId &&
-          <Link href={`chapterdetail?id=${chapter.nextId}`}>
+          <Link href={`/chapterdetail?id=${chapter.nextId}`}>
             <a className='item'>
               <span className='item-text'>下一章</span>
             </a>
