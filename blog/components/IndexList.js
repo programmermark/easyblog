@@ -146,7 +146,7 @@ const List  = (props)=>{ // 首页的列表块
         {
           list.map((item, index) => {
             return (
-              <div key={index + item.id}> 
+              <div key={index + item.publishTime}> 
               {
                 item.listType === 'talk' &&
                 <TalkItem  
