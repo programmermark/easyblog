@@ -72,13 +72,14 @@ class NovelController extends controller {
       idStr = idStr.substr(0, idStr.length - 1);
       const deleteChapterSql = 'DELETE FROM novel_chapter WHERE id IN (?)';
       const deleteChapterResult = await this.app.mysql.query(deleteChapterSql, idStr);
-      console.log(deleteChapterResult);
-      const deleteNovelSql = 'DELETE FROM novel WHERE id = ?';
-      const deleteNovelResult = await this.app.mysql.query(deleteNovelSql, novelId);
-      if (deleteNovelResult.affectedRows === 1) {
-        this.ctx.body = { success: true, message: '删除小说成功' };
-      } else {
-        this.ctx.body = { success: false, message: '删除小说失败' };
+      if (deleteChapterResult.affectedRows === 1) {
+        const deleteNovelSql = 'DELETE FROM novel WHERE id = ?';
+        const deleteNovelResult = await this.app.mysql.query(deleteNovelSql, novelId);
+        if (deleteNovelResult.affectedRows === 1) {
+          this.ctx.body = { success: true, message: '删除小说成功' };
+        } else {
+          this.ctx.body = { success: false, message: '删除小说失败' };
+        }
       }
     } else {
       const deleteNovelSql = 'DELETE FROM novel WHERE id = ?';

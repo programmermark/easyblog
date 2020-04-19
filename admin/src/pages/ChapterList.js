@@ -92,7 +92,7 @@ const ChapterList = (props)=>{
     const tmpId = props.match.params.id
     if(tmpId) {
       setNovelId(tmpId)    
-      setIsLoading(true)       
+      setIsLoading(false)       
       api({
         method: 'post',
         url: servicePath.getChapterList,
@@ -103,7 +103,6 @@ const ChapterList = (props)=>{
         }
       })
         .then(res=>{
-          setIsLoading(false)
           setTotal(res.total)
           setNovel(res.novel)
           setChapterList(res.list)

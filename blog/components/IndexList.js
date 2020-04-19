@@ -102,8 +102,6 @@ const List  = (props)=>{ // 首页的列表块
         type = item.type
       }
     })
-    console.log(tabs)
-    console.log(type)
     setCurrent(page)
     getTalkList(type, limit, page)
   }

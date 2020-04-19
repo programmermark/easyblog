@@ -22,7 +22,7 @@ const NovelList = (props)=>{
     } else {
       offset = (currentPage - 1) * pageSize
     }
-    setIsLoading(true)
+    setIsLoading(false)
     api({
       method: 'post',
       url: servicePath.getNovelList,
@@ -32,7 +32,6 @@ const NovelList = (props)=>{
       }
     })
       .then(res=>{
-        setIsLoading(false)
         setTotal(res.total)
         setNovelList(res.list)
       })

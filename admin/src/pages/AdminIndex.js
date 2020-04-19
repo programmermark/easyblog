@@ -39,7 +39,6 @@ function AdminIndex(props) {
   }
 
   const handleClickArticle = e => {
-    console.log(e.key)
     if(e.key === 'addArticle'){
       setMenu(['文章管理', '添加文章'])
       props.history.push('/index/addarticle')
@@ -50,7 +49,6 @@ function AdminIndex(props) {
   }
 
   const handleClickNovel = e => {
-    console.log(e.key)
     if(e.key === 'addNovel'){
       setMenu(['小说管理', '添加小说'])
       props.history.push('/index/addnovel')

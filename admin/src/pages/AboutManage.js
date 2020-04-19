@@ -42,7 +42,6 @@ const AboutManage = ()=>{
       url: servicePath.getAbout
     })
       .then(res=>{
-        console.log(res)
         setArticleDetail(res)
       })
   }

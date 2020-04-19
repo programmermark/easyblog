@@ -23,7 +23,6 @@ const UserSetting = ()=>{
   }
 
   const validateForm = (values)=>{
-    console.log(values)
     const dataProps = {
       id: localStorage.getItem('userId'),
       username: values.username,

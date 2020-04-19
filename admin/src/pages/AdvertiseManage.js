@@ -26,7 +26,6 @@ const AdvertiseManage = ()=>{
 
 
   const tooglePublish = (id, checked)=>{
-    console.log(id, checked)
     api({
       method: 'post',
       url: servicePath.updateAdvertiseIsShow,
@@ -40,7 +39,6 @@ const AdvertiseManage = ()=>{
       })
   }
   const delAdvertise = (id)=>{
-    console.log(id)
     confirm({
       title: '确定删除该广告吗？',
       content: '删除后数据将无法恢复',
