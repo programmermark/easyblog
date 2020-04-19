@@ -35,7 +35,7 @@ const NovelItem = (props)=>{
         <div className="item">
           <Icon isIconfont={true} type="icon-clock" />
           <span className="text">
-            { formatDate(novel.updateTime, true) }
+            { formatDate(novel.publishTime, true) }
           </span>
         </div>
         {

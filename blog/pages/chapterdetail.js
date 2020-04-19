@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import marked from 'marked'
 import Icon from '../components/Icon'
 import '../public/style/components/articledetailed.css'
@@ -8,7 +8,7 @@ import hljs from 'highlight.js'
 import 'highlight.js/styles/monokai-sublime.css'
 
 const ChapterDetaile = (props) => {
-  const article = props.article
+  const article = {}
   const renderer = new marked.Renderer()
   marked.setOptions({
     renderer: renderer,
@@ -23,6 +23,11 @@ const ChapterDetaile = (props) => {
       return hljs.highlightAuto(code).value;
     }
   })
+
+
+  useEffect(()=>{
+    console.log(props)
+  }, [])
 
   return (
     <div className="article-detailed">

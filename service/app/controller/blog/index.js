@@ -110,11 +110,11 @@ class IndexController extends controller {
   async getNovelList() {
     const request = this.ctx.request.body;
     const sql = `SELECT chapter.id as id, chapter.name as name, chapter.author as author,
-                chapter.summary as summary, chapter.updatetime as updateTime, 
+                chapter.summary as summary, chapter.updatetime as publishTime, 
                 novel.name as novelName, novel.id as novelId
                 FROM novel_chapter as chapter 
                 LEFT JOIN novel ON chapter.novel_id = novel.id 
-                ORDER BY chapter.updateTime DESC LIMIT ?,?`;
+                ORDER BY chapter.updatetime DESC LIMIT ?,?`;
     const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
     const countResult = await this.app.mysql.query('SELECT count(*) as total FROM novel_chapter');
     if (sqlResult.length > 0) {
