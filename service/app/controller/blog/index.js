@@ -116,7 +116,7 @@ class IndexController extends controller {
                 LEFT JOIN novel ON chapter.novel_id = novel.id 
                 ORDER BY chapter.updateTime DESC LIMIT ?,?`;
     const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
-    const countResult = await this.app.mysql.query('SELECT count(*) as total FROM chapter');
+    const countResult = await this.app.mysql.query('SELECT count(*) as total FROM novel_chapter');
     if (sqlResult.length > 0) {
       this.ctx.body = {
         success: true,
