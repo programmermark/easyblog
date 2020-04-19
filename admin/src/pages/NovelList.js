@@ -40,7 +40,7 @@ const NovelList = (props)=>{
   }
 
   const viewNovel = (id)=>{
-    props.history.push(`/index/addnovel/${id}`)
+    props.history.push(`/index/chapterlist/${id}`)
   }
 
   const editNovel = (id)=>{

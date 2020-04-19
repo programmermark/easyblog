@@ -114,6 +114,72 @@ class NovelController extends controller {
     }
   }
 
+  async getChapterById() {
+    const id = this.ctx.params.id;
+    const sql = 'SELECT * FROM novel_chapter WHERE id = ?';
+    const result = await this.app.mysql.query(sql, [ id ]);
+    if (result.length > 0) {
+      this.ctx.body = {
+        success: true,
+        data: result[0],
+      };
+    } else {
+      this.ctx.body = { success: false, message: '暂无数据' };
+    }
+  }
+
+  async addChapter() {
+    const request = this.ctx.request.body;
+    if (request.chapterId) {
+      const sql = `UPDATE novel_chapter SET novel_id = ?, name = ?, author = ?,
+                  content = ?, updatetime = ?, summary = ? WHERE id = ?`;
+      const params = [ request.novelId, request.name, request.author, request.content, request.updateTime, request.summary, request.chapterId ];
+      const result = await this.app.mysql.query(sql, params);
+      if (result.affectedRows === 1) {
+        this.ctx.body = {
+          success: true,
+          message: '更新章节成功',
+        };
+      } else {
+        this.ctx.body = {
+          success: false,
+          message: '更新章节失败',
+        };
+      }
+    } else {
+      const sql = `INSERT INTO novel_chapter(novel_id, name, author, content, 
+                  createtime, updatetime, summary) VALUES(?,?,?,?,?,?,?)`;
+      const params = [ request.novelId, request.name, request.author, request.content, request.updateTime, request.updateTime, request.summary ];
+      const result = await this.app.mysql.query(sql, params);
+      if (result.affectedRows === 1) {
+        this.ctx.body = {
+          success: true,
+          message: '新增章节成功',
+        };
+      } else {
+        this.ctx.body = {
+          success: false,
+          message: '新增章节失败',
+        };
+      }
+    }
+  }
+
+  async deleteChapterById() {
+    const id = this.ctx.params.id;
+    const sql = 'DELETE FROM novel_chapter WHERE id = ?';
+    const result = await this.app.mysql.query(sql, [ id ]);
+    if (result.affectedRows === 1) {
+      this.ctx.body = {
+        success: true,
+        message: '删除章节成功',
+      };
+    } else {
+      this.ctx.body = { success: false, message: '删除章节失败' };
+    }
+  }
+
+
 }
 
 module.exports = NovelController;

@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { List, Row, Col, Modal, Button, Pagination, message, Spin } from 'antd'
 import api from '../api/api'
 import { servicePath } from '../config/apiBaseUrl'
-import '../static/style/pages/novellist.css'
+import '../static/style/pages/chapterlist.css'
 import { formatTime } from '../static/js/tools'
 
 const { confirm } = Modal
 
-const NovelList = (props)=>{
+const ChapterList = (props)=>{
 
   const pageSize = 5
   const [ novelId, setNovelId ] = useState('')
   const [ currentPage, setCurrentPage ] = useState(1)
-  const [ novelList, setNovelList ] = useState([])
+  const [ novel, setNovel ] = useState({})
+  const [ chapterList, setChapterList ] = useState([])
   const [ total, setTotal ] = useState(0)
   const [ isLoading, setIsLoading ]  = useState(true)
 
@@ -34,19 +35,15 @@ const NovelList = (props)=>{
       }
     })
       .then(res=>{
-        console.log(res)
         setIsLoading(false)
         setTotal(res.total)
-        setNovelList(res.list)
+        setNovel(res.novel)
+        setChapterList(res.list)
       })
   }
 
-  const viewNovel = (id)=>{
-    props.history.push(`/index/addnovel/${id}`)
-  }
-
-  const editNovel = (id)=>{
-    props.history.push(`/index/addnovel/${id}`)
+  const editChapter = (id)=>{
+    props.history.push(`/index/chapterlist/${novelId}/addchapter/${id}`)
   }
 
   const delNovel = (id)=>{
@@ -61,7 +58,7 @@ const NovelList = (props)=>{
           url: servicePath.deleteNovelById + id
         })
           .then((res)=>{
-            const list  = JSON.parse(JSON.stringify(novelList))
+            const list  = JSON.parse(JSON.stringify(chapterList))
             let delIndex
             for (let i = 0; i < list.length; i++) {
               if (list[i].id === id){
@@ -70,7 +67,7 @@ const NovelList = (props)=>{
               }
             }
             list.splice(delIndex, 1)
-            setNovelList(list)
+            setChapterList(list)
             setTotal(total - 1)
           })
       },
@@ -89,8 +86,23 @@ const NovelList = (props)=>{
   useEffect(()=>{
     const tmpId = props.match.params.id
     if(tmpId) {
-      setNovelId(tmpId)
-      getChapterList()
+      setNovelId(tmpId)    
+      setIsLoading(true)       
+      api({
+        method: 'post',
+        url: servicePath.getChapterList,
+        data: {
+          id: tmpId,
+          limit: pageSize,
+          offset: (currentPage - 1) * pageSize
+        }
+      })
+        .then(res=>{
+          setIsLoading(false)
+          setTotal(res.total)
+          setNovel(res.novel)
+          setChapterList(res.list)
+        })
     }
   }, [])
 
@@ -101,29 +113,28 @@ const NovelList = (props)=>{
           header={
             <Row className="list-header">
               <Col span={2}><b>id</b></Col>
-              <Col span={4}><b>小说名</b></Col>
-              <Col span={3}><b>作者</b></Col>
-              <Col span={6}><b>封面图片</b></Col>
+              <Col span={2}><b>章节名</b></Col>
+              <Col span={2}><b>作者</b></Col>
+              <Col span={9}><b>章节梗概</b></Col>
               <Col span={3}><b>更新时间</b></Col>
               <Col span={6}><b>操作</b></Col>
             </Row>
           }
           bordered
-          dataSource={novelList}
+          dataSource={chapterList}
           renderItem={
             item => (
               <List.Item>
                 <Row className="list-item">
                   <Col span={2}>{item.id}</Col>
-                  <Col span={4}>{item.name}</Col>
-                  <Col span={3}>{item.author}</Col>
-                  <Col span={6}>
-                    <img className="cover-img" src={item.cover_img} />
+                  <Col span={2}>{item.name}</Col>
+                  <Col span={2}>{item.author}</Col>
+                  <Col span={9}>
+                    <div className='summary'>{item.summary}</div>
                   </Col>
                   <Col span={3}>{formatTime(item.updatetime * 1000, 'yyyy-MM-dd')}</Col>
                   <Col span={6}>
-                    <Button className="mg-right" type="primary" onClick={viewNovel.bind(this, item.id)}>查看</Button>
-                    <Button className="mg-right" type="primary" onClick={editNovel.bind(this, item.id)}>修改</Button>
+                    <Button className="mg-right" type="primary" onClick={editChapter.bind(this, item.id)}>修改</Button>
                     <Button onClick={delNovel.bind(this, item.id)}>删除</Button>
                   </Col>
                 </Row> 
@@ -146,4 +157,4 @@ const NovelList = (props)=>{
   )
 }
 
-export default NovelList
+export default ChapterList

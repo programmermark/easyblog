@@ -31,6 +31,10 @@ const servicePath = {
   getNovelById: baseUrl + '/novel/getNovelById/', // 小说接口：根据id获取小说
   getNovelList: baseUrl + '/novel/getNovelList', // 小说接口：获取小说列表
   deleteNovelById: baseUrl + '/novel/deleteNovelById/', // 小说接口：根据id删除小说
+  getChapterList: baseUrl + '/novel/getChapterList', // 小说接口：获取章节列表
+  getChapterById: baseUrl + '/novel/getChapterById/', // 小说接口：根据id获取章节详情
+  addChapter: baseUrl + '/novel/addChapter', // 小说接口：新增或者更新章节
+  deleteChapterById: baseUrl + '/novel/deleteChapterById/', // 小说接口：根据id获取删除章节
 }
 
 export {

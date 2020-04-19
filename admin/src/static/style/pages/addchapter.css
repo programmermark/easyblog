@@ -1,0 +1,36 @@
+.add-chapter {
+  
+}
+.add-chapter .form {
+  width: 50%;
+  padding: 2rem 2rem 1rem;
+  background-color: #f8f8f8;
+  border: 1px solid #f0f0f0;
+  border-radius: .25rem;
+}
+.add-chapter .form .form-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.add-chapter .form .form-item .title {
+  width: 5rem;
+  text-align: right;
+  margin-right: .5rem;
+}
+.add-chapter .form .form-item .content {
+  flex: 1;
+}
+.add-chapter .form .form-item .content .content {
+  min-height: 45vh;
+}
+.add-chapter .form .form-item .content .summary {
+  min-height: 5rem;
+}
+.add-chapter .form .form-item .submit {
+  margin-left: 5.5rem;
+  margin-top: .5rem;
+}
+.add-chapter .form .textarea {
+  align-items: initial;
+}

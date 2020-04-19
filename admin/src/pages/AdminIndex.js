@@ -11,6 +11,7 @@ import ArticleList from './ArticleList'
 import AddNovel from './AddNovel'
 import NovelList from './NovelList'
 import ChapterList from './ChapterList'
+import AddChapter from './AddChapter'
 import UserSetting from './UserSetting'
 import AdvertiseManage from './AdvertiseManage'
 import AboutManage from './AboutManage'
@@ -99,7 +100,7 @@ function AdminIndex(props) {
         setMenu(['工作台'])  
       break  
     }
-  }, [])
+  }, [props.location.pathname])
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -222,6 +223,10 @@ function AdminIndex(props) {
                   <Route path="/index/addnovel/:id" exact component={AddNovel} />
                   <Route path="/index/novellist" exact component={NovelList} />
                   <Route path="/index/chapterlist/:id" exact component={ChapterList} />
+                  <Route path="/index/chapterlist/:id/addchapter/:cid" exact component={AddChapter} />
+                  <Route path="/index/chapterlist/:id/addchapter" exact component={AddChapter} />
+                  <Route path="/index/addchapter" exact component={AddChapter} />
+                  <Route path="/index/addchapter/:id" exact component={AddChapter} />
                   <Route path="/index/usersetting" exact component={UserSetting} />
                   <Route path="/index/advertmanage" exact component={AdvertiseManage} />
                   <Route path="/index/aboutmanage" exact component={AboutManage} />

@@ -137,8 +137,7 @@ const AddNovel = (props)=>{
               <div className='item-title'>作者名称：</div>
               <Input 
                 className="item-content"
-                value={author} 
-                placeholder="请输入作者名称" />
+                value={author} />
             </div>
             <div className='form-item textarea-wrapper'>
               <div className='item-title'>小说简介：</div>
