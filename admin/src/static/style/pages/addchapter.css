@@ -1,8 +1,18 @@
 .add-chapter {
   
 }
+.add-chapter .noval-name {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: .25rem;
+  font-size: 1rem;
+  background-color: #f7f7f7;
+  color: #999999;
+}
+.add-chapter .noval-name .name {
+  color: #333333;
+}
 .add-chapter .form {
-  width: 50%;
   padding: 2rem 2rem 1rem;
   background-color: #f8f8f8;
   border: 1px solid #f0f0f0;
@@ -31,6 +41,44 @@
   margin-left: 5.5rem;
   margin-top: .5rem;
 }
+.add-chapter .form .form-item .preview {
+  margin-left: 1rem;
+  margin-top: .5rem;
+}
 .add-chapter .form .textarea {
   align-items: initial;
+}
+.add-chapter .preview-content {
+  margin: 0 2rem;
+  padding: 1.5rem;
+  border: 1px solid #dedede;
+}
+.add-chapter .preview-content .title {
+  color: #333333;
+  font-size: 1.4rem;
+  text-align: center;
+}
+.add-chapter .preview-content .sub-info {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding: 1rem 0;
+}
+.add-chapter .preview-content .sub-info .item {
+  font-size: 1rem;
+  color: #999999;
+  padding-right: 2rem;
+}
+.add-chapter .preview-content .sub-info .item .text {
+  font-size: .9rem;
+  margin-left: .5rem;
+}
+.add-chapter .preview-content .introduce-html {
+  margin: 1rem .8rem 1rem;
+  padding: .8rem 1.2rem .8rem;
+  background-color: #f3f3f3;
+  color: #787878;
+}
+.add-chapter .preview-content .content-html {
+  margin: 2rem .8rem 1rem;
 }

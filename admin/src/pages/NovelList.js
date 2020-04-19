@@ -32,7 +32,6 @@ const NovelList = (props)=>{
       }
     })
       .then(res=>{
-        console.log(res)
         setIsLoading(false)
         setTotal(res.total)
         setNovelList(res.list)

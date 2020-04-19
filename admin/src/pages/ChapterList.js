@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { List, Row, Col, Modal, Button, Pagination, message, Spin } from 'antd'
 import api from '../api/api'
 import { servicePath } from '../config/apiBaseUrl'
@@ -42,6 +43,10 @@ const ChapterList = (props)=>{
       })
   }
 
+  const addChapter = ()=>{
+    props.history.push(`/index/chapterlist/${novelId}/addchapter`)
+  }
+
   const editChapter = (id)=>{
     props.history.push(`/index/chapterlist/${novelId}/addchapter/${id}`)
   }
@@ -55,7 +60,7 @@ const ChapterList = (props)=>{
       onOk(){
         api({
           method: 'get',
-          url: servicePath.deleteNovelById + id
+          url: servicePath.deleteChapterById + id
         })
           .then((res)=>{
             const list  = JSON.parse(JSON.stringify(chapterList))
@@ -109,6 +114,14 @@ const ChapterList = (props)=>{
   return (
     <div className='novel-list'>
       <Spin spinning={isLoading} tip={'加载中...'}>
+        <div className='novel-head'>
+          <div className='noval-name'>
+            小说：<Link className='name' to={`/index/addnovel/${novelId}`}>{novel.name}</Link>
+          </div>
+          <div className='novel-head-right'>
+            <Button type='primary' onClick={addChapter}>新增章节</Button>
+          </div>
+        </div>
         <List 
           header={
             <Row className="list-header">

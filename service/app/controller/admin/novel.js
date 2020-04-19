@@ -62,7 +62,7 @@ class NovelController extends controller {
 
   async deleteNovelById() {
     const novelId = this.ctx.params.id;
-    const chapterSql = 'SELECT id FROM novel WHERE novel_id = ?';
+    const chapterSql = 'SELECT id FROM novel_chapter WHERE novel_id = ?';
     const chapterResult = await this.app.mysql.query(chapterSql, [ novelId ]);
     if (chapterResult.length > 0) {
       let idStr = '';

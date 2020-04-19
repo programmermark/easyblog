@@ -39,6 +39,7 @@ function AdminIndex(props) {
   }
 
   const handleClickArticle = e => {
+    console.log(e.key)
     if(e.key === 'addArticle'){
       setMenu(['文章管理', '添加文章'])
       props.history.push('/index/addarticle')
@@ -49,6 +50,7 @@ function AdminIndex(props) {
   }
 
   const handleClickNovel = e => {
+    console.log(e.key)
     if(e.key === 'addNovel'){
       setMenu(['小说管理', '添加小说'])
       props.history.push('/index/addnovel')
@@ -59,7 +61,6 @@ function AdminIndex(props) {
   }
 
   const handleClickUserSetting = (e)=>{
-    console.log(e.key)
     if (e.key === 'usersetting') {
       setMenu(['个人中心', '个人管理'])
       props.history.push('/index/usersetting')
@@ -86,6 +87,12 @@ function AdminIndex(props) {
         break;
       case '/index/articlelist':
         setMenu(['文章管理', '文章列表'])
+        break;
+      case '/index/addnovel':
+        setMenu(['小说管理', '添加小说'])
+        break;
+      case '/index/novellist':
+        setMenu(['小说管理', '小说列表'])
         break;
       case '/index/usersetting':
         setMenu(['个人中心', '个人管理'])
@@ -211,26 +218,26 @@ function AdminIndex(props) {
               }
           </Breadcrumb>
           <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-              <div>
-                  <Route path="/index" exact component={AddArticle} />
-                  <Route path="/index/addtalk" exact component={AddTalk} />
-                  <Route path="/index/addtalk/:id" exact component={AddTalk} />
-                  <Route path="/index/talklist" exact component={TalkList} />
-                  <Route path="/index/addarticle" exact component={AddArticle} />
-                  <Route path="/index/addarticle/:id" exact component={AddArticle} />
-                  <Route path="/index/articlelist" exact component={ArticleList} />
-                  <Route path="/index/addnovel" exact component={AddNovel} />
-                  <Route path="/index/addnovel/:id" exact component={AddNovel} />
-                  <Route path="/index/novellist" exact component={NovelList} />
-                  <Route path="/index/chapterlist/:id" exact component={ChapterList} />
-                  <Route path="/index/chapterlist/:id/addchapter/:cid" exact component={AddChapter} />
-                  <Route path="/index/chapterlist/:id/addchapter" exact component={AddChapter} />
-                  <Route path="/index/addchapter" exact component={AddChapter} />
-                  <Route path="/index/addchapter/:id" exact component={AddChapter} />
-                  <Route path="/index/usersetting" exact component={UserSetting} />
-                  <Route path="/index/advertmanage" exact component={AdvertiseManage} />
-                  <Route path="/index/aboutmanage" exact component={AboutManage} />
-              </div>
+            <div>
+              <Route path="/index" exact component={AddArticle} />
+              <Route path="/index/addtalk" exact component={AddTalk} />
+              <Route path="/index/addtalk/:id" exact component={AddTalk} />
+              <Route path="/index/talklist" exact component={TalkList} />
+              <Route path="/index/addarticle" exact component={AddArticle} />
+              <Route path="/index/addarticle/:id" exact component={AddArticle} />
+              <Route path="/index/articlelist" exact component={ArticleList} />
+              <Route path="/index/addnovel" exact component={AddNovel} />
+              <Route path="/index/addnovel/:id" exact component={AddNovel} />
+              <Route path="/index/novellist" exact component={NovelList} />
+              <Route path="/index/chapterlist/:id" exact component={ChapterList} />
+              <Route path="/index/chapterlist/:id/addchapter/:cid" exact component={AddChapter} />
+              <Route path="/index/chapterlist/:id/addchapter" exact component={AddChapter} />
+              <Route path="/index/addchapter" exact component={AddChapter} />
+              <Route path="/index/addchapter/:id" exact component={AddChapter} />
+              <Route path="/index/usersetting" exact component={UserSetting} />
+              <Route path="/index/advertmanage" exact component={AdvertiseManage} />
+              <Route path="/index/aboutmanage" exact component={AboutManage} />
+            </div>
           </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}> immortalboy.cn </Footer>
