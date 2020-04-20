@@ -124,7 +124,7 @@ const AddArticle = (props)=>{
   }
 
   const validateData = ()=>{ // 校验各个数据项是否为空
-    if(!addedType){
+    if(!title){
         message.error('文章标题不能为空')
         return false
     } else if(!content){
