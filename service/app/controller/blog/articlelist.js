@@ -44,7 +44,7 @@ class ArticleListController extends controller {
                   AND article_type.name = ?`;
       countResult = await this.app.mysql.query(countSql, request.type);
     }
-    if (request) {
+    if (result.length > 0) {
       this.ctx.body = {
         success: true,
         data: {

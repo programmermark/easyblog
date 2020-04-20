@@ -20,4 +20,5 @@ module.exports = app => {
   router.post('/blog/index/getNovelList', controller.blog.index.getNovelList);
   router.get('/blog/novel/getChapterById/:id', controller.blog.novel.getChapterById);
   router.get('/blog/novel/getNovelById/:id', controller.blog.novel.getNovelById);
+  router.post('/blog/index/getIndexListApp', controller.blog.index.getIndexListApp);
 };

@@ -147,6 +147,44 @@ class IndexController extends controller {
     }
   }
 
+  async getIndexListApp() {
+    const request = this.ctx.request.body;
+    const chapterCountResult = await this.app.mysql.query('SELECT count(*) AS total FROM novel_chapter');
+    const articleCountResult = await this.app.mysql.query('SELECT count(*) AS total FROM articler');
+    const chapterSql = 'SELECT id AS chapterId, updatetime AS updateTime FROM novel_chapter';
+    const articleSql = 'SELECT id AS articleId, publish_time AS updateTime FROM articler';
+    const chapterList = await this.app.mysql.query(chapterSql);
+    const articleList = await this.app.mysql.query(articleSql);
+    const total = chapterCountResult[0].total + articleCountResult[0].total;
+    const unionList = chapterList.concat(articleList);
+    unionList.sort((a, b) => {
+      return a.updateTime - b.updateTime;
+    });
+    unionList.slice(request.offset, request.offset + request.limit);
+    const articleIdList = [];
+    const chapterIdList = [];
+    unionList.forEach(item => {
+      if (item.articleId) {
+        articleIdList.push(item);
+      }
+      if (item.chapterId) {
+        chapterIdList.push(item);
+      }
+    });
+    const articleListSql = 'SELECT * FROM article in(?)';
+    const chapterListSql = 'SELECT * FROM novel_chapter in(?)';
+    const articleListResult = await this.app.mysql.query(articleListSql, [ articleIdList ]);
+    const chapterListResult = await this.app.mysql.query(chapterListSql, [ chapterIdList ]);
+    this.ctx.body = {
+      success: true,
+      data: {
+        total,
+        articleList: articleListResult,
+        chapterList: chapterListResult,
+      },
+    };
+  }
+
 }
 
 module.exports = IndexController;
