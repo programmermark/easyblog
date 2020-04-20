@@ -241,9 +241,9 @@ class IndexController extends controller {
       }
     } else if (request.type === 'all') {
       const chapterCountResult = await this.app.mysql.query(`SELECT count(*) AS total FROM novel_chapter WHERE name like '%${request.searchValue}%'`);
-      const articleCountResult = await this.app.mysql.query(`SELECT count(*) AS total FROM article where title like '%${request.searchValue}%'`);
-      const chapterSql = 'SELECT id AS chapterId, updatetime AS updateTime FROM novel_chapter';
-      const articleSql = 'SELECT id AS articleId, publish_time AS updateTime FROM article';
+      const articleCountResult = await this.app.mysql.query(`SELECT count(*) AS total FROM article WHERE title like '%${request.searchValue}%'`);
+      const chapterSql = `SELECT id AS chapterId, updatetime AS updateTime FROM novel_chapter WHERE name like '%${request.searchValue}%'`;
+      const articleSql = `SELECT id AS articleId, publish_time AS updateTime FROM article WHERE title like '%${request.searchValue}%'`;
       const chapterList = await this.app.mysql.query(chapterSql);
       const articleList = await this.app.mysql.query(articleSql);
       const total = chapterCountResult[0].total + articleCountResult[0].total;
