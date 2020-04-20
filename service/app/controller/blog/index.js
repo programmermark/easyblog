@@ -202,8 +202,8 @@ class IndexController extends controller {
       const sql = `SELECT id, title, author AS authorName, reprinted,
                   publish_time AS publishTime, is_publish AS isPublish,
                   introduce_img AS introduceImg, view_count AS viewCount
-                  FROM article where title like '%?%' LIMIT ?,?`;
-      const sqlResult = await this.app.mysql.query(sql, [ request.searchValue, request.offset, request.limit ]);
+                  FROM article where title like '%${request.searchValue}%' LIMIT ?,?`;
+      const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
       const countResult = await this.app.mysql.query('SELECT count(*) as total FROM article');
       if (sqlResult.length > 0) {
         for (const item of sqlResult) {
@@ -224,8 +224,8 @@ class IndexController extends controller {
                     chapter.view_count AS viewCount, chapter.updatetime AS publishTime 
                     FROM novel_chapter AS chapter
                     LEFT JOIN novel ON chapter.novel_id = novel.id
-                    WHERE chapter.name like '%?%' LIMIT ?,?`;
-      const sqlResult = await this.app.mysql.query(sql, [ request.searchValue, request.offset, request.limit ]);
+                    WHERE chapter.name like '%${request.searchValue}%' LIMIT ?,?`;
+      const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
       const countResult = await this.app.mysql.query('SELECT count(*) as total FROM novel_chapter');
       if (sqlResult.length > 0) {
         for (const item of sqlResult) {
