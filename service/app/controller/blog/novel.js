@@ -30,7 +30,7 @@ class ChapterController extends controller {
     const id = this.ctx.params.id;
     const sql = `SELECT id, name
                 FROM novel_chapter
-                WHERE novel_id = ? ORDER BY chapter.createtime ASC`;
+                WHERE novel_id = ? ORDER BY createtime ASC`;
     const result = await this.app.mysql.query(sql, [ id ]);
     if (result.length > 0) {
       this.ctx.body = {
