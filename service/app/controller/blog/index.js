@@ -215,7 +215,8 @@ class IndexController extends controller {
             total: countResult.length > 0 ? countResult[0].total : 0,
             list: sqlResult,
           },
-        };            
+        };
+      }
     } else if (request.type === 'novel') {
       const sql = `SELECT chapter.id as id, novel.id as novelId,
                     novel.name AS novelName, chapter.name as name, 
@@ -236,7 +237,8 @@ class IndexController extends controller {
             total: countResult.length > 0 ? countResult[0].total : 0,
             list: sqlResult,
           },
-        };                          
+        };
+      }
     } else if (request.type === 'all') {
       const chapterCountResult = await this.app.mysql.query(`SELECT count(*) AS total FROM novel_chapter WHERE name like '%${request.searchValue}%'`);
       const articleCountResult = await this.app.mysql.query(`SELECT count(*) AS total FROM article where title like '%${request.searchValue}%'`);
