@@ -174,7 +174,7 @@ class IndexController extends controller {
     articleIdStr = articleIdStr.substr(0, articleIdStr.length - 1);
     chapterIdStr = chapterIdStr.substr(0, chapterIdStr.length - 1);
     const articleListSql = `SELECT id, title, author AS authorName, reprinted,
-                            publish_time AS publishTime, is_publish AS isPublish,
+                            FROM_UNIXTIME(publish_time, '%Y-%m-%d %H:%i:%s') AS publishTime, is_publish AS isPublish,
                             introduce_img AS introduceImg, view_count AS viewCount
                             FROM article WHERE id in(${articleIdStr})`;
     const chapterListSql = `SELECT chapter.id as id, novel.id as novelId,
@@ -278,7 +278,7 @@ class IndexController extends controller {
       let chapterListResult = [];
       if (articleIdStr.length > 0) {
         const articleListSql = `SELECT id, title, author AS authorName, reprinted,
-                            publish_time AS publishTime, is_publish AS isPublish,
+                            FROM_UNIXTIME(publish_time, '%Y-%m-%d %H:%i:%s') AS publishTime, is_publish AS isPublish,
                             introduce_img AS introduceImg, view_count AS viewCount
                             FROM article WHERE id in(${articleIdStr})`;
         articleListResult = await this.app.mysql.query(articleListSql);
