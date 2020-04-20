@@ -173,10 +173,10 @@ class IndexController extends controller {
     });
     articleIdStr = articleIdStr.substr(0, articleIdStr.length - 1);
     chapterIdStr = chapterIdStr.substr(0, chapterIdStr.length - 1);
-    const articleListSql = 'SELECT * FROM article in(?)';
-    const chapterListSql = 'SELECT * FROM novel_chapter in(?)';
-    const articleListResult = await this.app.mysql.query(articleListSql, [ articleIdStr ]);
-    const chapterListResult = await this.app.mysql.query(chapterListSql, [ chapterIdStr ]);
+    const articleListSql = `SELECT * FROM article in(${articleIdStr})`;
+    const chapterListSql = `SELECT * FROM novel_chapter in(${chapterIdStr})`;
+    const articleListResult = await this.app.mysql.query(articleListSql);
+    const chapterListResult = await this.app.mysql.query(chapterListSql);
     this.ctx.body = {
       success: true,
       data: {
