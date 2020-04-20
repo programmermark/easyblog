@@ -196,6 +196,102 @@ class IndexController extends controller {
     };
   }
 
+  async getSearchList() {
+    const request = this.ctx.request.body;
+    if (request.type === 'article') {
+      const sql = `SELECT id, title, author AS authorName, reprinted,
+                  publish_time AS publishTime, is_publish AS isPublish,
+                  introduce_img AS introduceImg, view_count AS viewCount
+                  FROM article where title like '%?%' LIMIT ?,?`;
+      const sqlResult = await this.app.mysql.query(sql, [ request.searchValue, request.offset, request.limit ]);
+      const countResult = await this.app.mysql.query('SELECT count(*) as total FROM article');
+      if (sqlResult.length > 0) {
+        for (const item of sqlResult) {
+          item.listType = 'article';
+        }
+        this.ctx.body = {
+          success: true,
+          data: {
+            total: countResult.length > 0 ? countResult[0].total : 0,
+            list: sqlResult,
+          },
+        };            
+    } else if (request.type === 'novel') {
+      const sql = `SELECT chapter.id as id, novel.id as novelId,
+                    novel.name AS novelName, chapter.name as name, 
+                    chapter.author AS author,chapter.summary as summary, 
+                    chapter.view_count AS viewCount, chapter.updatetime AS publishTime 
+                    FROM novel_chapter AS chapter
+                    LEFT JOIN novel ON chapter.novel_id = novel.id
+                    WHERE chapter.name like '%?%' LIMIT ?,?`;
+      const sqlResult = await this.app.mysql.query(sql, [ request.searchValue, request.offset, request.limit ]);
+      const countResult = await this.app.mysql.query('SELECT count(*) as total FROM novel_chapter');
+      if (sqlResult.length > 0) {
+        for (const item of sqlResult) {
+          item.listType = 'novel';
+        }
+        this.ctx.body = {
+          success: true,
+          data: {
+            total: countResult.length > 0 ? countResult[0].total : 0,
+            list: sqlResult,
+          },
+        };                          
+    } else if (request.type === 'all') {
+      const chapterCountResult = await this.app.mysql.query(`SELECT count(*) AS total FROM novel_chapter WHERE name like '%${request.searchValue}%'`);
+      const articleCountResult = await this.app.mysql.query(`SELECT count(*) AS total FROM article where title like '%${request.searchValue}%'`);
+      const chapterSql = 'SELECT id AS chapterId, updatetime AS updateTime FROM novel_chapter';
+      const articleSql = 'SELECT id AS articleId, publish_time AS updateTime FROM article';
+      const chapterList = await this.app.mysql.query(chapterSql);
+      const articleList = await this.app.mysql.query(articleSql);
+      const total = chapterCountResult[0].total + articleCountResult[0].total;
+      const unionList = chapterList.concat(articleList);
+      unionList.sort((a, b) => {
+        return a.updateTime - b.updateTime;
+      });
+      unionList.slice(request.offset, request.offset + request.limit);
+      let articleIdStr = '';
+      let chapterIdStr = '';
+      unionList.forEach(item => {
+        if (item.articleId) {
+          articleIdStr += item.articleId + ',';
+        }
+        if (item.chapterId) {
+          chapterIdStr += item.chapterId + ',';
+        }
+      });
+      articleIdStr = articleIdStr.substr(0, articleIdStr.length - 1);
+      chapterIdStr = chapterIdStr.substr(0, chapterIdStr.length - 1);
+      const articleListSql = `SELECT id, title, author AS authorName, reprinted,
+                            publish_time AS publishTime, is_publish AS isPublish,
+                            introduce_img AS introduceImg, view_count AS viewCount
+                            FROM article WHERE id in(${articleIdStr})`;
+      const chapterListSql = `SELECT chapter.id as id, novel.id as novelId,
+                            novel.name AS novelName, chapter.name as name, 
+                            chapter.author AS author,chapter.summary as summary, 
+                            chapter.view_count AS viewCount, chapter.updatetime AS publishTime 
+                            FROM novel_chapter AS chapter
+                            LEFT JOIN novel ON chapter.novel_id = novel.id
+                            WHERE chapter.id in(${chapterIdStr})`;
+      const articleListResult = await this.app.mysql.query(articleListSql);
+      const chapterListResult = await this.app.mysql.query(chapterListSql);
+      for (const item of articleListResult) {
+        item.listType = 'article';
+      }
+      for (const item of chapterListResult) {
+        item.listType = 'novel';
+      }
+      this.ctx.body = {
+        success: true,
+        data: {
+          total,
+          articleList: articleListResult,
+          chapterList: chapterListResult,
+        },
+      };
+    }
+  }
+
 }
 
 module.exports = IndexController;
