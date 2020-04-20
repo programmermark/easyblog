@@ -150,9 +150,9 @@ class IndexController extends controller {
   async getIndexListApp() {
     const request = this.ctx.request.body;
     const chapterCountResult = await this.app.mysql.query('SELECT count(*) AS total FROM novel_chapter');
-    const articleCountResult = await this.app.mysql.query('SELECT count(*) AS total FROM articler');
+    const articleCountResult = await this.app.mysql.query('SELECT count(*) AS total FROM article');
     const chapterSql = 'SELECT id AS chapterId, updatetime AS updateTime FROM novel_chapter';
-    const articleSql = 'SELECT id AS articleId, publish_time AS updateTime FROM articler';
+    const articleSql = 'SELECT id AS articleId, publish_time AS updateTime FROM article';
     const chapterList = await this.app.mysql.query(chapterSql);
     const articleList = await this.app.mysql.query(articleSql);
     const total = chapterCountResult[0].total + articleCountResult[0].total;
