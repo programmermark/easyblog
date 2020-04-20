@@ -216,6 +216,11 @@ class IndexController extends controller {
             list: sqlResult,
           },
         };
+      } else {
+        this.ctx.body = {
+          success: false,
+          message: '暂无数据',
+        };
       }
     } else if (request.type === 'novel') {
       const sql = `SELECT chapter.id as id, novel.id as novelId,
@@ -237,6 +242,11 @@ class IndexController extends controller {
             total: countResult.length > 0 ? countResult[0].total : 0,
             list: sqlResult,
           },
+        };
+      } else {
+        this.ctx.body = {
+          success: false,
+          message: '暂无数据',
         };
       }
     } else if (request.type === 'all') {
@@ -262,26 +272,32 @@ class IndexController extends controller {
           chapterIdStr += item.chapterId + ',';
         }
       });
-      articleIdStr = articleIdStr.substr(0, articleIdStr.length - 1);
-      chapterIdStr = chapterIdStr.substr(0, chapterIdStr.length - 1);
-      const articleListSql = `SELECT id, title, author AS authorName, reprinted,
+      articleIdStr = articleIdStr.length > 0 && articleIdStr.substr(0, articleIdStr.length - 1);
+      chapterIdStr = chapterIdStr.length > 0 && chapterIdStr.substr(0, chapterIdStr.length - 1);
+      let articleListResult = [];
+      let chapterListResult = [];
+      if (articleIdStr.length > 0) {
+        const articleListSql = `SELECT id, title, author AS authorName, reprinted,
                             publish_time AS publishTime, is_publish AS isPublish,
                             introduce_img AS introduceImg, view_count AS viewCount
                             FROM article WHERE id in(${articleIdStr})`;
-      const chapterListSql = `SELECT chapter.id as id, novel.id as novelId,
+        articleListResult = await this.app.mysql.query(articleListSql);
+        for (const item of articleListResult) {
+          item.listType = 'article';
+        }
+      }
+      if (chapterIdStr.length > 0) {
+        const chapterListSql = `SELECT chapter.id as id, novel.id as novelId,
                             novel.name AS novelName, chapter.name as name, 
                             chapter.author AS author,chapter.summary as summary, 
                             chapter.view_count AS viewCount, chapter.updatetime AS publishTime 
                             FROM novel_chapter AS chapter
                             LEFT JOIN novel ON chapter.novel_id = novel.id
                             WHERE chapter.id in(${chapterIdStr})`;
-      const articleListResult = await this.app.mysql.query(articleListSql);
-      const chapterListResult = await this.app.mysql.query(chapterListSql);
-      for (const item of articleListResult) {
-        item.listType = 'article';
-      }
-      for (const item of chapterListResult) {
-        item.listType = 'novel';
+        chapterListResult = await this.app.mysql.query(chapterListSql);
+        for (const item of chapterListResult) {
+          item.listType = 'novel';
+        }
       }
       this.ctx.body = {
         success: true,
