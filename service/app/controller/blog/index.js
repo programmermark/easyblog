@@ -161,20 +161,22 @@ class IndexController extends controller {
       return a.updateTime - b.updateTime;
     });
     unionList.slice(request.offset, request.offset + request.limit);
-    const articleIdList = [];
-    const chapterIdList = [];
+    let articleIdStr = '';
+    let chapterIdStr = '';
     unionList.forEach(item => {
       if (item.articleId) {
-        articleIdList.push(item);
+        articleIdStr += item.articleId + ',';
       }
       if (item.chapterId) {
-        chapterIdList.push(item);
+        chapterIdStr += item.chapterId + ',';
       }
     });
+    articleIdStr = articleIdStr.substr(0, articleIdStr.length - 1);
+    chapterIdStr = chapterIdStr.substr(0, chapterIdStr.length - 1);
     const articleListSql = 'SELECT * FROM article in(?)';
     const chapterListSql = 'SELECT * FROM novel_chapter in(?)';
-    const articleListResult = await this.app.mysql.query(articleListSql, [ articleIdList ]);
-    const chapterListResult = await this.app.mysql.query(chapterListSql, [ chapterIdList ]);
+    const articleListResult = await this.app.mysql.query(articleListSql, [ articleIdStr ]);
+    const chapterListResult = await this.app.mysql.query(chapterListSql, [ chapterIdStr ]);
     this.ctx.body = {
       success: true,
       data: {
