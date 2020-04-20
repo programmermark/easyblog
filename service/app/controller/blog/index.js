@@ -173,8 +173,17 @@ class IndexController extends controller {
     });
     articleIdStr = articleIdStr.substr(0, articleIdStr.length - 1);
     chapterIdStr = chapterIdStr.substr(0, chapterIdStr.length - 1);
-    const articleListSql = `SELECT * FROM article WHERE id in(${articleIdStr})`;
-    const chapterListSql = `SELECT * FROM novel_chapter WHERE id in(${chapterIdStr})`;
+    const articleListSql = `SELECT id, title, author AS authorName, reprinted,
+                            publish_time AS publishTime, is_publish AS isPublish,
+                            introduce_img AS introduceImg, view_count AS viewCount
+                            FROM article WHERE id in(${articleIdStr})`;
+    const chapterListSql = `SELECT chapter.id as id, novel.id as novelId,
+                            novel.name AS novelName, chapter.name as name, 
+                            chapter.author AS author,chapter.summary as summary, 
+                            chapter.view_count AS viewCount, chapter.updatetime AS publishTime 
+                            FROM novel_chapter AS chapter
+                            LEFT JOIN novel ON chapter.novel_id = novel.id
+                            WHERE id in(${chapterIdStr})`;
     const articleListResult = await this.app.mysql.query(articleListSql);
     const chapterListResult = await this.app.mysql.query(chapterListSql);
     this.ctx.body = {
