@@ -111,7 +111,7 @@ class IndexController extends controller {
     const request = this.ctx.request.body;
     const sql = `SELECT chapter.id as id, chapter.name as name, chapter.author as author,
                 chapter.summary as summary, chapter.updatetime as publishTime, 
-                novel.name as novelName, novel.id as novelId
+                chapter.view_count as viewCount, novel.name as novelName, novel.id as novelId
                 FROM novel_chapter as chapter 
                 LEFT JOIN novel ON chapter.novel_id = novel.id 
                 ORDER BY chapter.updatetime DESC LIMIT ?,?`;
