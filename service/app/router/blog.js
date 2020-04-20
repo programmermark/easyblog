@@ -20,7 +20,7 @@ module.exports = app => {
   router.post('/blog/index/getNovelList', controller.blog.index.getNovelList);
   router.get('/blog/novel/getChapterById/:id', controller.blog.novel.getChapterById);
   router.get('/blog/novel/getNovelById/:id', controller.blog.novel.getNovelById);
-  router.get('/blog/novel/getNovelByIdApp/:id', controller.blog.novel.getNovelByIdApp);
+  router.get('/blog/novel/getChapterListById/:id', controller.blog.novel.getChapterListById);
   router.post('/blog/index/getIndexListApp', controller.blog.index.getIndexListApp);
   router.post('/blog/index/getSearchList', controller.blog.index.getSearchList);
 };

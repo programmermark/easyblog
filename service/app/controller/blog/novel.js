@@ -13,7 +13,6 @@ class ChapterController extends controller {
                 RIGHT JOIN novel ON chapter.novel_id = novel.id
                 WHERE chapter.novel_id = ? ORDER BY chapter.createtime ASC`;
     const result = await this.app.mysql.query(sql, [ id ]);
-    console.log(result);
     if (result.length > 0) {
       this.ctx.body = {
         success: true,
@@ -27,13 +26,12 @@ class ChapterController extends controller {
     }
   }
 
-  async getNovelByIdApp() {
+  async getChapterListById() {
     const id = this.ctx.params.id;
     const sql = `SELECT id, name
-                FROM novel_chapter as chapter 
-                WHERE chapter.novel_id = ? ORDER BY chapter.createtime ASC`;
+                FROM novel_chapter
+                WHERE novel_id = ? ORDER BY chapter.createtime ASC`;
     const result = await this.app.mysql.query(sql, [ id ]);
-    console.log(result);
     if (result.length > 0) {
       this.ctx.body = {
         success: true,
@@ -42,7 +40,7 @@ class ChapterController extends controller {
     } else {
       this.ctx.body = {
         success: false,
-        message: '获取小说详情失败',
+        message: '获取小说列表失败',
       };
     }
   }
