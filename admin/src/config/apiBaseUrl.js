@@ -1,5 +1,5 @@
-const serverUrl = 'http://immortalboy.cn:8001'
-const baseUrl = 'http://immortalboy.cn:8001/api/admin'
+const serverUrl = 'https://immortalboy.cn'
+const baseUrl = 'https://immortalboy.cn/api/admin'
 
 const servicePath = {
   checkRegister: baseUrl + '/checkRegister', // 用户注册接口
