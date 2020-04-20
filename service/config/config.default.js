@@ -47,7 +47,7 @@ module.exports = appInfo => {
     csrf: {
       enable: false,
     },
-    domainWhiteList: [ 'http://localhost:9000', 'http://localhost:3000', 'http://immortalboy.cn', 'http://admin.immortalboy.cn' ],
+    domainWhiteList: [ 'http://localhost:9000', 'http://localhost:3000', 'http://immortalboy.cn', 'http://admin.immortalboy.cn', 'https://immortalboy.cn', 'https://admin.immortalboy.cn' ],
   };
   config.cors = {
     // origin: '*', // 注释掉则允许白名单的域名访问
