@@ -176,7 +176,7 @@ class IndexController extends controller {
     console.log(chapterIdStr);
     let articleListResult = [];
     let chapterListResult = [];
-    if (articleIdStr.lengt > 0) {
+    if (articleIdStr.length > 0) {
       articleIdStr = articleIdStr.substr(0, articleIdStr.length - 1);
       const articleListSql = `SELECT id, title, author AS authorName, reprinted,
                               FROM_UNIXTIME(publish_time, '%Y-%m-%d %H:%i:%s') AS publishTime, is_publish AS isPublish,
