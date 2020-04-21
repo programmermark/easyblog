@@ -183,6 +183,8 @@ class IndexController extends controller {
                               introduce_img AS introduceImg, view_count AS viewCount
                               FROM article WHERE id in(${articleIdStr})`;
       articleListResult = await this.app.mysql.query(articleListSql);
+      console.log(articleListSql);
+      console.log(articleListResult);
     }
     if (chapterIdStr.length > 0) {
       chapterIdStr = chapterIdStr.substr(0, chapterIdStr.length - 1);
@@ -194,6 +196,7 @@ class IndexController extends controller {
                               LEFT JOIN novel ON chapter.novel_id = novel.id
                               WHERE chapter.id in(${chapterIdStr})`;
       chapterListResult = await this.app.mysql.query(chapterListSql);
+      console.log(chapterListResult);
     }
     this.ctx.body = {
       success: true,
