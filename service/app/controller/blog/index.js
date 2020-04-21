@@ -171,21 +171,27 @@ class IndexController extends controller {
         chapterIdStr += item.chapterId + ',';
       }
     });
-    articleIdStr = articleIdStr.substr(0, articleIdStr.length - 1);
-    chapterIdStr = chapterIdStr.substr(0, chapterIdStr.length - 1);
-    const articleListSql = `SELECT id, title, author AS authorName, reprinted,
-                            FROM_UNIXTIME(publish_time, '%Y-%m-%d %H:%i:%s') AS publishTime, is_publish AS isPublish,
-                            introduce_img AS introduceImg, view_count AS viewCount
-                            FROM article WHERE id in(${articleIdStr})`;
-    const chapterListSql = `SELECT chapter.id as id, novel.id as novelId,
-                            novel.name AS novelName, chapter.name as name, 
-                            chapter.author AS author,chapter.summary as summary, 
-                            chapter.view_count AS viewCount, chapter.updatetime AS publishTime 
-                            FROM novel_chapter AS chapter
-                            LEFT JOIN novel ON chapter.novel_id = novel.id
-                            WHERE chapter.id in(${chapterIdStr})`;
-    const articleListResult = await this.app.mysql.query(articleListSql);
-    const chapterListResult = await this.app.mysql.query(chapterListSql);
+    let articleListResult = [];
+    let chapterListResult = [];
+    if (articleIdStr.lengt > 0) {
+      articleIdStr = articleIdStr.substr(0, articleIdStr.length - 1);
+      const articleListSql = `SELECT id, title, author AS authorName, reprinted,
+                              FROM_UNIXTIME(publish_time, '%Y-%m-%d %H:%i:%s') AS publishTime, is_publish AS isPublish,
+                              introduce_img AS introduceImg, view_count AS viewCount
+                              FROM article WHERE id in(${articleIdStr})`;
+      articleListResult = await this.app.mysql.query(articleListSql);
+    }
+    if (chapterIdStr.length > 0) {
+      chapterIdStr = chapterIdStr.substr(0, chapterIdStr.length - 1);
+      const chapterListSql = `SELECT chapter.id as id, novel.id as novelId,
+                              novel.name AS novelName, chapter.name as name, 
+                              chapter.author AS author,chapter.summary as summary, 
+                              chapter.view_count AS viewCount, chapter.updatetime AS publishTime 
+                              FROM novel_chapter AS chapter
+                              LEFT JOIN novel ON chapter.novel_id = novel.id
+                              WHERE chapter.id in(${chapterIdStr})`;
+      chapterListResult = await this.app.mysql.query(chapterListSql);
+    }
     this.ctx.body = {
       success: true,
       data: {
