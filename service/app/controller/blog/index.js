@@ -171,6 +171,9 @@ class IndexController extends controller {
         chapterIdStr += item.chapterId + ',';
       }
     });
+    console.log(unionList);
+    console.log(articleIdStr);
+    console.log(chapterIdStr);
     let articleListResult = [];
     let chapterListResult = [];
     if (articleIdStr.lengt > 0) {
