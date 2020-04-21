@@ -131,7 +131,7 @@ class IndexController extends controller {
     } else {
       this.ctx.body = {
         success: false,
-        data: '没有相关数据',
+        message: '没有相关数据',
       };
     }
   }
