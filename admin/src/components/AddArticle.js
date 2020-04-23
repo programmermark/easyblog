@@ -59,7 +59,7 @@ const AddArticle = (props)=>{
   } 
 
   const changeAddedType = (e)=>{
-    addedType(e.target.value.trim())
+    setAddedType(e.target.value.trim())
   }
 
   const addType = ()=>{
@@ -72,7 +72,7 @@ const AddArticle = (props)=>{
         }
       }
       if (hasSameName) {
-        addedType('')
+        setAddedType('')
         message.warning('已存在该类别', 2)
       } else {
         axios({
@@ -87,7 +87,7 @@ const AddArticle = (props)=>{
             const result = res.data
             if (result.success) {
               setTypes(result.data)
-              addedType('')
+              setAddedType('')
             } else {
               message.error(result.message, 1)
             }
@@ -282,6 +282,7 @@ const AddArticle = (props)=>{
                 className="textarea" 
                 placeholder="请输入文章内容"
                 allowClear  
+                autoSize
                 value={content}
                 onChange={changeContent}
                />

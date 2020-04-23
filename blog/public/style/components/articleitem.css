@@ -77,6 +77,8 @@ code {
   margin: 0px 3px;
   width: calc(100% - 10px);
   box-sizing: border-box;
+  white-space: normal;
+  word-break: break-all;
 }
 
 .introduce img{
