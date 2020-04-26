@@ -82,7 +82,7 @@ class IndexController extends controller {
     const result = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
     const countResult = await this.app.mysql.query('SELECT count(*) as total FROM talk');
     if (result.length > 0) {
-      const commentsql = 'SELECT count(*) as count FROM visitor_comment as comment WHERE comment.talk_id = ? ORDER BY visitor_comment.publish_time DESC';
+      const commentsql = 'SELECT count(*) as count FROM visitor_comment as comment WHERE comment.talk_id = ?';
       for (const item of result) {
         item.listType = 'talk';
         const commentCountResult = await this.app.mysql.query(commentsql, [ item.id ]);
@@ -183,7 +183,7 @@ class IndexController extends controller {
       const articleListSql = `SELECT id, title, author AS authorName, reprinted,
                               FROM_UNIXTIME(publish_time, '%Y-%m-%d %H:%i:%s') AS publishTime, is_publish AS isPublish,
                               introduce_img AS introduceImg, view_count AS viewCount
-                              FROM article WHERE id in(${articleIdStr})`;
+                              FROM article WHERE id in(${articleIdStr}) AND is_publish = 1 ORDER BY publish_time DESC`;
       articleListResult = await this.app.mysql.query(articleListSql);
     }
     if (chapterIdStr.length > 0) {
@@ -194,7 +194,7 @@ class IndexController extends controller {
                               chapter.view_count AS viewCount, chapter.updatetime AS publishTime 
                               FROM novel_chapter AS chapter
                               LEFT JOIN novel ON chapter.novel_id = novel.id
-                              WHERE chapter.id in(${chapterIdStr})`;
+                              WHERE chapter.id in(${chapterIdStr})  ORDER BY updatetime DESC`;
       chapterListResult = await this.app.mysql.query(chapterListSql);
     }
     this.ctx.body = {
@@ -213,7 +213,7 @@ class IndexController extends controller {
       const sql = `SELECT id, title, author AS authorName, reprinted,
                   publish_time AS publishTime, is_publish AS isPublish,
                   introduce_img AS introduceImg, view_count AS viewCount
-                  FROM article where title like '%${request.searchValue}%' LIMIT ?,?`;
+                  FROM article where title like '%${request.searchValue}%' AND is_publish = 1 ORDER BY publish_time DESC  LIMIT ?,?`;
       const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
       const countResult = await this.app.mysql.query('SELECT count(*) as total FROM article');
       if (sqlResult.length > 0) {
@@ -240,7 +240,7 @@ class IndexController extends controller {
                     chapter.view_count AS viewCount, chapter.updatetime AS publishTime 
                     FROM novel_chapter AS chapter
                     LEFT JOIN novel ON chapter.novel_id = novel.id
-                    WHERE chapter.name like '%${request.searchValue}%' LIMIT ?,?`;
+                    WHERE chapter.name like '%${request.searchValue}%' ORDER BY updatetime DESC LIMIT ?,?`;
       const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
       const countResult = await this.app.mysql.query('SELECT count(*) as total FROM novel_chapter');
       if (sqlResult.length > 0) {
@@ -291,7 +291,7 @@ class IndexController extends controller {
         const articleListSql = `SELECT id, title, author AS authorName, reprinted,
                             FROM_UNIXTIME(publish_time, '%Y-%m-%d %H:%i:%s') AS publishTime, is_publish AS isPublish,
                             introduce_img AS introduceImg, view_count AS viewCount
-                            FROM article WHERE id in(${articleIdStr})`;
+                            FROM article WHERE id in(${articleIdStr})  AND is_publish = 1 ORDER BY publish_time DESC `;
         articleListResult = await this.app.mysql.query(articleListSql);
         for (const item of articleListResult) {
           item.listType = 'article';
@@ -304,7 +304,7 @@ class IndexController extends controller {
                             chapter.view_count AS viewCount, chapter.updatetime AS publishTime 
                             FROM novel_chapter AS chapter
                             LEFT JOIN novel ON chapter.novel_id = novel.id
-                            WHERE chapter.id in(${chapterIdStr})`;
+                            WHERE chapter.id in(${chapterIdStr}) ORDER BY updatetime DESC`;
         chapterListResult = await this.app.mysql.query(chapterListSql);
         for (const item of chapterListResult) {
           item.listType = 'novel';
