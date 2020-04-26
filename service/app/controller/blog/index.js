@@ -161,50 +161,57 @@ class IndexController extends controller {
     const chapterList = await this.app.mysql.query(chapterSql);
     const articleList = await this.app.mysql.query(articleSql);
     const total = chapterCountResult[0].total + articleCountResult[0].total;
-    const unionList = chapterList.concat(articleList);
-    unionList.sort((a, b) => {
-      return a.updateTime - b.updateTime;
-    });
-    unionList.slice(request.offset, request.offset + request.limit);
-    let articleIdStr = '';
-    let chapterIdStr = '';
-    unionList.forEach(item => {
-      if (item.articleId) {
-        articleIdStr += item.articleId + ',';
-      }
-      if (item.chapterId) {
-        chapterIdStr += item.chapterId + ',';
-      }
-    });
-    let articleListResult = [];
-    let chapterListResult = [];
-    if (articleIdStr.length > 0) {
-      articleIdStr = articleIdStr.substr(0, articleIdStr.length - 1);
-      const articleListSql = `SELECT id, title, author AS authorName, reprinted,
+    if (total > request.offset) {
+      const unionList = chapterList.concat(articleList);
+      unionList.sort((a, b) => {
+        return a.updateTime - b.updateTime;
+      });
+      unionList.slice(request.offset, request.offset + request.limit);
+      let articleIdStr = '';
+      let chapterIdStr = '';
+      unionList.forEach(item => {
+        if (item.articleId) {
+          articleIdStr += item.articleId + ',';
+        }
+        if (item.chapterId) {
+          chapterIdStr += item.chapterId + ',';
+        }
+      });
+      let articleListResult = [];
+      let chapterListResult = [];
+      if (articleIdStr.length > 0) {
+        articleIdStr = articleIdStr.substr(0, articleIdStr.length - 1);
+        const articleListSql = `SELECT id, title, author AS authorName, reprinted,
                               FROM_UNIXTIME(publish_time, '%Y-%m-%d %H:%i:%s') AS publishTime, is_publish AS isPublish,
                               introduce_img AS introduceImg, view_count AS viewCount
                               FROM article WHERE id in(${articleIdStr}) AND is_publish = 1 ORDER BY publish_time DESC`;
-      articleListResult = await this.app.mysql.query(articleListSql);
-    }
-    if (chapterIdStr.length > 0) {
-      chapterIdStr = chapterIdStr.substr(0, chapterIdStr.length - 1);
-      const chapterListSql = `SELECT chapter.id as id, novel.id as novelId,
+        articleListResult = await this.app.mysql.query(articleListSql);
+      }
+      if (chapterIdStr.length > 0) {
+        chapterIdStr = chapterIdStr.substr(0, chapterIdStr.length - 1);
+        const chapterListSql = `SELECT chapter.id as id, novel.id as novelId,
                               novel.name AS novelName, chapter.name as name, 
                               chapter.author AS author,chapter.summary as summary, 
                               chapter.view_count AS viewCount, chapter.updatetime AS publishTime 
                               FROM novel_chapter AS chapter
                               LEFT JOIN novel ON chapter.novel_id = novel.id
                               WHERE chapter.id in(${chapterIdStr})  ORDER BY updatetime DESC`;
-      chapterListResult = await this.app.mysql.query(chapterListSql);
+        chapterListResult = await this.app.mysql.query(chapterListSql);
+      }
+      this.ctx.body = {
+        success: true,
+        data: {
+          total,
+          articleList: articleListResult,
+          chapterList: chapterListResult,
+        },
+      };
+    } else {
+      this.ctx.body = {
+        success: false,
+        message: '没有更多文章',
+      };
     }
-    this.ctx.body = {
-      success: true,
-      data: {
-        total,
-        articleList: articleListResult,
-        chapterList: chapterListResult,
-      },
-    };
   }
 
   async getSearchList() {

@@ -95,3 +95,7 @@ code {
   white-space: normal;
   word-break: break-all;
 }
+.article-content img {
+  width: 100%;
+  padding: 1rem 0;
+}

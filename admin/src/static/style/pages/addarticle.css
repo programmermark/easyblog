@@ -65,3 +65,7 @@ code {
   white-space: normal;
   word-break: break-all;
 }
+.content-html img {
+  width: 100%;
+  padding: 1rem 0;
+}
