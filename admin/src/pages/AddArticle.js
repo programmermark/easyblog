@@ -35,6 +35,7 @@ const AddArticle = (props)=>{
         const result = res.data
         if (result.success) {
           setArticleObj(result.data)
+          console.log(result.data.content)
         } else {
           message.error(result.message, 2)
         }

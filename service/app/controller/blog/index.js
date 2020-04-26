@@ -50,7 +50,7 @@ class IndexController extends controller {
             article.is_publish as isPublish,
             article_type.name as type
             FROM article LEFT JOIN  article_type
-            ON article.type_id = article_type.id ORDER BY article.id DESC LIMIT ?,?`;
+            ON article.type_id = article_type.id WHERE article.is_publish = 1 ORDER BY article.id DESC LIMIT ?,?`;
     const result = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
     const countResult = await this.app.mysql.query('SELECT count(*) as total FROM article');
     if (result.length > 0) {
@@ -78,11 +78,11 @@ class IndexController extends controller {
                 talk.like_count AS likeCount, user.username as name, user.portrait as portrait
                 FROM talk 
                 LEFT JOIN admin_user AS user ON talk.user_id = user.id
-                LIMIT ?,?`;
+                ORDER BY talk.publish_time DESC LIMIT ?,?`;
     const result = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
     const countResult = await this.app.mysql.query('SELECT count(*) as total FROM talk');
     if (result.length > 0) {
-      const commentsql = 'SELECT count(*) as count FROM visitor_comment as comment WHERE comment.talk_id = ?';
+      const commentsql = 'SELECT count(*) as count FROM visitor_comment as comment WHERE comment.talk_id = ? ORDER BY visitor_comment.publish_time DESC';
       for (const item of result) {
         item.listType = 'talk';
         const commentCountResult = await this.app.mysql.query(commentsql, [ item.id ]);
