@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import { Row, Col } from 'antd'
 import Header from '../components/Header'
 import Author from "../components/Author"
@@ -11,6 +12,8 @@ import axios from 'axios'
 import { servicePath } from '../config/apiBaseUrl'
 import { bloger } from '../config/blog'
 
+const BaiduPush = dynamic(import('../components/BaiduPush'), {ssr: false})
+
 const userId = bloger.id
 
 const Home = (props)=>{
@@ -19,6 +22,7 @@ const Home = (props)=>{
     <div className="container">
       <Head>
         <title>首页 | {props.userInfo.logoName}-{props.userInfo.logoSub}</title>
+        <BaiduPush />
       </Head>
       <div>
         <Header userInfo={props.userInfo} />

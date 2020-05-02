@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { Row, Col, Breadcrumb, List, Spin, Pagination } from 'antd'
 import Header from '../components/Header'
 import Author from "../components/Author"
@@ -13,13 +14,15 @@ import axios from 'axios'
 import { servicePath } from '../config/apiBaseUrl'
 import { bloger } from '../config/blog'
 
+
+const BaiduPush = dynamic(import('../components/BaiduPush'), {ssr: false})
+
 const userId = bloger.id
 
 const pageSize = 10 
 
 const ArticleList = (props)=>{
   const [ articleList, setArticleList ] = useState(props.articleList.list)
-  const [ limit, setLimit ] = useState(pageSize)
   const [ current, setCurrent ] = useState(1)
   const [ total, setTotal ] = useState(props.articleList.total)
   const [ isLoading, setIsloading ] = useState(false)
@@ -28,18 +31,18 @@ const ArticleList = (props)=>{
   const changeArticleType = async (type) => {
     setCurrentType(type)
     setCurrent(1)
-    const result = await getArticleList(limit, 1, type)
+    const result = await getArticleList(pageSize, 1, type)
     setArticleList(result.list)
     setTotal(result.total)
   }
 
 
 
-  const getArticleList = (limit, current, type)=>{
+  const getArticleList = (pageSize, current, type)=>{
     setIsloading(true)
     const dataProps = {
-      limit,
-      offset: (current - 1) * limit,
+      limit: pageSize,
+      offset: (current - 1) * pageSize,
       type
     }
     const result = new Promise((resolve) => {
@@ -59,9 +62,9 @@ const ArticleList = (props)=>{
     return result
   }
 
-  const changePage = async (page, pageSize)=>{
-    setCurrent(page)
-    const result = await getArticleList(limit, page, currentType)
+  const changePage = async (currentPage, pageSize)=>{
+    setCurrent(currentPage)
+    const result = await getArticleList(pageSize, currentPage, currentType)
     setArticleList(result.list)
     setTotal(result.total)
   }
@@ -70,6 +73,7 @@ const ArticleList = (props)=>{
     <div className="container">
       <Head>
         <title>文章列表 | {props.userInfo.logoName}-{props.userInfo.logoSub}</title>
+        <BaiduPush />
       </Head>
       <div>
         <Header userInfo={props.userInfo} />
@@ -109,7 +113,7 @@ const ArticleList = (props)=>{
                   current={current}
                   total={total}
                   showTotal={total => `共 ${total} 条记录`}
-                  pageSize={limit}
+                  pageSize={currentPage}
                   defaultCurrent={current}
                   showQuickJumper
                   onChange={changePage}

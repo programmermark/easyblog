@@ -119,6 +119,10 @@
   background-color: #f3f3f3;
   color: #787878;
 }
+.preview-article .content-html img {
+  width: 100%;
+  padding: 1rem 0;
+}
 
 pre{
   display: block;
@@ -144,6 +148,4 @@ code {
   margin: 0px 3px;
   width: calc(100% - 10px);
   box-sizing: border-box;
-  white-space: normal;
-  word-break: break-all;
 }

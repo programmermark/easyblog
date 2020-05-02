@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Head from 'next/head'
 import Link from 'next/link'
 import { withRouter } from 'next/router'
+import dynamic from 'next/dynamic'
 import { Row, Col, Breadcrumb, message } from 'antd'
 import Header from '../components/Header'
 import Author from "../components/Author"
@@ -15,6 +16,8 @@ import '../public/style/pages/about.css'
 import axios from 'axios'
 import { servicePath } from '../config/apiBaseUrl'
 import { bloger } from '../config/blog'
+
+const BaiduPush = dynamic(import('../components/BaiduPush'), {ssr: false})
 
 const userId = bloger.id
 
@@ -41,6 +44,7 @@ const AountMe = (props)=>{
     <div className="container">
       <Head>
         <title>关于我 | {props.userInfo.logoName}-{props.userInfo.logoSub}</title>
+        <BaiduPush />
       </Head>
       <div>
         <Header userInfo={props.userInfo} />
