@@ -113,7 +113,7 @@ const ArticleList = (props)=>{
                   current={current}
                   total={total}
                   showTotal={total => `共 ${total} 条记录`}
-                  pageSize={currentPage}
+                  pageSize={pageSize}
                   defaultCurrent={current}
                   showQuickJumper
                   onChange={changePage}
