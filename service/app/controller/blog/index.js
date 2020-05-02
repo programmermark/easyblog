@@ -50,7 +50,7 @@ class IndexController extends controller {
             article.is_publish as isPublish,
             article_type.name as type
             FROM article LEFT JOIN  article_type
-            ON article.type_id = article_type.id WHERE article.is_publish = 1 ORDER BY article.id DESC LIMIT ?,?`;
+            ON article.type_id = article_type.id WHERE article.is_publish = 1 ORDER BY article.publish_time DESC LIMIT ?,?`;
     const result = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
     const countResult = await this.app.mysql.query('SELECT count(*) as total FROM article');
     if (result.length > 0) {
