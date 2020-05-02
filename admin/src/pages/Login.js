@@ -20,6 +20,7 @@ const Register = (props)=>{
       withCredentials: true
     })
       .then(res =>{
+        console.log(res)
         localStorage.setItem('openId', res.openId)
         localStorage.setItem('userId', res.id)
         localStorage.setItem('username', res.username)
