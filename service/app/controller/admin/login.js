@@ -45,9 +45,11 @@ class LoginController extends controller {
         this.ctx.body = {
           success: true,
           message: '登陆成功',
-          openId: timeNow,
-          id: checkResult[0].id,
-          username: checkResult[0].username,
+          data: {
+            openId: timeNow,
+            id: checkResult[0].id,
+            username: checkResult[0].username,
+          },
         };
       } else {
         this.ctx.body = { success: false, message: '登陆失败' };

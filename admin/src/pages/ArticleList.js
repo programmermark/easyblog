@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import api from '../api/api'
 import { List, Row, Col, Modal, Button, Switch, Pagination, message, Spin } from 'antd'
-import axios from 'axios'
 import { servicePath } from '../config/apiBaseUrl'
 import '../static/style/pages/articlelist.css'
 
@@ -16,7 +16,7 @@ const ArticleList = (props)=>{
 
   const getList = (limit, offset)=>{
     setIsLoading(true)
-    axios({
+    api({
       method: 'post',
       url: servicePath.getArticleList,
       data: {
@@ -24,22 +24,16 @@ const ArticleList = (props)=>{
         offset
       },
       withCredentials: true,
-      header:{ 'Access-Control-Allow-Origin':'*' }
     })
       .then(res=>{
         setIsLoading(false)
-        const result = res.data
-        if(result.success) {
-          setTotal(result.data.total)
-          setArticleList(result.data.list)
-        } else {
-          message.error(result.message)
-        }
+        setTotal(res.total)
+        setArticleList(res.list)
       })
   }
 
   const tooglePublish = (id, checked)=>{
-    axios({
+    api({
       method: 'post',
       url: servicePath.changePublishStatus,
       data: {
@@ -49,20 +43,14 @@ const ArticleList = (props)=>{
       withCredentials: true
     })
       .then(res => {
-        const result = res.data
-        if(result.success){
-          const list  = JSON.parse(JSON.stringify(articleList))
-          for (const item of list) {
-            if(item.id === id){
-              item.isPublish = checked
-              break
-            }
+        const list  = JSON.parse(JSON.stringify(articleList))
+        for (const item of list) {
+          if(item.id === id){
+            item.isPublish = checked
+            break
           }
-          setArticleList(list)
-          message.success(result.message, 1)
-        } else {
-          message.error(result.message, 1)
         }
+        setArticleList(list)
       })
     }
 
@@ -73,29 +61,23 @@ const ArticleList = (props)=>{
         okText: '确定',
         cancelText: '取消',
         onOk(){
-          axios({
+          api({
             method: 'get',
             url: servicePath.delArticleById + id,
             withCredentials: true
           })
             .then((res)=>{
-              const result = res.data
-              if (result.success) {
-                const list  = JSON.parse(JSON.stringify(articleList))
-                let delIndex
-                for (let i = 0; i < list.length; i++) {
-                  if (list[i].id === id){
-                    delIndex = i
-                    break
-                  }
+              const list  = JSON.parse(JSON.stringify(articleList))
+              let delIndex
+              for (let i = 0; i < list.length; i++) {
+                if (list[i].id === id){
+                  delIndex = i
+                  break
                 }
-                list.splice(delIndex, 1)
-                setArticleList(list)
-                setTotal(total - 1)
-                message.success(result.message)
-              } else {
-                message.success(result.message)
               }
+              list.splice(delIndex, 1)
+              setArticleList(list)
+              setTotal(total - 1)
             })
         },
         onCancel(){

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, Input, Button, message } from 'antd'
 import 'antd/dist/antd.css'
-import axios from 'axios'
+import api from '../api/api'
 import Icon from '../components/Icon' 
 import { formatTime } from '../static/js/tools'
 import { servicePath } from '../config/apiBaseUrl'
@@ -12,7 +12,7 @@ const Register = (props)=>{
 
   const validateForm = (values)=>{
     const registerTime = formatTime(Date.now(), "yyyy-MM-dd")
-    axios({
+    api({
       method: 'post',
       url: servicePath.checkRegister,
       data: {
@@ -23,13 +23,7 @@ const Register = (props)=>{
       }
     })
       .then(res =>{
-        const result = res.data
-        if (result.success) {
-          message.success(result.message, 1)
-          props.history.push('/login')
-        } else {
-          message.error(result.message, 1)
-        }
+        props.history.push('/login')
       })
   }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, Input, Button, message } from 'antd'
 import 'antd/dist/antd.css'
-import axios from 'axios'
+import api from '../api/api'
 import Icon from '../components/Icon' 
 import { servicePath } from '../config/apiBaseUrl'
 import '../static/style/pages/register.css'
@@ -10,7 +10,7 @@ import bgImg from '../static/image/login_bg.jpg'
 const Register = (props)=>{
 
   const validateForm = (values)=>{
-    axios({
+    api({
       method: 'post',
       url: servicePath.checkLogin,
       data: {
@@ -20,16 +20,10 @@ const Register = (props)=>{
       withCredentials: true
     })
       .then(res =>{
-        const result = res.data
-        if (result.success) {
-          message.success(result.message, 1)
-          localStorage.setItem('openId', result.openId)
-          localStorage.setItem('userId', result.id)
-          localStorage.setItem('username', result.username)
-          props.history.push('/index')
-        } else {
-          message.error(result.message, 1)
-        }
+        localStorage.setItem('openId', res.openId)
+        localStorage.setItem('userId', res.id)
+        localStorage.setItem('username', res.username)
+        props.history.push('/index')
       })
   }
 

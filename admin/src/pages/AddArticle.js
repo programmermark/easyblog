@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { message } from 'antd'
+import api from '../api/api'
 import { servicePath } from '../config/apiBaseUrl'
 import ArticleEditor from '../components/AddArticle'
 
@@ -10,35 +9,24 @@ const AddArticle = (props)=>{
   const [ articleObj, setArticleObj ] = useState({})
 
   const getArticleType = ()=>{
-    axios({
+    api({
       method: 'get',
       url: servicePath.getTypeInfo,
       withCredentials: true
     })
       .then(res => {
-        const result = res.data
-        if (result.success) {
-          setTypes(result.data)
-        } else {
-          message.error(result.message, 1)
-        }
+        setTypes(res)
       })
   }
 
   const getArticleById = (id) => {
-    axios({
+    api({
       method: 'get',
       url: servicePath.getArticleById + id,
       withCredentials: true
     })
-      .then(res=>{
-        const result = res.data
-        if (result.success) {
-          setArticleObj(result.data)
-          console.log(result.data.content)
-        } else {
-          message.error(result.message, 2)
-        }
+      .then(res => {
+        setArticleObj(res)
       })
   }
 
