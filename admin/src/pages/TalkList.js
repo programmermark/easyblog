@@ -100,7 +100,9 @@ const TalkList = (props)=>{
               <List.Item>
                 <Row className="list-item">
                   <Col span={2}>{item.id}</Col>
-                  <Col span={12}>{item.content}</Col>
+                  <Col span={12}>
+                    <div className='content'>{item.content}</div>
+                  </Col>
                   <Col span={3}>{item.publishTime}</Col>
                   <Col span={2}>{item.likeCount}</Col>
                   <Col span={5}>

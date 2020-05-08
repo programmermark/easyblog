@@ -1,3 +1,9 @@
 .talk-list {
   padding: .5rem 0;
 }
+.talk-list .list-item .content {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 1rem;
+}

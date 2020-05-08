@@ -123,7 +123,9 @@ const ArticleList = (props)=>{
             item => (
               <List.Item>
                 <Row className="list-item">
-                  <Col span={6}>{item.title}</Col>
+                  <Col span={6}>
+                    <div className='title' title={item.title}>{item.title}</div>
+                  </Col>
                   <Col span={3}>{item.type}</Col>
                   <Col span={2}>{item.author}</Col>
                   <Col span={2}>

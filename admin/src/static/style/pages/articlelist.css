@@ -1,6 +1,12 @@
 .list-item {
   width: 100%;
 }
+.list-item .title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 1rem;
+}
 .list-item .reprinted {
   text-align: center;
   padding: .25rem .5rem;
