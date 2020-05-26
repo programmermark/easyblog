@@ -1,5 +1,5 @@
 const serverUrl = 'https://immortalboy.cn'
-const baseUrl = '/api/blog'
+const baseUrl = 'https://immortalboy.cn/api/blog'
 
 const servicePath = {
   visitorLogin: baseUrl + '/comment/visitorLogin', // 评论接口：获取文章列表
