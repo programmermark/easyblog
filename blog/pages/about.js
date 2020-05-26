@@ -64,11 +64,6 @@ const AountMe = (props)=>{
                     </Link>
                   </Breadcrumb.Item>
                   <Breadcrumb.Item>
-                    <Link href="/articlelist">
-                      <a>文章列表</a>
-                    </Link>
-                  </Breadcrumb.Item>
-                  <Breadcrumb.Item>
                     <span>关于我</span>
                   </Breadcrumb.Item>
                 </Breadcrumb>

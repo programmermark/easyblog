@@ -1,5 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'antd'
+import { withRouter } from 'next/router'
 import Menu from '../components/Menu'
 import '../public/style/components/header.css'
 
@@ -10,6 +11,11 @@ const Header = (props)=>{
       {name: '文章列表', icon: 'UnorderedListOutlined', link: '/articlelist', type: 'articlelist'},
       {name: '关于我', icon: 'UserOutlined', link: '/about', type: 'about'},
     ]
+
+    const toVueVersion = ()=>{
+      const router = props.router
+      router.push(`/vue${router.asPath}`)
+    }
 
     return(
         <div className="header">
@@ -23,16 +29,24 @@ const Header = (props)=>{
                     </div>
                 </Col>
                 <Col  xs={0} sm={0} md={12} lg={12} xl={12}>
-                  {/* 当请求到导航数据后才渲染头部导航 */}
-                  <Menu navs={navs} />        
-                  {/* {
-                      navs.length > 0 &&
-                      <Menu navs={navs} />                    
-                  } */}
+                  <div className='menu-right'>
+                    {/* 当请求到导航数据后才渲染头部导航 */}
+                    <Menu navs={navs} />        
+                    {/* {
+                        navs.length > 0 &&
+                        <Menu navs={navs} />                    
+                    } */}
+                    <div className="change-version" onClick={toVueVersion}>
+                      <div className='version-wrapper'>
+                        Vue Version
+                        <img src="/image/logo_vue.png" />
+                      </div>
+                    </div>
+                  </div>
                 </Col>
             </Row>
         </div>
     )
  }
 
-export default Header
+export default withRouter(Header)

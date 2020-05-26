@@ -9,7 +9,7 @@ const myMenu = (props) => {
     const navs = props.navs
     const router = props.router
     const [currentNav, setCurrentNav] = useState(navs[0]? navs[0].type: '')
-
+    console.log(navs)
     // 通过Link导航（便于seo），每次进入的时候都会重新render组件，所以可以在生命周期中实现
     useEffect(()=>{
         for (const nav of navs) {

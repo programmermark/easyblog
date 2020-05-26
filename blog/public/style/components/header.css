@@ -21,6 +21,28 @@
     display: inline-block;
     padding-left: .5rem;
 }
+.menu-right {
+  display: flex;
+  align-items: center;
+}
+.menu-right .change-version {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: row-reverse;
+    cursor: pointer;
+}
+.menu-right .change-version .version-wrapper {
+  flex: 1;
+  display: flex;  
+  align-items: center;
+  flex-direction: row-reverse;
+  height: 2rem;
+}
+.menu-right .change-version .version-wrapper > img {
+  margin-right: .5rem;
+  height: 2rem;
+}
 .ant-menu {
     line-height: 3.125rem;
 }
