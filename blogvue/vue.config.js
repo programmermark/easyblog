@@ -1,6 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
+  outputDir: 'vuespa',
   chainWebpack: config => {
     // config.module
     //   .rule('scss')
