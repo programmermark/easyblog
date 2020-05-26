@@ -79,7 +79,6 @@ export default {
     }
   },
   created() {
-    console.log(this.userInfo)
     this.getList('article')
   },
   methods: {
