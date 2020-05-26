@@ -3,7 +3,8 @@ import { Row, Col } from 'antd'
 import { withRouter } from 'next/router'
 import Menu from '../components/Menu'
 import '../public/style/components/header.css'
-
+import { vuebaseUrl } from '../config/apiBaseUrl'
+ 
 const Header = (props)=>{
 
     const navs = [
@@ -14,7 +15,7 @@ const Header = (props)=>{
 
     const toVueVersion = ()=>{
       const router = props.router
-      router.push(`/vue${router.asPath}`)
+      window.location.href = vuebaseUrl + router.asPath
     }
 
     return(

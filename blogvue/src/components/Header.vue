@@ -28,6 +28,7 @@
 <script>
   import Menu from './Menu'
   import LogoReact from '@/assets/images/logo_react.svg'
+  import { serverUrl } from '@/config/apiBaseUrl.js'
 
    const navs = [
     {name: '首页', icon: 'home', theme: 'filled', link: '/', type: 'home'},
@@ -53,9 +54,8 @@
     },
     methods: {
       toReactVersion() {
-        let fullPath = this.$router.history.current.fullPath
-        fullPath = fullPath.split('/vue')[1]
-        this.$router.push(fullPath)
+        const fullPath = this.$router.history.current.fullPath
+        window.location.href = serverUrl + fullPath
       }
     },
   }
