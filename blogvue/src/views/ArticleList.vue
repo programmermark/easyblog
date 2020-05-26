@@ -43,6 +43,13 @@ import { servicePath } from '../config/apiBaseUrl'
 const pageSize = 10
 
 export default {
+  metaInfo: {
+    title: '文章列表',
+    htmlAttrs: {
+      lang: 'zh',
+      amp: true
+    }
+  },
   components: {
     'c-article-type': ArticleType,
     'c-article-item': ArticleItem

@@ -27,6 +27,13 @@ import { servicePath } from '../config/apiBaseUrl'
 import ArticleItemDetail from '../components/ArticleItemDetail'
 
 export default {
+    metaInfo: {
+    title: '文章详情',
+    htmlAttrs: {
+      lang: 'zh',
+      amp: true
+    }
+  },
   components: {
     "c-article-item-detail" :ArticleItemDetail,
   },

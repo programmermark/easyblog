@@ -26,6 +26,7 @@ import Author from './components/Author'
 import Advert from './components/Advert'
 import { servicePath } from './config/apiBaseUrl'
 import { bloger } from './config/blog'
+import { mapMutations } from 'vuex'
 
 const userId = bloger.id
 
@@ -60,6 +61,7 @@ export default {
       })
         .then(res=>{
           this.userInfo = res
+          this.setUserIfo(res)
         })
     },
     getAdvertList() {
@@ -78,7 +80,8 @@ export default {
       this.$nextTick(() => {
         this.isShow = true
       })
-    }
+    },
+    ...mapMutations(['setUserIfo'])
   },
 }
 </script>

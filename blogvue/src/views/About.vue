@@ -51,6 +51,13 @@ marked.setOptions({
 })
 
 export default {
+  metaInfo: {
+    title: '关于我',
+    htmlAttrs: {
+      lang: 'zh',
+      amp: true
+    }
+  },
   components: {
     "c-comment" :Comment,
   },

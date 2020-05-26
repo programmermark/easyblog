@@ -15,54 +15,31 @@
       <div class="type-line" :style="{'transform': `translateX(${selectedIndex * 6}rem)`}"></div>
     </div>
     <div>
-    <a-spin :spinning="isLoading" tip="加载中...">
-      <template v-for="(item, index) in list">
-        <div :key="index + item.publishTime">
-          <talk-item
-            v-if="item.listType === 'talk'"
-            :talkItem="item"
-            :addLikeNum="addLikeNum" />
-          <article-item
-            v-if="item.listType === 'article'"
-            :article="item" />
-        </div>
-      </template>
-        <!-- {
-          list.map((item, index) => {
-            return (
-              <div key={index + item.publishTime}>
-              {
-                item.listType === 'talk' &&
-                <TalkItem
-                  talkItem={item}
-                  addLikeNum={addLikeNum}
-                  />
-              }
-              {
-                item.listType === 'article' &&
-                <ArticleItem article={item} />
-              }
-              {
-                item.listType === 'novel' &&
-                <NovelItem novel={item} />
-              }
-              </div>
-            )
-          })
-        } -->
-          <a-pagination
-            class="page"
-            :current="current"
-            :total="total"
-            :showTotal="total => `共 ${total} 条记录`"
-            :pageSize="pageSize"
-            :defaultCurrent="current"
-            showQuickJumper
-            @change="changePage"
-          />
-        </a-spin>
-      </div>
+      <a-spin :spinning="isLoading" tip="加载中...">
+        <template v-for="(item, index) in list">
+          <div :key="index + item.publishTime">
+            <talk-item
+              v-if="item.listType === 'talk'"
+              :talkItem="item"
+              :addLikeNum="addLikeNum" />
+            <article-item
+              v-if="item.listType === 'article'"
+              :article="item" />
+          </div>
+        </template>
+        <a-pagination
+          class="page"
+          :current="current"
+          :total="total"
+          :showTotal="total => `共 ${total} 条记录`"
+          :pageSize="pageSize"
+          :defaultCurrent="current"
+          showQuickJumper
+          @change="changePage"
+        />
+      </a-spin>
     </div>
+  </div>
 </template>
 
 <script>
@@ -79,6 +56,13 @@ const tabs = [
   ]
 
 export default {
+  metaInfo: {
+    title: '首页',
+    htmlAttrs: {
+      lang: 'zh',
+      amp: true
+    }
+  },
   components: {
     'talk-item': TalkItem,
     'article-item': ArticleItem
@@ -95,6 +79,7 @@ export default {
     }
   },
   created() {
+    console.log(this.userInfo)
     this.getList('article')
   },
   methods: {
