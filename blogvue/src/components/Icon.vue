@@ -6,7 +6,7 @@
 
 <script>
   import { Icon } from 'ant-design-vue'
-  const scriptUrl = '//at.alicdn.com/t/font_1722969_l8gyamly8fs.js'
+  const scriptUrl = '//at.alicdn.com/t/font_1722969_0qfwcko2z4bi.js'
   const IconFont = Icon.createFromIconfontCN({
     scriptUrl: scriptUrl,
   });

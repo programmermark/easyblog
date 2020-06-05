@@ -25,21 +25,21 @@
         <div class="item">
           <a-popover class="item" :content="userInfo.githubUrl">
             <div>
-              <a-icon type="github" theme="filled" />
+              <c-icon type="icon-antd-github" />
             </div>
           </a-popover>
         </div>
         <div class="item">
           <a-popover class="item" :content="userInfo.weChatAccount">
             <div>
-              <a-icon type="wechat" theme="filled" />
+              <c-icon type="icon-antd-wechat" />
             </div>
           </a-popover>
         </div>
         <div class="item">
           <a-popover class="item" :content="userInfo.qqAccount">
             <div>
-              <a-icon type="qq-circle" theme="filled" />
+              <c-icon type="icon-antd-qq-circle" />
             </div>
           </a-popover>
         </div>
@@ -49,7 +49,12 @@
 </template>
 
 <script>
+import Icon from '@/components/Icon'
+
 export default {
+  components: {
+    'c-icon': Icon
+  },
   props: {
     userInfo: {
       type: Object,

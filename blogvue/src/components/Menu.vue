@@ -9,7 +9,7 @@
         class="menu-item"
         :key="item.type">
         <router-link :to="item.link">
-          <a-icon :type="item.icon" :theme="item.theme" />
+          <c-icon :type="item.icon" />
           {{item.name}}
         </router-link>
       </a-menu-item>
@@ -18,7 +18,12 @@
 </template>
 
 <script>
+  import Icon from '@/components/Icon'
+
   export default {
+    components: {
+      'c-icon': Icon
+    },
     props:{
       navs: {
         type: Array,

@@ -5,7 +5,7 @@
       <div class="reprint" v-if="Boolean(article.reprinted)">转载</div>
       <div class="reprint orginal" v-else>原创</div>
       <div class="item">
-        <a-icon type="user" theme="outlined" />
+        <c-icon type="icon-antd-user" />
         <span class="text">{{article.authorName}}</span>
       </div>
       <div class="item">
@@ -17,7 +17,7 @@
         <span class="text">{{article.type}}</span>
       </div>
       <div class="item" v-show="article.viewCount > 0">
-        <a-icon type="fire" theme="filled" />
+        <c-icon type="icon-antd-fire" />
         <span class="text">{{article.viewCount}}</span>
       </div>
     </div>

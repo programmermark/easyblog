@@ -1,9 +1,8 @@
 import Vue from 'vue'
-import { Menu, Icon, Row, Col, Divider, Popover, Badge, Spin, Pagination, Form,
+import { Menu, Row, Col, Divider, Popover, Badge, Spin, Pagination, Form,
         FormModel, Input, Button, Avatar, Upload, Modal, Breadcrumb, List, Message } from 'ant-design-vue'
 
 Vue.use(Menu)
-Vue.use(Icon)
 Vue.use(Row)
 Vue.use(Col)
 Vue.use(Divider)

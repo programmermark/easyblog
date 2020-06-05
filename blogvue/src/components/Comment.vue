@@ -4,7 +4,7 @@
       <div class="comment-box">
         <div class="comment-avatar">
           <div v-if="!hasLogin">
-            <a-icon type="user" theme="outlined" />
+            <c-icon type="icon-antd-user" />
           </div>
           <a-upload
             v-else
@@ -154,14 +154,14 @@
           has-feedback
           prop="email">
           <a-input v-model="commentForm.email" placeholder="邮箱(必填)" >
-            <a-icon slot="prefix" type='mail' theme='outlined' />
+            <c-icon slot="prefix" type='icon-antd-mail' />
             </a-input>
         </a-form-model-item>
         <a-form-model-item
           has-feedback
           prop="site">
           <a-input v-model="commentForm.site" placeholder="个人网址(选填)" >
-            <a-icon slot="prefix" type='global' theme='outlined' />
+            <c-icon slot="prefix" type='icon-antd-global' />
           </a-input>
         </a-form-model-item>
         <a-form-model-item>

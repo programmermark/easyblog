@@ -31,9 +31,9 @@
   import { serverUrl } from '@/config/apiBaseUrl.js'
 
    const navs = [
-    {name: '首页', icon: 'home', theme: 'filled', link: '/', type: 'home'},
-    {name: '文章列表', icon: 'unordered-list', theme: 'outlined', link: '/articlelist', type: 'articlelist'},
-    {name: '关于我', icon: 'user', theme: 'outlined', link: '/about', type: 'about'},
+    {name: '首页', icon: 'icon-antd-home',  link: '/', type: 'home'},
+    {name: '文章列表', icon: 'icon-antd-unordered-list',  link: '/articlelist', type: 'articlelist'},
+    {name: '关于我', icon: 'icon-antd-user',  link: '/about', type: 'about'},
   ]
 
   export default {
