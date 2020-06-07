@@ -1,7 +1,5 @@
 const path = require('path')
 const BundleAanlyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const CompressionPlugin = require('compression-webpack-plugin');
-const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
 const ImageminPlugin = require('imagemin-webpack-plugin').default
 
 module.exports = {
@@ -19,14 +17,6 @@ module.exports = {
         },
         plugins: [
           new BundleAanlyzerPlugin(),
-          new CompressionPlugin({
-            filename: '[path].gz[query]',
-            algorithm: 'gzip',
-            test: productionGzipExtensions,
-            threshold: 10240,
-            minRatio: 0.8,
-            deleteOriginalAssets: true
-          }),
           new ImageminPlugin({
             test: /\.(gif|png|jpe?g|svg)$/i,
             disable: false, // Disable during development
