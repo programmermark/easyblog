@@ -45,9 +45,9 @@
             :key="index + item.publishTime"
             @click="()=> selectedCommentId = ''">
             <div class="avatar-container">
-              <router-link :to="'http://' + item.site" target="_blank">
+              <a :href="'http://' + item.site" target="_blank">
                 <img :src="item.portrait" />
-              </router-link>
+              </a>
             </div>
             <div class="comment-info">
               <span class="nickname">{{item.nickname}}</span>
@@ -102,17 +102,17 @@
               <template v-for="(subItem, subKey) in item.children">
                 <div class="second-comment-item" :key="subKey">
                   <div class="avatar-container">
-                    <router-link :to="'http://' + subItem.site" target="_blank">
+                    <a :href="'http://' + subItem.site" target="_blank">
                       <img :src="subItem.portrait" />
-                    </router-link>
+                    </a>
                   </div>
                   <div class="comment-info">
                     <span class="nickname">{{subItem.nickname}}</span>
                     <div class="comment-content" >
                       <div>回复
-                        <router-link :to="'http://' + item.site" target="_blank">
+                        <a :href="'http://' + item.site" target="_blank">
                           {{item.nickname}}
-                        </router-link>：
+                        </a>：
                       </div>
                       <div v-html="subItem.comment"></div>
                     </div>

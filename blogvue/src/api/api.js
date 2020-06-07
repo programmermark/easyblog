@@ -1,6 +1,4 @@
-import axios from 'axios'
-import { message } from 'ant-design-vue'
-
+const message = antd.message
 /**
  * ajax请求通用方法，基于axios
  * @param {String} method  异步请求的方式，如：post、get等

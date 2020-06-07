@@ -59,7 +59,7 @@ export default {
     color: #333333;
     height: 2rem;
     line-height: 2rem;
-    margin: 0 .5rem;
+    margin: .5rem;
     padding: 0rem 1rem;
     background-color: #ffffff;
     border: 1px solid #55b2ff;

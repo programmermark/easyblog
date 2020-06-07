@@ -50,6 +50,8 @@
 
 <script>
 import Icon from '@/components/Icon'
+import lazyLoadingImg from '@/assets/images/lazyloading.gif'
+import lazyLoadErrorImg from '@/assets/images/404.png'
 
 export default {
   components: {
@@ -61,6 +63,17 @@ export default {
       required: true
     },
   },
+  computed: {
+    bgImg: {
+      get: function () {
+        return {
+          src: this.userInfo.bgImg,
+          error: lazyLoadErrorImg,
+          loading: lazyLoadingImg
+        }
+      }
+    }
+  }
 }
 </script>
 

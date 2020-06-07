@@ -1,3 +1,4 @@
+// 已通过cdn引入，此文件只做示例
 import Vue from 'vue'
 import { Menu, Row, Col, Divider, Popover, Badge, Spin, Pagination, Form,
         FormModel, Input, Button, Avatar, Upload, Modal, Breadcrumb, List, Message } from 'ant-design-vue'
@@ -22,3 +23,4 @@ Vue.use(List)
 
 // 系统方法
 Vue.prototype.$message = Message
+

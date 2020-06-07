@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import { Icon } from 'ant-design-vue'
+  const Icon = antd.Icon
   const scriptUrl = '//at.alicdn.com/t/font_1722969_0qfwcko2z4bi.js'
   const IconFont = Icon.createFromIconfontCN({
     scriptUrl: scriptUrl,

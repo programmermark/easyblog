@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import marked from 'marked'
-import hljs from 'highlight.js'
-import 'highlight.js/styles/monokai-sublime.css'
+// import marked from 'marked'
+// import hljs from 'highlight.js'
+// import 'highlight.js/styles/monokai-sublime.css'
 import Comment from './Comment'
 import Icon from './Icon'
 import { formatTime } from '../assets/js/tools'

@@ -37,9 +37,9 @@
 </template>
 
 <script>
-import marked from 'marked'
-import hljs from "highlight.js";
-import 'highlight.js/styles/monokai-sublime.css';
+// import marked from 'marked'
+// import hljs from "highlight.js";
+// import 'highlight.js/styles/monokai-sublime.css';
 import { formatDate } from '../assets/js/tools'
 import Icon from './Icon'
 
@@ -87,8 +87,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// @import 'highlight.js/styles/monokai-sublime.css';
-
 .article-item {
   width: 100%;
   background-color: #fff;
