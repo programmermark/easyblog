@@ -1,6 +1,7 @@
 const serverUrl = 'https://immortalboy.cn'
-const baseUrl = 'https://immortalboy.cn/api/blog'
-// const baseUrl = '/api/blog'
+const imgServerUrl = 'https://iamge.immortalboy.cn'
+// const baseUrl = 'https://immortalboy.cn/api/blog'
+const baseUrl = '/api/blog'
 
 const servicePath = {
   visitorLogin: baseUrl + '/comment/visitorLogin', // 评论接口：获取文章列表
@@ -26,5 +27,6 @@ const servicePath = {
 
 export {
   serverUrl,
+  imgServerUrl,
   servicePath
 }

@@ -1,5 +1,6 @@
 const vuebaseUrl = 'https://vue.immortalboy.cn'
 const serverUrl = 'https://immortalboy.cn'
+const imgServerUrl = 'https://iamge.immortalboy.cn'
 const baseUrl = 'https://immortalboy.cn/api/blog'
 
 const servicePath = {
@@ -27,5 +28,6 @@ const servicePath = {
 export {
   serverUrl,
   servicePath,
+  imgServerUrl,
   vuebaseUrl
 }

@@ -5,7 +5,7 @@ import AntdIcon from '../components/AntdIcon'
 import '../static/style/components/addarticle.css'
 import axios from 'axios'
 import moment from 'moment'
-import { servicePath, serverUrl } from '../config/apiBaseUrl'
+import { servicePath, imgServerUrl } from '../config/apiBaseUrl'
 import { formatTime } from '../static/js/tools'
 import marked from 'marked'
 import hljs from 'highlight.js'
@@ -236,7 +236,7 @@ const AddArticle = (props)=>{
             fileUrl += item + '/'
           })
           fileUrl = fileUrl.substr(0, fileUrl.length - 1)
-          const filePath = serverUrl + fileUrl
+          const filePath = imgServerUrl + fileUrl
           setIntroduceImg(filePath)
           setUploadIntroduceImgLoading(false)
         }

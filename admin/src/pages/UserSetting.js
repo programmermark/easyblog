@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import api from '../api/api'
 import { Form, Input, Upload, Button, message } from 'antd'
 import AntdIcon from '../components/AntdIcon'
-import { servicePath, serverUrl } from '../config/apiBaseUrl'
+import { servicePath, imgServerUrl } from '../config/apiBaseUrl'
 import '../static/style/pages/usersetting.css'
 
 const UserSetting = ()=>{
@@ -73,7 +73,7 @@ const UserSetting = ()=>{
             fileUrl += item + '/'
           })
           fileUrl = fileUrl.substr(0, fileUrl.length - 1)
-          const filePath = serverUrl + fileUrl
+          const filePath = imgServerUrl + fileUrl
           setPortrait(filePath)
           setUploadPortraitLoading(false)
         }
@@ -108,7 +108,7 @@ const UserSetting = ()=>{
             fileUrl += item + '/'
           })
           fileUrl = fileUrl.substr(0, fileUrl.length - 1)
-          const filePath = serverUrl + fileUrl
+          const filePath = imgServerUrl + fileUrl
           setBgImg(filePath)
           setUploadBgImgLoading(false)
         }

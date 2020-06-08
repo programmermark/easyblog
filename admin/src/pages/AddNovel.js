@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Row, Col, Input, Upload, Button, message } from 'antd'
 import AntdIcon from '../components/AntdIcon'
 import api from '../api/api'
-import { servicePath, serverUrl } from '../config/apiBaseUrl'
+import { servicePath, imgServerUrl } from '../config/apiBaseUrl'
 import '../static/style/pages/addnovel.css'
 
 const { TextArea } = Input
@@ -48,7 +48,7 @@ const AddNovel = (props)=>{
             fileUrl += item + '/'
           })
           fileUrl = fileUrl.substr(0, fileUrl.length - 1)
-          const filePath = serverUrl + fileUrl
+          const filePath = imgServerUrl + fileUrl
           setCoverImg(filePath)
           setUploadImgLoading(false)
         }

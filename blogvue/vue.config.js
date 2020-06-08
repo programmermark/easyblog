@@ -16,7 +16,6 @@ module.exports = {
           rules: []
         },
         plugins: [
-          new BundleAanlyzerPlugin(),
           new ImageminPlugin({
             test: /\.(gif|png|jpe?g|svg)$/i,
             disable: false, // Disable during development

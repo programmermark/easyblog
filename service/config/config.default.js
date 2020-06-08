@@ -56,6 +56,7 @@ module.exports = appInfo => {
       'https://immortalboy.cn',
       'https://vue.immortalboy.cn',
       'https://admin.immortalboy.cn',
+      'https://image.immortalboy.cn',
     ],
   };
   config.cors = {

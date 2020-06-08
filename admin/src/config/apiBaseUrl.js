@@ -1,4 +1,5 @@
 const serverUrl = 'https://immortalboy.cn'
+const imgServerUrl = 'https://image.immortalboy.cn'
 const baseUrl = 'https://immortalboy.cn/api/admin'
 
 const servicePath = {
@@ -39,5 +40,6 @@ const servicePath = {
 
 export {
   serverUrl,
+  imgServerUrl,
   servicePath
 }

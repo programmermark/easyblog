@@ -178,7 +178,7 @@
 
 <script>
 import Cookies from 'js-cookie'
-import { servicePath, serverUrl } from '../config/apiBaseUrl'
+import { servicePath, imgServerUrl } from '../config/apiBaseUrl'
 import { formatDate } from '../assets/js/tools'
 import commentAvatar from '../assets/images/comment-avatar.png'
 import Icon from '../components/Icon'
@@ -202,7 +202,7 @@ const uploadProps = { // 上传头像
             fileUrl += item + '/'
           })
           fileUrl = fileUrl.substr(0, fileUrl.length - 1)
-          const filePath = serverUrl + fileUrl
+          const filePath = imgServerUrl + fileUrl
           setPortrait(filePath)
           Cookies.set('visitorPortrait', filePath, { expires: 365 })
           axios({
@@ -332,7 +332,7 @@ export default {
             fileUrl += item + '/'
           })
           fileUrl = fileUrl.substr(0, fileUrl.length - 1)
-          const filePath = serverUrl + fileUrl
+          const filePath = imgServerUrl + fileUrl
           this.portrait = filePath
           Cookies.set('visitorPortrait', filePath, { expires: 365 })
           this.$api({

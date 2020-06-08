@@ -3,7 +3,7 @@ import { Modal, Form, Input, Button, Avatar, Upload, message } from 'antd'
 import Icon from './Icon'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { servicePath, serverUrl } from '../config/apiBaseUrl'
+import { servicePath, imgServerUrl } from '../config/apiBaseUrl'
 import '../public/style/components/comment.css'
 import { formatDate } from '../public/js/tools'
 
@@ -28,7 +28,7 @@ const myComment = (props)=>{
             fileUrl += item + '/'
           })
           fileUrl = fileUrl.substr(0, fileUrl.length - 1)
-          const filePath = serverUrl + fileUrl
+          const filePath = imgServerUrl + fileUrl
           setPortrait(filePath)
           Cookies.set('visitorPortrait', filePath, { expires: 365 })
           axios({

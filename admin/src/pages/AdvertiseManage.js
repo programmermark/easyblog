@@ -3,7 +3,7 @@ import api from '../api/api'
 import { Button, Input, Row, Col, List, Switch, Modal, Pagination, Spin, message, Upload } from 'antd'
 import '../static/style/pages/advertisemanage.css'
 import AntdIcon from '../components/AntdIcon'
-import { servicePath, serverUrl } from "../config/apiBaseUrl";
+import { servicePath, imgServerUrl } from "../config/apiBaseUrl";
 import { formatTime } from '../static/js/tools'
 
 const { confirm } = Modal
@@ -91,7 +91,7 @@ const AdvertiseManage = ()=>{
             fileUrl += item + '/'
           })
           fileUrl = fileUrl.substr(0, fileUrl.length - 1)
-          const filePath = serverUrl + fileUrl
+          const filePath = imgServerUrl + fileUrl
           const obj = JSON.parse(JSON.stringify(modalObj))
           obj.imgUrl = filePath
           setUploadImgLoading(false)
