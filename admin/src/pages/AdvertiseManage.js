@@ -240,12 +240,12 @@ const AdvertiseManage = ()=>{
       header={
         <Row className="list-header">
           <Col span={2}><b>id</b></Col>
-          <Col span={5}><b>广告预览</b></Col>
-          <Col span={4}><b>广告链接</b></Col>
+          <Col span={3}><b>广告预览</b></Col>
+          <Col span={5}><b>广告链接</b></Col>
           <Col span={3}><b>创建时间</b></Col>
           <Col span={3}><b>更新时间</b></Col>
           <Col span={3}><b>是否发布</b></Col>
-          <Col span={4}><b>操作</b></Col>
+          <Col span={5}><b>操作</b></Col>
         </Row>
       }
       itemLayout="horizontal"
@@ -255,10 +255,10 @@ const AdvertiseManage = ()=>{
         <List.Item>
           <Row className="list-item">
             <Col span={2}>{item.id}</Col>
-            <Col span={5}>
+            <Col span={3}>
               <img className="img-preview" src={item.imgUrl} />
             </Col>
-            <Col span={4}><a href={item.adverLink} target="_blank">{item.adverLink}</a></Col>
+            <Col span={5}><a className="link" href={item.adverLink} target="_blank">{item.adverLink}</a></Col>
             <Col span={3}>{ item.createTime && formatTime(item.createTime * 1000, 'yyyy-MM-dd') }</Col>
             <Col span={3}>{ item.updateTime && formatTime(item.updateTime * 1000, 'yyyy-MM-dd') }</Col>
             <Col span={3}>
@@ -268,7 +268,7 @@ const AdvertiseManage = ()=>{
                 defaultChecked={item.isPublish}
                 onChange={tooglePublish.bind(this, item.id)} />
             </Col>
-            <Col span={4}>
+            <Col span={5}>
                 <Button 
                   className="mg-right" 
                   type="primary"

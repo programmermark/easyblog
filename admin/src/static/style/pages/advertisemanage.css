@@ -29,3 +29,10 @@
 .advertise-form .form-item .input {
   width: 200px;
 }
+.advert-container .link {
+  display: block;
+  padding-right: .5rem;
+  overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap
+}
