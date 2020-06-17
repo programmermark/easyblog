@@ -112,7 +112,7 @@ export default {
     text-align: left;
     padding: 1rem;
     font-size: 1rem;
-    img {
+    & /deep/ img {
       width: 100%;
       padding: 1rem 0;
     }

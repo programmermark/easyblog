@@ -1,7 +1,8 @@
 const serverUrl = 'https://immortalboy.cn'
 const imgServerUrl = 'https://iamge.immortalboy.cn'
-const baseUrl = 'https://immortalboy.cn/api/blog'
-// const baseUrl = '/api/blog'
+const baseUrl = process.env.NODE_ENV === 'production'?
+                  'https://immortalboy.cn/api/blog'
+                 : '/api/blog'
 
 const servicePath = {
   visitorLogin: baseUrl + '/comment/visitorLogin', // 评论接口：获取文章列表

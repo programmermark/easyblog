@@ -87,6 +87,9 @@ export default {
 </script>
 
 <style lang="scss">
+body {
+  overflow-y: scroll;
+}
 .main-body {
   background-color: #f6f6f6;
   .content {
