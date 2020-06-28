@@ -28,7 +28,6 @@ module.exports = appInfo => {
     client: {
       // host
       host: '129.211.106.174',
-      // host: 'localhost',
       // port
       port: '3306',
       // username

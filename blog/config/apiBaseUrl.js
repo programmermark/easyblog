@@ -1,8 +1,7 @@
 const vuebaseUrl = 'https://vue.immortalboy.cn'
 const serverUrl = 'https://immortalboy.cn'
 const imgServerUrl = 'https://iamge.immortalboy.cn'
-// const baseUrl = 'https://immortalboy.cn/api/blog'
-const baseUrl = 'http://localhost:7001/api/blog'
+const baseUrl = 'https://immortalboy.cn/api/blog'
 
 const servicePath = {
   visitorLogin: baseUrl + '/comment/visitorLogin', // 评论接口：获取文章列表
