@@ -1,6 +1,6 @@
 const vuebaseUrl = 'https://vue.immortalboy.cn'
 const serverUrl = 'https://immortalboy.cn'
-const imgServerUrl = 'https://iamge.immortalboy.cn'
+const imgServerUrl = 'https://image.immortalboy.cn'
 const baseUrl = 'https://immortalboy.cn/api/blog'
 
 const servicePath = {

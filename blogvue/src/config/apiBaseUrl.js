@@ -1,5 +1,5 @@
 const serverUrl = 'https://immortalboy.cn'
-const imgServerUrl = 'https://iamge.immortalboy.cn'
+const imgServerUrl = 'https://image.immortalboy.cn'
 const baseUrl = process.env.NODE_ENV === 'production'?
                   'https://immortalboy.cn/api/blog'
                  : '/api/blog'
