@@ -55,26 +55,30 @@ const ChapterDetailed = (props) => {
       <div className='pager'>
         {
           chapter.preId &&
-          <Link href={`/chapterdetail?id=${chapter.preId}`}>
-            <a className='item'>
-              <span className='item-text'>上一章</span>
-            </a>
-          </Link>
+          <div className='item'>
+            <Link href={`/chapterdetail?id=${chapter.preId}`}>
+              <a>
+                <span className='item-text'>上一章</span>
+              </a>
+            </Link>
+          </div>
         }
         <div className='item'>
           <Link href={`/noveldetail?id=${chapter.novelId}`}>
-            <a className='item'>
-              <span className='item-text'>目录</span>
+            <a>
+              <span className='item-text '>目录</span>
             </a>
           </Link>
         </div>
         {
           chapter.nextId &&
-          <Link href={`/chapterdetail?id=${chapter.nextId}`}>
-            <a className='item'>
-              <span className='item-text'>下一章</span>
-            </a>
-          </Link>
+          <div className='item'>
+            <Link href={`/chapterdetail?id=${chapter.nextId}`}>
+              <a>
+                <span className='item-text'>下一章</span>
+              </a>
+            </Link>
+          </div>
         }
       </div>  
       <div className="comment-wrapper">

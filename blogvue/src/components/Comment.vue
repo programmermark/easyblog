@@ -354,7 +354,6 @@ export default {
       }
     },
     clickInput(e) {
-      console.log(this.hasLogin)
       if (!this.hasLogin) {
         this.showLoginDialog = true
         // e.preventDefault()

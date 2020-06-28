@@ -195,7 +195,7 @@ class IndexController extends controller {
                               chapter.view_count AS viewCount, chapter.updatetime AS publishTime 
                               FROM novel_chapter AS chapter
                               LEFT JOIN novel ON chapter.novel_id = novel.id
-                              WHERE chapter.id in(${chapterIdStr})  ORDER BY updatetime DESC`;
+                              WHERE chapter.id in(${chapterIdStr})  ORDER BY chapter.createtime DESC`;
         chapterListResult = await this.app.mysql.query(chapterListSql);
       }
       this.ctx.body = {

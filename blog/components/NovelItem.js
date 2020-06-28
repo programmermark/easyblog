@@ -49,7 +49,7 @@ const NovelItem = (props)=>{
       <div className="introduce" dangerouslySetInnerHTML={{__html: marked(novel.summary)}}></div>
       <div className="view-content">
         <Link href={`/chapterdetail?id=${novel.id}`}>
-          <a>查看全文 ></a>
+          <a>查看全文 &gt;</a>
         </Link>
       </div>
     </div>
