@@ -1,46 +1,38 @@
 <template>
-  <div class="article-item">
-    <router-link class="title" :to="`/articledetail?id=${currentArticle.id}`">
-      {{currentArticle.title}}
+  <div class="article-item novel-item">
+    <router-link :to="`/chapterdetail?id=${novel.id}`">
+      <a class="title align-center">{{novel.name}}</a>
     </router-link>
-    <div class="sub-info">
-      <div class="reprint" v-if="Boolean(currentArticle.reprinted)">转载</div>
-      <div class="reprint orginal" v-else>原创</div>
+    <div class="sub-info flex-center">
       <div class="item">
-        <c-icon type="icon-antd-user" />
-        <span class="text">{{currentArticle.authorName}}</span>
+        <Icon type="UserOutlined" />
+        <span class="text">{{novel.author}}</span>
       </div>
       <div class="item">
         <c-icon type="icon-clock" />
         <span class="text">
-          {{
-            !this.notFormatTime ? formatDate(currentArticle.publishTime) : currentArticle.publishTime.substring(0, 10)
-          }}
+          {{ formatDate(novel.publishTime, true) }}
         </span>
       </div>
-      <div class="item">
-        <c-icon type="icon-folder" />
-        <span class="text">{{currentArticle.type}}</span>
-      </div>
-      <div class="item" v-show="currentArticle.viewCount > 0">
+      <div class="item" v-if="novel.viewCount > 0">
         <c-icon type="icon-antd-fire" />
-        <span class="text">{{currentArticle.viewCount}}</span>
+        <span class="text">{{novel.viewCount}}</span>
       </div>
     </div>
-    <div class="introduce" v-html="marked(currentArticle.introduce)"></div>
+    <div class="introduce" v-html="marked(novel.summary)"></div>
     <div class="view-content">
-      <router-link :to="`/articledetail?id=${currentArticle.id}`">
-        查看全文
+      <router-link :to="`/chapterdetail?id=${novel.id}`">
+        查看全文 &gt;
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import { formatDate } from '../assets/js/tools'
 import Icon from './Icon'
+import { formatDate } from '../assets/js/tools'
 
-const renderer = new marked.Renderer();
+const renderer = new marked.Renderer()
 marked.setOptions({
   renderer: renderer,
   gfm: true,
@@ -50,30 +42,19 @@ marked.setOptions({
   breaks: true,
   smartLists: true,
   smartypants: false,
-  sanitize:false,
-  xhtml: false,
-  highlight: function (code) {
+  highlight: function(code){
     return hljs.highlightAuto(code).value;
   }
-});
+})
 
 export default {
   components: {
-    "c-icon": Icon,
+    'c-icon': Icon
   },
   props: {
-    article: {
+    novel: {
       type: Object,
       required: true
-    },
-    notFormatTime: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      currentArticle: this.article
     }
   },
   methods: {
@@ -168,6 +149,15 @@ export default {
     margin: 0px 3px;
     width: calc(100% - 10px);
     box-sizing: border-box;
+  }
+}
+
+.novel-item {
+  .align-center {
+    text-align: center;
+  }
+  .flex-center {
+    justify-content: center;
   }
 }
 </style>

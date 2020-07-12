@@ -5,6 +5,7 @@ import Icon from "../components/Icon"
 import '../public/style/components/author.css'
 
 const Author = (props)=>{
+  console.log(props)
 
   return (
     <div className="author-container">
@@ -20,10 +21,10 @@ const Author = (props)=>{
           <p className="count">{props.userInfo.articleCount}</p>
           <p className="title">文章</p>
         </div>
-        {/* <div className="info-item">
-          <p className="count">{novelCount}</p>
+        <div className="info-item">
+          <p className="count">{props.userInfo.novelCount}</p>
           <p className="title">小说</p>
-        </div> */}
+        </div>
         <div className="info-item">
           <p className="count">{props.userInfo.talkCount}</p>
           <p className="title">说说</p>

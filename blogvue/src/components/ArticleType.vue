@@ -45,7 +45,7 @@ export default {
 <style lang="scss" scoped>
 .type-wrapper {
   margin: 1rem 0 1rem 0;
-  padding: .8rem .4rem;
+  padding: .4rem .4rem;
   background-color: #ffffff;
   border-radius: .4rem;
   .title {

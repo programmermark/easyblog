@@ -1,39 +1,53 @@
 <template>
   <div class="article-detailed">
-    <div class="title">{{article.title}}</div>
+    <div class="title">{{chapter.title}}</div>
     <div class="sub-info">
-      <div class="reprint" v-if="Boolean(article.reprinted)">转载</div>
-      <div class="reprint orginal" v-else>原创</div>
+      <div class="item">
+        <c-icon type="icon-book" />
+        <span class="text">{{chapter.novelName}}</span>
+      </div>
       <div class="item">
         <c-icon type="icon-antd-user" />
-        <span class="text">{{article.authorName}}</span>
+        <span class="text">{{chapter.authorName}}</span>
       </div>
       <div class="item">
         <c-icon type="icon-clock" />
-        <span class="text">{{article.publishTime && formatTime(article.publishTime * 1000, 'yyyy-MM-dd')}}</span>
+        <span class="text">{{formatTime(chapter.updateTime * 1000, 'yyyy-MM-dd')}}</span>
       </div>
-      <div class="item">
-        <c-icon type="icon-folder" />
-        <span class="text">{{article.type}}</span>
-      </div>
-      <div class="item" v-show="article.viewCount > 0">
+      <div class="item" v-if="chapter.viewCount > 0">
         <c-icon type="icon-antd-fire" />
-        <span class="text">{{article.viewCount}}</span>
+        <span class="text">{{chapter.viewCount}}</span>
       </div>
     </div>
     <div
       class="article-content"
-      v-if="article.content"
-      v-html="marked(article.content)"></div>
+      v-html="marked(chapter.content)"></div>
+    <div class='pager'>
+      <div class='item' v-if="chapter.preId">
+        <router-link class='item-text' :to="`/chapterdetail?id=${chapter.preId}`">
+          上一章
+        </router-link>
+      </div>
+      <div class='item'>
+        <router-link class='item-text' :to="`/noveldetail?id=${chapter.novelId}`">
+          目录
+        </router-link>
+      </div>
+      <div class='item' v-if="chapter.nextId">
+        <router-link class='item-text' :to="`/chapterdetail?id=${chapter.nextId}`">
+          下一章
+        </router-link>
+      </div>
+    </div>
     <div class="comment-wrapper">
       <div class="divider">评论</div>
-      <c-comment type="article" :id="article.id" />
+      <c-comment type="novel" :id="chapter.id" />
     </div>
   </div>
 </template>
 
 <script>
-import Comment from './Comment'
+import Comment from '@/components/Comment'
 import Icon from './Icon'
 import { formatTime } from '../assets/js/tools'
 
@@ -58,10 +72,10 @@ export default {
     'c-icon': Icon
   },
   props: {
-    article: {
+    chapter: {
       type: Object,
       required: true
-    },
+    }
   },
   methods: {
     formatTime,
@@ -125,10 +139,10 @@ export default {
       padding: .5rem 0;
       background-color: #eaeaea;
       border-radius: .25rem;
-      color: #333333;
       .item-text {
         padding: .5rem 1rem;
         font-size: 1.2rem;
+        color: #333333 !important;
       }
     }
   }

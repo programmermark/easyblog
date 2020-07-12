@@ -17,10 +17,12 @@ class IndexController extends controller {
     const selectResult = await this.app.mysql.query(selectSql, [ id ]);
     const articleCountResult = await this.app.mysql.query('SELECT count(*) as count from article');
     const talkCountResult = await this.app.mysql.query('SELECT count(*) as count from talk');
+    const novelCountResult = await this.app.mysql.query('SELECT count(*) as count from novel');
     if (selectResult.length > 0) {
       const dataObj = selectResult[0];
       dataObj.articleCount = articleCountResult[0].count;
       dataObj.talkCount = talkCountResult[0].count;
+      dataObj.novelCount = novelCountResult[0].count;
       this.ctx.body = { success: true, data: dataObj };
     } else {
       this.ctx.body = { success: false, message: '获取个人信息失败' };

@@ -1,10 +1,12 @@
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', name: 'Home', component: lasyLoad('Home') },
-  { path: '/articlelist', name: 'ArticleList', component: lasyLoad('ArticleList') },
-  { path: '/articledetail', name: 'ArticleDetail', component: lasyLoad('ArticleDetail') },
-  { path: '/about', name: 'About', component: lasyLoad('About') }
+  { path: '/', name: 'Home', component: lazyLoad('Home') },
+  { path: '/articlelist', name: 'ArticleList', component: lazyLoad('ArticleList') },
+  { path: '/articledetail', name: 'ArticleDetail', component: lazyLoad('ArticleDetail') },
+  { path: '/about', name: 'About', component: lazyLoad('About') },
+  { path: '/noveldetail', name: 'NovelDetail', component: lazyLoad('NovelDetail') },
+  { path: '/chapterdetail', name: 'ChapterDetail', component: lazyLoad('ChapterDetail') },
 ]
 
 const router = new VueRouter({
@@ -17,7 +19,7 @@ const router = new VueRouter({
  * 实现路由懒加载的工具函数
  * @param {string} viewPath  view的相对路径，相对于src目录
  */
-function lasyLoad (viewPath) {
+function lazyLoad (viewPath) {
   return () => import(/* webpackChunkName: "view-[request]" */ `@/views/${viewPath}.vue`)
 }
 

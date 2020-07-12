@@ -25,6 +25,9 @@
             <article-item
               v-if="item.listType === 'article'"
               :article="item" />
+            <novel-item
+              v-if="item.listType === 'novel'"
+              :novel="item" />
           </div>
         </template>
         <a-pagination
@@ -46,6 +49,7 @@
 import { servicePath } from '../config/apiBaseUrl'
 import TalkItem from '../components/TalkItem'
 import ArticleItem from '../components/ArticleItem'
+import NovelItem from '../components/NovelItem'
 
 const pageSize = 10
 const tabs = [
@@ -65,7 +69,8 @@ export default {
   },
   components: {
     'talk-item': TalkItem,
-    'article-item': ArticleItem
+    'article-item': ArticleItem,
+    'novel-item': NovelItem,
   },
   data() {
     return {

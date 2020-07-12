@@ -20,7 +20,7 @@ const myMenu = (props) => {
     }, [])
 
     return (
-        <Menu mode="horizontal" defaultSelectedKeys={[currentNav]} selectedKeys={[currentNav]}>
+        <Menu className="menu-width" mode="horizontal" defaultSelectedKeys={[currentNav]} selectedKeys={[currentNav]}>
             { navs.map(item => {
                 return (
                     <Menu.Item className="menu-item" key={item.type}>

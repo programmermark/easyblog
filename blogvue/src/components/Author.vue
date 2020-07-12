@@ -10,10 +10,10 @@
         <p class="count">{{userInfo.articleCount}}</p>
         <p class="title">文章</p>
       </div>
-      <!-- <div class="info-item">
-        <p class="count">{{novelCount}}</p>
+      <div class="info-item">
+        <p class="count">{{userInfo.novelCount}}</p>
         <p class="title">小说</p>
-      </div> -->
+      </div>
       <div class="info-item">
         <p class="count">{{userInfo.talkCount}}</p>
         <p class="title">说说</p>
