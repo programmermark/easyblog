@@ -14,19 +14,22 @@ class IndexController extends controller {
                         qq_account as qqAccount, wechat_account as weChatAccount, github_url as githubUrl,
                         logo_name as logoName, logo_sub as logoSub
                         FROM admin_user WHERE id = ?`;
-    const selectResult = await this.app.mysql.query(selectSql, [ id ]);
-    const articleCountResult = await this.app.mysql.query('SELECT count(*) as count from article');
-    const talkCountResult = await this.app.mysql.query('SELECT count(*) as count from talk');
-    const novelCountResult = await this.app.mysql.query('SELECT count(*) as count from novel');
-    if (selectResult.length > 0) {
-      const dataObj = selectResult[0];
-      dataObj.articleCount = articleCountResult[0].count;
-      dataObj.talkCount = talkCountResult[0].count;
-      dataObj.novelCount = novelCountResult[0].count;
-      this.ctx.body = { success: true, data: dataObj };
-    } else {
-      this.ctx.body = { success: false, message: '获取个人信息失败' };
-    }
+    const userInfoPromise = this.app.mysql.query(selectSql, [ id ]);
+    const articleCountPromise = this.app.mysql.query('SELECT count(*) as count from article');
+    const talkCountPromise = this.app.mysql.query('SELECT count(*) as count from talk');
+    const novelCountPromise = this.app.mysql.query('SELECT count(*) as count from novel');
+    Promise.all([userInfoPromise, articleCountPromise, talkCountPromise, novelCountPromise])
+    .then(([userInfoResult, articleCountResult, talkCountResult, novelCountResult]) => {
+      if (userInfoResult.length > 0) {
+        const dataObj = userInfoResult[0];
+        dataObj.articleCount = articleCountResult[0].count;
+        dataObj.talkCount = talkCountResult[0].count;
+        dataObj.novelCount = novelCountResult[0].count;
+        this.ctx.body = { success: true, data: dataObj };
+      } else {
+        this.ctx.body = { success: false, message: '获取个人信息失败' };
+      }
+    })
   }
 
   async getAdverList() {
@@ -53,25 +56,28 @@ class IndexController extends controller {
             article_type.name as type
             FROM article LEFT JOIN  article_type
             ON article.type_id = article_type.id WHERE article.is_publish = 1 ORDER BY article.publish_time DESC LIMIT ?,?`;
-    const result = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
-    const countResult = await this.app.mysql.query('SELECT count(*) as total FROM article');
-    if (result.length > 0) {
-      for (const item of result) {
-        item.listType = 'article';
+    const articleListPromise = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
+    const countPromise = await this.app.mysql.query('SELECT count(*) as total FROM article');
+    Promise.all([articleListPromise, countPromise])
+    .then(([articleListResult, countResult]) => {
+      if (articleListResult.length > 0) {
+        for (const item of articleListResult) {
+          item.listType = 'article';
+        }
+        this.ctx.body = {
+          success: true,
+          data: {
+            total: countResult[0].total,
+            list: articleListResult,
+          },
+        };
+      } else {
+        this.ctx.body = {
+          success: false,
+          message: '获取文章列表失败',
+        };
       }
-      this.ctx.body = {
-        success: true,
-        data: {
-          total: countResult[0].total,
-          list: result,
-        },
-      };
-    } else {
-      this.ctx.body = {
-        success: false,
-        message: '获取文章列表失败',
-      };
-    }
+    })
   }
 
   async getTalkList() {
