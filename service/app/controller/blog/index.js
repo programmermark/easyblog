@@ -58,8 +58,8 @@ class IndexController extends controller {
             article_type.name as type
             FROM article LEFT JOIN  article_type
             ON article.type_id = article_type.id WHERE article.is_publish = 1 ORDER BY article.publish_time DESC LIMIT ?,?`;
-    const articleListPromise = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
-    const countPromise = await this.app.mysql.query('SELECT (max(id)-min(id)+1) as count from novel where is_deleted = 0');
+    const articleListPromise = this.app.mysql.query(sql, [ request.offset, request.limit ]);
+    const countPromise = this.app.mysql.query('SELECT (max(id)-min(id)+1) as count from novel where is_deleted = 0');
     const [articleListResult, countResult] = await Promise.all([articleListPromise, countPromise])
     if (articleListResult.length > 0) {
       for (const item of articleListResult) {
