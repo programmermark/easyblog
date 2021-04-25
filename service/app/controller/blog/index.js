@@ -10,26 +10,28 @@ class IndexController extends controller {
 
   async getUserInfoById() {
     const id = this.ctx.params.id;
+    console.log('id', id);
     const selectSql = `SELECT username as username, portrait as portrait, bg_img as bgImg,
                         qq_account as qqAccount, wechat_account as weChatAccount, github_url as githubUrl,
                         logo_name as logoName, logo_sub as logoSub
                         FROM admin_user WHERE id = ?`;
     const userInfoPromise = this.app.mysql.query(selectSql, [ id ]);
-    const articleCountPromise = this.app.mysql.query('SELECT count(*) as count from article');
-    const talkCountPromise = this.app.mysql.query('SELECT count(*) as count from talk');
-    const novelCountPromise = this.app.mysql.query('SELECT count(*) as count from novel');
-    Promise.all([userInfoPromise, articleCountPromise, talkCountPromise, novelCountPromise])
-    .then(([userInfoResult, articleCountResult, talkCountResult, novelCountResult]) => {
-      if (userInfoResult.length > 0) {
-        const dataObj = userInfoResult[0];
-        dataObj.articleCount = articleCountResult[0].count;
-        dataObj.talkCount = talkCountResult[0].count;
-        dataObj.novelCount = novelCountResult[0].count;
-        this.ctx.body = { success: true, data: dataObj };
-      } else {
-        this.ctx.body = { success: false, message: '获取个人信息失败' };
-      }
-    })
+    const articleCountPromise = this.app.mysql.query('SELECT count(id) as count from article');
+    const talkCountPromise = this.app.mysql.query('SELECT count(id) as count from talk');
+    const novelCountPromise = this.app.mysql.query('SELECT (max(id)-min(id)+1) as count from novel where is_deleted = 0');
+    const [userInfoResult, articleCountResult, talkCountResult, novelCountResult] = await Promise.all([userInfoPromise, articleCountPromise, talkCountPromise, novelCountPromise])
+    if (userInfoResult.length > 0) {
+      const dataObj = userInfoResult[0];
+      dataObj.articleCount = articleCountResult[0].count;
+      dataObj.talkCount = talkCountResult[0].count;
+      dataObj.novelCount = novelCountResult[0].count;
+      console.log('dataObj', dataObj);
+      this.ctx.body = { success: true, data: dataObj };
+      console.log(this.ctx.body);
+    } else {
+      this.ctx.body = { success: false, message: '获取个人信息失败' };
+    }
+
   }
 
   async getAdverList() {
@@ -57,27 +59,26 @@ class IndexController extends controller {
             FROM article LEFT JOIN  article_type
             ON article.type_id = article_type.id WHERE article.is_publish = 1 ORDER BY article.publish_time DESC LIMIT ?,?`;
     const articleListPromise = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
-    const countPromise = await this.app.mysql.query('SELECT count(*) as total FROM article');
-    Promise.all([articleListPromise, countPromise])
-    .then(([articleListResult, countResult]) => {
-      if (articleListResult.length > 0) {
-        for (const item of articleListResult) {
-          item.listType = 'article';
-        }
-        this.ctx.body = {
-          success: true,
-          data: {
-            total: countResult[0].total,
-            list: articleListResult,
-          },
-        };
-      } else {
-        this.ctx.body = {
-          success: false,
-          message: '获取文章列表失败',
-        };
+    const countPromise = await this.app.mysql.query('SELECT (max(id)-min(id)+1) as count from novel where is_deleted = 0');
+    const [articleListResult, countResult] = await Promise.all([articleListPromise, countPromise])
+    if (articleListResult.length > 0) {
+      for (const item of articleListResult) {
+        item.listType = 'article';
       }
-    })
+      this.ctx.body = {
+        success: true,
+        data: {
+          total: countResult[0].total,
+          list: articleListResult,
+        },
+      };
+      console.log(this.ctx.body);
+    } else {
+      this.ctx.body = {
+        success: false,
+        message: '获取文章列表失败',
+      };
+    }
   }
 
   async getTalkList() {
@@ -88,7 +89,7 @@ class IndexController extends controller {
                 LEFT JOIN admin_user AS user ON talk.user_id = user.id
                 ORDER BY talk.publish_time DESC LIMIT ?,?`;
     const result = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
-    const countResult = await this.app.mysql.query('SELECT count(*) as total FROM talk');
+    const countResult = await this.app.mysql.query('SELECT count(id) as total FROM talk');
     if (result.length > 0) {
       const commentsql = 'SELECT count(*) as count FROM visitor_comment as comment WHERE comment.talk_id = ?';
       for (const item of result) {
@@ -124,7 +125,7 @@ class IndexController extends controller {
                 LEFT JOIN novel ON chapter.novel_id = novel.id 
                 ORDER BY chapter.updatetime DESC LIMIT ?,?`;
     const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
-    const countResult = await this.app.mysql.query('SELECT count(*) as total FROM novel_chapter');
+    const countResult = await this.app.mysql.query('SELECT (max(id)-min(id)+1) as count from novel_chapter where is_deleted = 0');
     if (sqlResult.length > 0) {
       for (const item of sqlResult) {
         item.listType = 'novel';
@@ -162,8 +163,8 @@ class IndexController extends controller {
 
   async getIndexListApp() {
     const request = this.ctx.request.body;
-    const chapterCountResult = await this.app.mysql.query('SELECT count(*) AS total FROM novel_chapter');
-    const articleCountResult = await this.app.mysql.query('SELECT count(*) AS total FROM article');
+    const chapterCountResult = await this.app.mysql.query('SELECT (max(id)-min(id)+1) AS total FROM novel_chapter where is_deleted = 0');
+    const articleCountResult = await this.app.mysql.query('SELECT (max(id)-min(id)+1) AS total FROM article where is_deleted = 0');
     const chapterSql = 'SELECT id AS chapterId, updatetime AS updateTime FROM novel_chapter';
     const articleSql = 'SELECT id AS articleId, publish_time AS updateTime FROM article';
     const chapterList = await this.app.mysql.query(chapterSql);
@@ -230,7 +231,7 @@ class IndexController extends controller {
                   introduce_img AS introduceImg, view_count AS viewCount
                   FROM article where title like '%${request.searchValue}%' AND is_publish = 1 ORDER BY publish_time DESC  LIMIT ?,?`;
       const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
-      const countResult = await this.app.mysql.query('SELECT count(*) as total FROM article');
+      const countResult = await this.app.mysql.query('SELECT (max(id)-min(id)+1) as total FROM article where is_deleted = 0');
       if (sqlResult.length > 0) {
         for (const item of sqlResult) {
           item.listType = 'article';
@@ -257,7 +258,7 @@ class IndexController extends controller {
                     LEFT JOIN novel ON chapter.novel_id = novel.id
                     WHERE chapter.name like '%${request.searchValue}%' ORDER BY updatetime DESC LIMIT ?,?`;
       const sqlResult = await this.app.mysql.query(sql, [ request.offset, request.limit ]);
-      const countResult = await this.app.mysql.query('SELECT count(*) as total FROM novel_chapter');
+      const countResult = await this.app.mysql.query('SELECT (max(id)-min(id)+1) as total FROM novel_chapter where is_deleted = 0');
       if (sqlResult.length > 0) {
         for (const item of sqlResult) {
           item.listType = 'novel';
