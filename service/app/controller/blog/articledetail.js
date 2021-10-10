@@ -39,8 +39,8 @@ class ArticleDetailController extends controller {
                 article 
                 SET view_count = view_count + 1
                 WHERE article.id = ? AND article.is_publish = 1`;
-    const result = await this.app.mysql.query(sql, [id]);
-    if (result.length > 0) {
+    const updateResult = await this.app.mysql.query(sql, [id]);
+    if (updateResult.affectedRows === 1) {
       this.ctx.body = {
         success: true,
       };
