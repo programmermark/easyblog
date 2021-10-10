@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const controller = require('egg').Controller;
+const controller = require("egg").Controller;
 class ArticleDetailController extends controller {
   async getArticleDetailById() {
     const id = this.ctx.params.id;
@@ -19,7 +19,7 @@ class ArticleDetailController extends controller {
                 LEFT JOIN article_type as type
                 ON article.type_id = type.id
                 WHERE article.id = ? AND article.is_publish = 1`;
-    const result = await this.app.mysql.query(sql, [ id ]);
+    const result = await this.app.mysql.query(sql, [id]);
     if (result.length > 0) {
       this.ctx.body = {
         success: true,
@@ -28,7 +28,26 @@ class ArticleDetailController extends controller {
     } else {
       this.ctx.body = {
         success: false,
-        message: '获取文章详情失败',
+        message: "获取文章详情失败",
+      };
+    }
+  }
+
+  async addArticleViewCountById() {
+    const id = this.ctx.params.id;
+    const sql = `UPDATE 
+                article 
+                SET view_count = view_count + 1
+                WHERE article.id = ? AND article.is_publish = 1`;
+    const result = await this.app.mysql.query(sql, [id]);
+    if (result.length > 0) {
+      this.ctx.body = {
+        success: true,
+      };
+    } else {
+      this.ctx.body = {
+        success: false,
+        message: "更新文章访问量失败",
       };
     }
   }
