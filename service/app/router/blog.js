@@ -37,8 +37,8 @@ module.exports = (app) => {
     controller.blog.index.getArticleList
   );
   router.get(
-    "/api/blog/index/getLatestArticle/:limit",
-    controller.blog.index.getLatestArticle
+    "/api/blog/articlelist/getLatestArticle/:limit",
+    controller.blog.articlelist.getLatestArticle
   );
   router.get(
     "/api/blog/index/getAdverList",
