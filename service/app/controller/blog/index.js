@@ -13,7 +13,7 @@ class IndexController extends controller {
     console.log("id", id);
     const selectSql = `SELECT username as username, portrait as portrait, bg_img as bgImg,
                         qq_account as qqAccount, wechat_account as weChatAccount, github_url as githubUrl,
-                        logo_name as logoName, logo_sub as logoSub
+                        logo_name as logoName, logo_sub as logoSub, view_count as viewCount
                         FROM admin_user WHERE id = ?`;
     const userInfoPromise = this.app.mysql.query(selectSql, [id]);
     const articleCountPromise = this.app.mysql.query(
