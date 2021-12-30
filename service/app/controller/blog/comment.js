@@ -262,8 +262,6 @@ class CommentController extends controller {
     const { isAdd, visitorId, commentId } = request;
     let sql = "";
     if (isAdd) {
-      sql = "INSERT INTO visitor_like(visitor_id, comment_id) VALUES(?, ?) ";
-    } else {
       const validateSql = `SELECT id FROM visitor_like WHERE visitor_like.visitor_id = ? AND visitor_like.comment_id = ?`;
       const selectResults = await this.app.mysql.query(validateSql, [
         visitorId,
@@ -274,10 +272,13 @@ class CommentController extends controller {
           success: true,
           message: "已经点过赞了",
         };
+        return;
       } else {
-        sql =
-          "DELETE FROM visitor_like WHERE visitor_like.visitor_id = ? AND visitor_like.comment_id = ?";
+        sql = "INSERT INTO visitor_like(visitor_id, comment_id) VALUES(?, ?) ";
       }
+    } else {
+      sql =
+        "DELETE FROM visitor_like WHERE visitor_like.visitor_id = ? AND visitor_like.comment_id = ?";
     }
     const updateResult = await this.app.mysql.query(sql, [
       visitorId,
