@@ -143,7 +143,7 @@ class CommentController extends controller {
             (result) => result.id === id
           );
           let commentLike = [];
-          if (commentList.length > 1) {
+          if (commentList.length > 0) {
             commentLike = commentList.map((item) => ({
               id: item.likeId,
               visitorId: item.likeVisitorId,
@@ -226,7 +226,7 @@ class CommentController extends controller {
       const result = commentIds.map((id) => {
         const commentList = selectResults.filter((result) => result.id === id);
         let commentLike = [];
-        if (commentList.length > 1) {
+        if (commentList.length > 0) {
           commentLike = commentList.map((item) => ({
             id: item.likeId,
             visitorId: item.likeVisitorId,
