@@ -262,9 +262,22 @@ class CommentController extends controller {
     const { isAdd, visitorId, commentId } = request;
     let sql = "";
     if (isAdd) {
-      sql = "INSERT INTO visitor_like(visitor_id, comment_id) VALUES(?, ?)";
+      sql = "INSERT INTO visitor_like(visitor_id, comment_id) VALUES(?, ?) ";
     } else {
-      sql = "DELETE FROM visitor_like WHERE visitor_id = ? AND comment_id = ?";
+      const validateSql = `SELECT id FROM visitor_like WHERE visitor_like.visitor_id = ? AND visitor_like.comment_id = ?`;
+      const selectResults = await this.app.mysql.query(validateSql, [
+        visitorId,
+        commentId,
+      ]);
+      if (selectResults && selectResults.length > 0) {
+        this.ctx.body = {
+          success: true,
+          message: "已经点过赞了",
+        };
+      } else {
+        sql =
+          "DELETE FROM visitor_like WHERE visitor_like.visitor_id = ? AND visitor_like.comment_id = ?";
+      }
     }
     const updateResult = await this.app.mysql.query(sql, [
       visitorId,
