@@ -37,6 +37,10 @@ module.exports = (app) => {
     controller.blog.index.getArticleList
   );
   router.get(
+    "/api/blog/articlelist/getLatestArticle/:limit",
+    controller.blog.articlelist.getLatestArticle
+  );
+  router.get(
     "/api/blog/index/getAdverList",
     controller.blog.index.getAdverList
   );
@@ -80,5 +84,9 @@ module.exports = (app) => {
   router.post(
     "/api/blog/index/getSearchList",
     controller.blog.index.getSearchList
+  );
+  router.get(
+    "/api/blog/index/addUserViewCountById/:id",
+    controller.blog.index.addUserViewCountById
   );
 };
