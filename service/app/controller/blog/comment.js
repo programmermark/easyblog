@@ -180,7 +180,7 @@ class CommentController extends controller {
     let selectSql = "";
     if (request.typeName === "talkId") {
       selectSql = `SELECT visitor_comment.id as id, visitor_comment.be_comment_id as beCommentId, 
-          visitor_comment.comment as comment, visitor_comment.publish_time as publishTime, visitor_like.id as likeId, visitor_like.visitor_id as likeVisitorId,,
+          visitor_comment.comment as comment, visitor_comment.publish_time as publishTime, visitor_like.id as likeId, visitor_like.visitor_id as likeVisitorId,
           visitor.id as visitorId, visitor.nickname as nickname, visitor.portrait as  portrait, visitor.site as site
           FROM visitor_comment 
           LEFT JOIN visitor ON visitor_comment.visitor_id = visitor.id
@@ -189,7 +189,7 @@ class CommentController extends controller {
           ORDER BY visitor_comment.publish_time DESC LIMIT ?,?`;
     } else if (request.typeName === "articleId") {
       selectSql = `SELECT visitor_comment.id as id, visitor_comment.be_comment_id as beCommentId, 
-          visitor_comment.comment as comment, visitor_comment.publish_time as publishTime, visitor_like.id as likeId, visitor_like.visitor_id as likeVisitorId,,
+          visitor_comment.comment as comment, visitor_comment.publish_time as publishTime, visitor_like.id as likeId, visitor_like.visitor_id as likeVisitorId,
           visitor.id as visitorId, visitor.nickname as nickname, visitor.portrait as  portrait, visitor.site as site
           FROM visitor_comment 
           LEFT JOIN visitor ON visitor_comment.visitor_id = visitor.id
@@ -198,7 +198,7 @@ class CommentController extends controller {
           ORDER BY visitor_comment.publish_time DESC LIMIT ?,?`;
     } else if (request.typeName === "novelId") {
       selectSql = `SELECT visitor_comment.id as id, visitor_comment.be_comment_id as beCommentId, 
-          visitor_comment.comment as comment, visitor_comment.publish_time as publishTime, visitor_like.id as likeId, visitor_like.visitor_id as likeVisitorId,,
+          visitor_comment.comment as comment, visitor_comment.publish_time as publishTime, visitor_like.id as likeId, visitor_like.visitor_id as likeVisitorId,
           visitor.id as visitorId, visitor.nickname as nickname, visitor.portrait as  portrait, visitor.site as site
           FROM visitor_comment 
           LEFT JOIN visitor ON visitor_comment.visitor_id = visitor.id
@@ -207,7 +207,7 @@ class CommentController extends controller {
           ORDER BY visitor_comment.publish_time DESC LIMIT ?,?`;
     } else if (request.typeName === "aboutId") {
       selectSql = `SELECT visitor_comment.id as id, visitor_comment.be_comment_id as beCommentId, 
-          visitor_comment.comment as comment, visitor_comment.publish_time as publishTime, visitor_like.id as likeId, visitor_like.visitor_id as likeVisitorId,,
+          visitor_comment.comment as comment, visitor_comment.publish_time as publishTime, visitor_like.id as likeId, visitor_like.visitor_id as likeVisitorId,
           visitor.id as visitorId, visitor.nickname as nickname, visitor.portrait as  portrait, visitor.site as site
           FROM visitor_comment 
           LEFT JOIN visitor ON visitor_comment.visitor_id = visitor.id
