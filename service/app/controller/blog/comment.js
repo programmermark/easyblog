@@ -80,7 +80,7 @@ class CommentController extends controller {
         "INSERT INTO visitor_comment(visitor_id, comment, publish_time, novel_id";
     } else if (request.typeName === "aboutId") {
       sql =
-        "INSERT INTO visitor_comment(visitor_id, comment, publish_time, adout_id";
+        "INSERT INTO visitor_comment(visitor_id, comment, publish_time, about_id";
     }
     if (request.beCommentId) {
       sql += ", be_comment_id ) VALUES (?, ?, ?, ?, ?)";
