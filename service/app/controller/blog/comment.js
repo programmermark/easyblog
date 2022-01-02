@@ -91,6 +91,7 @@ class CommentController extends controller {
     const result = await this.app.mysql.query(sql, valus);
     if (result.affectedRows === 1) {
       let selectSql = "";
+      let values = [request.parentId, request.offset, request.limit];
       if (request.typeName === "talkId") {
         selectSql = `SELECT visitor_comment.id as id, visitor_comment.be_comment_id as beCommentId, 
           visitor_comment.comment as comment, visitor_comment.publish_time as publishTime, visitor_like.id as likeId, visitor_like.visitor_id as likeVisitorId,
@@ -125,14 +126,11 @@ class CommentController extends controller {
           FROM visitor_comment 
           LEFT JOIN visitor ON visitor_comment.visitor_id = visitor.id
           LEFT JOIN visitor_like ON visitor_comment.id = visitor_like.comment_id
-          WHERE about_id = ?  
+          WHERE about_id IS NOT NULL 
           ORDER BY visitor_comment.publish_time DESC LIMIT ?,?`;
+        values = [request.offset, request.limit];
       }
-      const selectResults = await this.app.mysql.query(selectSql, [
-        request.parentId,
-        request.offset,
-        request.limit,
-      ]);
+      const selectResults = await this.app.mysql.query(selectSql, values);
       if (selectResults.length > 0) {
         /** 获取去重后的id列表 */
         const commentIds = [
@@ -178,6 +176,7 @@ class CommentController extends controller {
   async getComments() {
     const request = this.ctx.request.body;
     let selectSql = "";
+    let values = [request.parentId, request.offset, request.limit];
     if (request.typeName === "talkId") {
       selectSql = `SELECT visitor_comment.id as id, visitor_comment.be_comment_id as beCommentId, 
           visitor_comment.comment as comment, visitor_comment.publish_time as publishTime, visitor_like.id as likeId, visitor_like.visitor_id as likeVisitorId,
@@ -214,12 +213,9 @@ class CommentController extends controller {
           LEFT JOIN visitor_like ON visitor_comment.id = visitor_like.comment_id
           WHERE about_id = ?  
           ORDER BY visitor_comment.publish_time DESC LIMIT ?,?`;
+      values = [request.offset, request.limit];
     }
-    const selectResults = await this.app.mysql.query(selectSql, [
-      request.parentId,
-      request.offset,
-      request.limit,
-    ]);
+    const selectResults = await this.app.mysql.query(selectSql, values);
     if (selectResults) {
       /** 获取去重后的id列表 */
       const commentIds = [...new Set(selectResults.map((result) => result.id))];
