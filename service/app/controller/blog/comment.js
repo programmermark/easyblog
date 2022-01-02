@@ -211,7 +211,7 @@ class CommentController extends controller {
           FROM visitor_comment 
           LEFT JOIN visitor ON visitor_comment.visitor_id = visitor.id
           LEFT JOIN visitor_like ON visitor_comment.id = visitor_like.comment_id
-          WHERE about_id = ?  
+          WHERE about_id IS NOT NULL 
           ORDER BY visitor_comment.publish_time DESC LIMIT ?,?`;
       values = [request.offset, request.limit];
     }
