@@ -9,7 +9,7 @@
     "antd": "^4.1.0",
     "axios": "^0.19.2",
     "highlight.js": "^9.18.1",
-    "marked": "^0.8.2",
+    "marked": "^4.0.10",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
